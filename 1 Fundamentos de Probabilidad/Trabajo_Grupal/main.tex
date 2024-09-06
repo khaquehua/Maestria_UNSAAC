@@ -1,30 +1,72 @@
 \documentclass{book}
-\usepackage{lipsum}
-\usepackage{tikz}
-\usepackage{geometry}
-\geometry{letterpaper}
-\usepackage{fancyhdr}
-\usepackage{xcolor}
-\usepackage{colortbl}
-\usepackage{ragged2e}
-\usepackage{authblk}
-\usepackage{float}
-\usepackage{changepage}
-\usepackage{kpfonts}
-\usepackage{microtype}
-\usepackage{background}
-\usepackage{lettrine}
-\usepackage{caption}
-\usepackage{helvet}
-\usepackage{tcolorbox}
+\usepackage{amsmath,geometry}
+\usepackage{natbib}
+\usepackage{graphicx}
 
-\title{Teoria de colas: Marco Teórico}
-\author{Kevin Heberth Haquehua Apaza}
-
+\geometry{paperwidth=15cm,paperheight=19cm,margin=10mm}
 \begin{document}
-	
-	Hola
-\end{document}
 
+%-----------------------------------------------
+%--------- DESDE ESTA PARTE COPIAR -------------
+%-----------------------------------------------
+\chapter{Marco Teórico}
+\section{Teoría de colas}
+Las esperas o colas son parte de la vida diaria (\cite{hillier2003introduccion}). Se realizan colas en rutinas diarias como comprar boletos para el cine, realizar operaciones en bancos, atenderse por cajeros en el supermercado, esperar la atención de un determinado servicio. Cuando estos tiempos de espera suelen ser demasiado largas generan incomodidad e insatisfacción del usuario o cliente siendo esto en muchos estudios como (\cite{rojas2004decision}, \cite{mayorga2017teoria}) que estas colas generaron problemas en la calidad de vida así como su relación con otros aspectos (económicos, sociales, entre otros).\\
+
+\cite{render2006metodos} define a la teoría de colas como una técnica de análisis cuantitativo.  Es el estudio de la espera en las distintas modalidades utilizando un modelo de colas que representa los sistemas de líneas de espera (sistemas que involucran colas de algún tipo) que surgen en la práctica para determinar como operar el sistema de colas de una manera eficaz (\cite{hillier2003introduccion}).
+
+\section{Estructura de un modelo de colas}
+El cliente o usuario que requieren un servicio se generan en el tiempo una fuente de entrada, posteriormente entra al sistema y se une a una cola. Dado un tiempo se selecciona a un miembro de la cola para darle el servicio mediante una regla conocida como disciplina de cola. Se lleva a cabo el servicio que el cliente requiere mediante un mecanismo de servicio y después el cliente sale del sistema de colas
+
+\begin{figure}[h!]
+  \caption{Sistema de colas, tomado de (\cite{hillier2003introduccion})}
+  {\includegraphics[width=13cm, height=5cm]{images/cola.png}}
+  \label{fig:cola}
+\end{figure} 
+
+\section{Fuente de entrada}
+Caracterizado por el tamaño, el tamaño es el número total de clientes que pueden requerir el servicio en un determinado momento. Se puede suponer que el tamaño es finito o infinito, en el cual es necesario especificar el patrón estadístico mediante el cual se generan los clientes a través del tiempo, estas llegadas pueden seguir una distribución de probabilidad en particular el proceso de Poisson.
+
+\section{Cola}
+Caracterizado por el tamaño, el tamaño es el número total de clientes que pueden requerir el servicio en un determinado momento. Se puede suponer que el tamaño es finito o infinito, en el cual es necesario especificar el patrón estadístico mediante el cual se generan los clientes a través del tiempo, estas llegadas pueden seguir una distribución de probabilidad en particular el proceso de Poisson.
+
+\section{Disciplina de la cola}
+Referido al orden en el que sus miembros se seleccionan para recibir el servicio, de los cuales se tienen los siguiente modelos más importantes:
+
+\begin{itemize}
+	\item \textbf{FIFO (First-In-First-Out):} En el cual se le da el servicio al primero en llegar, de tal forma que la cola se ordena según el orden de llegada de los usuarios.
+
+	\item \textbf{LIFO (Last-In-First-Out):} En el cual se le da el servicio al último en llegar, de tal forma que la cola se ordena inversamente al de la llegada de los usuarios.
+
+	\item \textbf{SIRO (Service-In-Random-Order):} En el cual se ordena aleatoriamente de tal forma que usuarios son seleccionados al azar para que accedan al servicio.
+\end{itemize}
+
+\section{Disciplina de la cola}
+Referido al orden en el que sus miembros se seleccionan para recibir el servicio, de los cuales se tienen los siguiente modelos más importantes:
+
+\section{Mecanismo de servicio}
+Indica las estaciones de servicio, cada una de ellas con uno o más canales de servicio paralelo, llamado \textbf{servidores}. Si existe más de una estación de servicio, el cliente puede recibirlo de una secuencia de ellas (canales de servicio en serie). Los modelos de colas deben especificar el arreglo de las estaciones y el número de servidores (canales paralelos) en cada una de ellas. Los modelos más elementales suponen una estación, ya sea con un servidor o con un número finito de servidores.\\
+
+El tiempo desde el inicio de servicio hasta su terminación es denominada como \textbf{tiempo de servicio}. En un modelo se debe especificar la distribución de probabilidad de los tiempos de servicio de cada servidor usualmente es la distribución exponencial, otras también puede ser la distribución degenerada y la distribución Erlang (gamma).
+
+\section{Proceso de colas elemental}
+El tipo más común en teoría de colas es: una sola línea de espera (puede estar vacía en ciertos momentos) se forma frente a una instalación de servicio, dentro del cual se encuentra uno o más servidores en el que cada cliente recibe el servicio de uno de los servidores, después de esperar un tiempo en la cola (si la cola está vacía en el tiempo es 0).\\
+
+El servidor o grupo de servidores asignadas a un área constituyen la estación de servicio de esta área.\\
+
+La cola se etiqueta como $(i,j,c)$, donde $i$ y $j$ pueden ser varios tipos de distribución. $c$ es un número entero positivo. El significado es el siguiente:
+
+\begin{itemize}
+	\item[$i:$] Distribución tiempo de servicio   
+\end{itemize}
+
+
+
+
+\newpage
+\bibliographystyle{apalike}
+\bibliography{bibliog.bib}
+
+\end{document}
 
 
