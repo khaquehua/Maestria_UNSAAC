@@ -1,61 +1,306 @@
 
-\tableofcontents
+%\tableofcontents
 \newpage
 
 %%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%% Capítulo I
 %%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Planteamiento del problema}
+\section{Problema}
+
+Sea el vector aleatorio $\mathbf{v} \sim N_4(\boldsymbol{\mu}, \Sigma)$,
+
+$$\boldsymbol{\mu} = 
+\begin{pmatrix} 
+2 \\ 
+5 \\ 
+-2 \\ 
+1 
+\end{pmatrix}, 
+\quad 
+\Sigma = 
+\begin{pmatrix} 
+9 & 0 & 3 & 3 \\ 
+0 & 1 & -1 & 2 \\ 
+3 & -1 & 6 & -3 \\ 
+3 & 2 & -3 & 7 
+\end{pmatrix}.$$
+
+Si $\mathbf{v}$ es particionada como $\mathbf{v} = (y_1, y_2, x_1, x_2)'$,
+
+$$
+\mathbf{\mu_y} = 
+\begin{pmatrix} 
+2 \\ 
+5 
+\end{pmatrix}, 
+\quad 
+\mathbf{\mu_x} = 
+\begin{pmatrix} 
+-2 \\ 
+1 
+\end{pmatrix}, 
+$$
+
+$$
+\Sigma_{yy} = 
+\begin{pmatrix} 
+9 & 0 \\ 
+0 & 1 
+\end{pmatrix}, 
+\quad 
+\Sigma_{yx} = 
+\begin{pmatrix} 
+3 & 3 \\ 
+-1 & 2 
+\end{pmatrix}, 
+\quad 
+\Sigma_{xx} = 
+\begin{pmatrix} 
+6 & -3 \\ 
+-3 & 7 
+\end{pmatrix}. 
+$$
+
+Obtener
 
 %%%%%%%%% sección 1.1
 
-\subsection{Situación problemática}
-\parindent=12.7mm Los errores refractivos explican más de la mitad de las bajas visiones y cegueras en el mundo. En Australia los vicios de refracción dan cuenta del 62$\%$ de las personas con baja visión y 4$\%$ de las personas con ceguera \citep{Taylor_2005}. Según la oficina del censo de Estados Unidos indica que aproximadamente el 24$\%$ de la población son miopes y se estima que 43 millones de estos son candidatos para cirugía refractiva, aproximadamente el 26$\%$ de la población son hipermétropes de los cuales se estima que solo 15 millones de estos son candidatos para cirugía refractiva \citep{lombardo2014demographics}. La Organización Mundial de la Salud ha estimado que el vicio de refracción no corregido es responsable de baja visión en 153 millones de personas, y de ceguera en 5 millones de personas en el mundo.
+\subsection{Esperanza}
 
-Según el artículo de revisión ''Discapacidad visual en el Perú y su posible asociación con determinantes sociales de la salud'' \citep{bernuy2022discvisual}. Se trata de exponer las frecuencias de patologías oculares a nivel nacional y su relación con los determinantes sociales de la salud (DSS) de los cuales se encontraron que las patologías mas frecuentes son defectos de refracción y catarata, el cual afecta principalmente a los grupos etarios de 30-39 años y mayores de 60 años respectivamente. De los cuales por el reporte del MINSA en el 2018 se reportaron los siguientes casos en Perú y en el Cusco.
+$\mathbb{E}(\mathbf{y}|\mathbf{x})$
+
+\subsubsection{Solución}
+
+Utilizando el teorema 4:\\
+\textbf{Teorema 4:} Si $y$ y $x$ son normales multivariadas conjuntas con $\Sigma_{yx} \neq 0$, entonces la distribución condicional de $y$ dado $x$, $f(y | x)$, es normal multivariada con vector de medias y matriz de covarianzas.
+
+$$\mathbb{E}(\mathbf{y}|\mathbf{x}) = \mu_y + \Sigma_{yx} \Sigma_{xx}^{-1} (\mathbf{x} - \mu_x)$$
 
 \begin{enumerate}
-    \item \textbf{Perú:}
-    \begin{itemize}
-        \item \textbf{Catarata: }93934 casos
-        \item \textbf{Glaucoma: }51581 casos
-        \item \textbf{Ametropía: }79473 casos
-        \item \textbf{Retina diabética: }8290 casos
-        \item \textbf{DMRE: }8237 casos
-        \item \textbf{ROP: }1507 casos
-        \item \textbf{Trauma Oc: }11257 casos 
-    \end{itemize}
-    \item \textbf{Cusco:}
-    \begin{itemize}
-        \item \textbf{Catarata: }2512 casos
-        \item \textbf{Glaucoma: }593 casos
-        \item \textbf{Ametropía: }1750 casos
-        \item \textbf{Retina diabética: }86 casos
-        \item \textbf{DMRE: }168 casos
-        \item \textbf{ROP: }16 casos
-        \item \textbf{Trauma Oc: }692 casos 
-    \end{itemize}
+    \item \textbf{Invertir }$\Sigma_{xx} = \Sigma_{xx}^{-1}$, usando la fórmula de inversa de una matriz
+
+    $$
+    \Sigma_{xx}^{-1} = \frac{1}{\det(\Sigma_{xx})} 
+    \begin{pmatrix} 
+    \sigma_{22} & -\sigma_{12} \\ 
+    -\sigma_{21} & \sigma_{11} 
+    \end{pmatrix}.
+    $$
+
+    Calculamos el determinante de $\Sigma_{xx}$
+
+    $$
+    \det(\Sigma_{xx}) = (6)(7) - (-3)(-3) = 42 - 9 = 33.
+    $$
+
+    De tal forma que tenemos
+
+    $$
+    \Sigma_{xx}^{-1} = \frac{1}{33} 
+    \begin{pmatrix} 
+    7 & 3 \\ 
+    3 & 6 
+    \end{pmatrix} =
+    \begin{pmatrix} 
+    \frac{7}{33} & \frac{3}{33} \\ 
+    \frac{3}{33} & \frac{6}{33} 
+    \end{pmatrix}
+    $$
+
+    \item \textbf{Multiplicar }$\Sigma_{yx} \Sigma_{xx}^{-1}$
+
+    $$
+    \Sigma_{yx} \Sigma_{xx}^{-1} = 
+    \begin{pmatrix} 
+    3 & 3 \\ 
+    -1 & 2 
+    \end{pmatrix}
+    \begin{pmatrix} 
+    \frac{7}{33} & \frac{3}{33} \\ 
+    \frac{3}{33} & \frac{6}{33} 
+    \end{pmatrix} =
+    \begin{pmatrix} 
+    \frac{30}{33} & \frac{27}{33} \\ 
+    -\frac{1}{33} & \frac{9}{33} 
+    \end{pmatrix}
+    $$
+
+    \item \textbf{Calcular }$(\mathbf{x} - \mu_x)$
+
+    $$
+    \mathbf{x} - \mu_x = 
+    \begin{pmatrix} 
+    x_1 \\ 
+    x_2 
+    \end{pmatrix}
+    -
+    \begin{pmatrix} 
+    -2 \\ 
+    1 
+    \end{pmatrix}
+    =
+    \begin{pmatrix} 
+    x_1 + 2 \\ 
+    x_2 - 1 
+    \end{pmatrix}
+    $$
+
+    \item \textbf{Calcular } $\Sigma_{yx} \Sigma_{xx}^{-1} (\mathbf{x} - \mu_x)$
+
+    $$
+    \Sigma_{yx} \Sigma_{xx}^{-1} (\mathbf{x} - \mu_x) = 
+    \begin{pmatrix} 
+    \frac{30}{33} & \frac{27}{33} \\ 
+    -\frac{1}{33} & \frac{9}{33} 
+    \end{pmatrix}
+    \begin{pmatrix} 
+    x_1 + 2 \\ 
+    x_2 - 1 
+    \end{pmatrix}
+    $$
+
+    $$
+    \Sigma_{yx} \Sigma_{xx}^{-1} (\mathbf{x} - \mu_x) = 
+    \begin{pmatrix} 
+    \frac{30}{33}(x_1+2) + \frac{27}{33}(x_2-1) \\
+    (-\frac{1}{33})(x_1+2) + \frac{9}{33}(x_2-1) 
+    \end{pmatrix} = 
+    \begin{pmatrix} 
+    \frac{30}{33} x_1 + \frac{27}{33}x_2 + 1 \\
+    -\frac{1}{33}x_1 + \frac{9}{33}x_2 - \frac{1}{3} 
+    \end{pmatrix}
+    $$
+
+    \item \textbf{Sumar }$\mu_y$
+
+    $$
+    \mathbb{E}(\mathbf{y}|\mathbf{x}) = \mu_y + \Sigma_{yx} \Sigma_{xx}^{-1} (\mathbf{x} - \mu_x)
+    $$
+
+    $$
+    \mathbb{E}(\mathbf{y}|\mathbf{x}) = \begin{pmatrix} 
+    2 \\ 
+    5 
+    \end{pmatrix}
+    +
+    \begin{pmatrix} 
+    \frac{30}{33} x_1 + \frac{27}{33}x_2 + 1 \\
+    -\frac{1}{33}x_1 + \frac{9}{33}x_2 - \frac{1}{3} 
+    \end{pmatrix} = 
+    \begin{pmatrix} 
+    \frac{30}{33}x_1 + \frac{27}{33}x_2 + 3 \\ 
+    - \frac{1}{33}x_1 + \frac{9}{33}x_2 + \frac{154}{33}
+    \end{pmatrix}
+    $$
+
 \end{enumerate}
-En el que la Catarata y Ametropía (defecto de refracción) son los diagnósticos más comunes. Entonces viendo estos problemas en la población es necesaria su atención oportuna, diagnóstico y descarte de dichas enfermedades.
-
-La cirugía refractiva se ha constituido como una desafiante subespecialidad de la Oftalmología corrigiendo los vicios de refracción. Pacientes con miopía, hipermetropía y astigmatismo, han logrado excelentes resultados en eficacia, estabilidad y seguridad; logrando reducir la dependencia de anteojos y lentes de contacto. Las técnicas más utilizadas son las queratorefractivas con láser excimer, especialmente la queratomileusis in situ con láser (LASIK) y la queratectomía fotorefractiva (PRK). Ambas dominando el tratamiento quirúrgico para ametropías bajas y moderadas. \citep{Ren_Moreno_2010}
-
-El Laser In Situ Keratomileusis (LASIK) es un procedimiento quirúrgico para corregir miopía, hipermetropía y astigmatismo mediante ablación del estroma corneal. Que es realizada en dos partes: la creación del colgajo corneal y, seguido, la fotoablación con láser Excimer sobre el estroma corneal, reduciendo su espesor y modificando su curvatura \citep{sanchez2012cirugia}. Pese a su buena fama, la cirugía refractiva LASIK no está excenta de complicaciones y riesgos, aun que estos se den en muy bajos números el cual mediante algoritmos en el láser Excimer, la sobrecorrección ocurre raramente tras la aplicación de LASIK aunque estas hipocorrecciones o regresiones en pacientes específicos resulta inevitable.
-
-Factores asociados a la regresión en LASIK y que requieren retratamiento no están definidos aunque estudios indican que puede ser causada por memoria ocular en las fibras de colágeno corneales, remodelamiento corneal, influencia de la presión intraocular (PIO) en la zona con menor espesor corneal y por hiperplasia del epitelio en respuesta a una excesiva curvatura plana corneal. Es necesario y útil en muchos casos realizar una mejora para refinar los resultados obtenidos tras la cirugía original, Retratamiento LASIK actúa sobre el estroma corneal, separando el flap original en la cual se aplica una segunda ablación.
-
-Estudios como \citep{pravato2009inc} indicaron que la incidencia a retratamientos de cirugía LASIK se encuentra entre un 5$\%$ - $30\%$, otro autor como \citep{Hersh_2003} indica que la incidencia al retratamiento LASIK es mayor cuando la corrección de miopía y astigmatismo es alta además de que pacientes mayores también tienen mayor incidencia a necesitar un retratamiento LASIK. Esta frecuencia sigue representando un porcentaje de casos de pacientes insatisfechos, que deben ser sometidos a nueva cirugía asumiendo un nuevo riesgo, aunque sea pequeño.
-
-\citep{Hettinger_2009} en su trabajo ``El rol de la bioestadística en la mejora de la calidad de la cirugía refractiva'' concluye que los análisis bioestadísticos ayudan a transformar las grandes cantidades de datos clínicos recopilados uniformemente disponibles para mejorar la práctica clínica. Los procesos de mejora basados en datos desempeñan un rol importante en la mejora de los resultados de los pacientes.
-
-Entonces el presente trabajo evalúa el perfil de los pacientes sometidos a cirugía refractiva LASIK mediante el análisis de componentes principales, evaluar la prevalencia de retratamientos LASIK en la población evaluada y por último ver como se asocian estos componentes al retratamiento LASIK.
 
 %%%%%%%%% sección 1.2
 
-\subsection{Formulación del problema}
-\subsubsection{Problema general}
-¿Existe asociación entre el perfil composicional de pacientes sometidos para cirugía refractiva Laser In Situ Keratomileusis con respecto a ser sometido a un Retratamiento LASIK?
+\subsection{Covarianza}
+
+$\text{cov}(\mathbf{y}|\mathbf{x})$
+
+\subsubsection{Solución}
+
+De la misma forma utilizamos la definición del teorema 4 de covarianza.
+
+$$\text{Cov}(\mathbf{y}|\mathbf{x}) =
+\Sigma_{yy} - \Sigma_{yx} \Sigma_{xx}^{-1} \Sigma_{xy}$$
+
+\begin{enumerate}
+    \item \textbf{Hallar la transpuesta} del vector que tenemos $\Sigma_{yx}^{T}$
+
+    $$
+    \Sigma_{xy} = \Sigma_{yx}^{T} =
+    \begin{pmatrix}
+    3 & -1 \\
+    3 & 2
+    \end{pmatrix}
+    $$
+
+    \item \textbf{Calcular }$\Sigma_{yx} \Sigma_{xx}^{-1} \Sigma_{xy}$
+
+    $$
+    \Sigma_{yx} \Sigma_{xx}^{-1} \Sigma_{xy} =
+    \begin{pmatrix}
+    3 & 3 \\
+    -1 & 2
+    \end{pmatrix}
+    \begin{pmatrix}
+    \frac{7}{33} & \frac{3}{33} \\
+    \frac{3}{33} & \frac{6}{33}
+    \end{pmatrix}
+    \begin{pmatrix}
+    3 & -1 \\
+    3 & 2
+    \end{pmatrix}
+    $$
+
+    $$
+    \Sigma_{yx} \Sigma_{xx}^{-1} \Sigma_{xy} =
+    \begin{pmatrix}
+    \frac{21}{33}+\frac{9}{33} & \frac{9}{33}+\frac{18}{33} \\
+    -\frac{7}{33}+\frac{6}{33} & -\frac{3}{33}+\frac{12}{33}
+    \end{pmatrix}
+    \begin{pmatrix}
+    3 & -1 \\
+    3 & 2
+    \end{pmatrix} =
+    \begin{pmatrix}
+    \frac{30}{33} & \frac{27}{33} \\
+    -\frac{1}{33} & -\frac{9}{33}
+    \end{pmatrix}
+    \begin{pmatrix}
+    3 & -1 \\
+    3 & 2
+    \end{pmatrix}
+    $$
+
+    $$
+    \Sigma_{yx} \Sigma_{xx}^{-1} \Sigma_{xy} =
+    \begin{pmatrix}
+    \frac{90}{33}+\frac{81}{33} & -\frac{30}{33}+\frac{54}{33} \\
+    -\frac{3}{33}+\frac{27}{33} & \frac{1}{33}+\frac{18}{33}
+    \end{pmatrix} =
+    \begin{pmatrix}
+    \frac{171}{33} & \frac{24}{33} \\
+    \frac{24}{33} & \frac{19}{33}
+    \end{pmatrix}
+    $$
+
+    \item \textbf{Calcular: }$\text{Cov}(\mathbf{y}|\mathbf{x}) =
+\Sigma_{yy} - \Sigma_{yx} \Sigma_{xx}^{-1} \Sigma_{xy}$
+
+    $$
+    \text{Cov}(\mathbf{y}|\mathbf{x}) =
+    \begin{pmatrix}
+    9 & 0 \\
+    0 & 1
+    \end{pmatrix}
+    -
+    \begin{pmatrix}
+    \frac{171}{33} & \frac{24}{33} \\
+    \frac{24}{33} & \frac{19}{33}
+    \end{pmatrix}
+    $$
+
+    $$
+    \text{Cov}(\mathbf{y}|\mathbf{x}) =
+    \begin{pmatrix}
+    9-\frac{171}{33} & 0 - \frac{24}{33} \\
+    0- \frac{24}{33} & 1 - \frac{19}{33} 
+    \end{pmatrix} =
+    \begin{pmatrix}
+    9-\frac{171}{33} & 0 - \frac{24}{33} \\
+    0- \frac{24}{33} & 1 - \frac{19}{33} 
+    \end{pmatrix}
+    
+    $$
+
+\end{enumerate}
+
  
 \subsubsection{Problemas específicos}
 
