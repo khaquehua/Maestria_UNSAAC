@@ -21,9 +21,9 @@ View(data2)
 
 #realizamos el diagrama de dispersión
 library(ggplot2)
-ggplot(data2, aes(x=X, y=Y)) + geom_point() + ggtitle("Gráfica 2: Diagrama de Dispersión") + xlab("Edad (años)") + ylab("Longitud ala (cm)") + geom_smooth(method=lm)
+ggplot(data2, aes(x=X, y=Y)) + geom_point() + ggtitle("Gráfica 2: Diagrama de Dispersión") + xlab("Edad (días)") + ylab("Longitud ala (cm)") + geom_smooth(method=lm)
 
-plot(data2, xlab = "X = Edad (años)", ylab = "Y = Longitud ala (cm)", xlim = c(0, 20), ylim = c(1, 6), pch = 19, col = "blue")
+plot(data2, xlab = "X = Edad (días)", ylab = "Y = Longitud ala (cm)", xlim = c(0, 20), ylim = c(1, 6), pch = 19, col = "blue")
 
 #calculamos la covarianza
 covarianza= cov(data2)
@@ -50,7 +50,7 @@ modeloR
 # para ver el resumen del modelo
 summary( modeloR )
 
-plot(data2$X, data2$Y, xlab = "X = Edad (años)", ylab = "Y = Longitud ala (cm)", xlim = c(0, 20), ylim = c(1, 6), pch = 19, col = "blue")
+plot(data2$X, data2$Y, xlab = "X = Edad (días)", ylab = "Y = Longitud ala (cm)", xlim = c(0, 20), ylim = c(1, 6), pch = 19, col = "blue")
 abline(modeloR, col = 2, lwd = 3) #añadir la recta de regresión
 
 
