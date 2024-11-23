@@ -1,0 +1,16 @@
+# Fdb version 4
+["pdflatex"] 1731947738.86008 "cuerpo.tex" "cuerpo.pdf" "cuerpo" 1731947739.46122 2
+  "c:/texlive/2024/texmf-dist/fonts/map/fontname/texfonts.map" 1715004664 3524 cb3e574dea2d1052e39280babc910dc8 ""
+  "c:/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm" 1715004479 1328 c834bbb027764024c09d3d2bf908b5f0 ""
+  "c:/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmbx5.tfm" 1715004479 1332 f817c21a1ba54560425663374f1b651a ""
+  "c:/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmbx7.tfm" 1715004479 1336 3125ccb448c1a09074e3aa4a9832f130 ""
+  "c:/texlive/2024/texmf-dist/web2c/texmf.cnf" 1715004317 41649 5d6ae549fbbcb850a863f69aa41f3d10 ""
+  "c:/texlive/2024/texmf-var/web2c/pdftex/pdflatex.fmt" 1715005652 8221521 47c05a4246c07fa90d6c445e91918bc9 ""
+  "c:/texlive/2024/texmf.cnf" 1715005537 713 e69b156964470283e0530f5060668171 ""
+  "cuerpo.aux" 1731947738 34 3985256e7290058c681f74d7a3565a19 "pdflatex"
+  "cuerpo.tex" 1731947735 57541 33b914b953df64152e15682089150c44 ""
+  (generated)
+  "cuerpo.aux"
+  "cuerpo.log"
+  "cuerpo.pdf"
+  (rewritten before read)
