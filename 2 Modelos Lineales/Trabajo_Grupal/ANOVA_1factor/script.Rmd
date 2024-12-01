@@ -1,0 +1,120 @@
+---
+title: "ANOVA de un factor"
+author: "Grupo"
+date: "2024-11-30"
+output:
+  pdf_document: default
+  word_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Ejemplo
+
+Lectura de datos
+
+```{r cars}
+
+library(faraway)
+data(coagulation, package="faraway")
+
+coagulation
+
+```
+
+## Including Plots
+
+```{r}
+plot(coag ~ diet, coagulation,ylab="coagulation time")
+stripchart(coag ~ diet, coagulation, vertical=TRUE, method="stack",
+xlab="diet",ylab="coagulation time")
+```
+
+## ANOVA
+
+```{r}
+lmod <- lm(coag ~ diet, coagulation)
+sumary(lmod)
+
+
+```
+
+
+```{r}
+round(coef(lmod),1)
+```
+
+```{r}
+model.matrix(lmod)
+```
+
+```{r}
+anova(lmod)
+```
+
+```{r}
+lmodi <- lm(coag ~ diet -1, coagulation)
+sumary(lmodi)
+```
+
+```{r}
+lmnull <- lm(coag ~ 1, coagulation)
+anova(lmnull,lmodi)
+```
+
+```{r}
+options(contrasts=c("contr.sum","contr.poly"))
+lmods <- lm(coag ~ diet , coagulation)
+sumary(lmods)
+```
+
+
+## Diagnostics
+
+```{r}
+qqnorm(residuals(lmod))
+qqline(residuals(lmod))
+```
+
+```{r}
+plot(jitter(fitted(lmod)),residuals(lmod),xlab="Fitted",ylab="
+Residuals")
+abline(h=0)
+```
+
+```{r}
+med <- with(coagulation,tapply(coag,diet,median))
+ar <- with(coagulation,abs(coag -med[diet]))
+anova(lm(ar ~ diet,coagulation))
+
+
+
+```
+
+
+```{r}
+bartlett.test(coag ~ diet, coagulation)
+```
+
+
+## Pairwise Comparisons
+
+```{r}
+5 + c(-1,1) * qt(0.975, 24-4) * 1.53
+```
+
+```{r}
+se <- summary(lmod)$sigma
+5 + c(-1,1) * qtukey(0.95, 4, 24-4)/sqrt(2) * se * sqrt(1/4 +1/6)
+```
+
+```{r}
+(tci <- TukeyHSD(aov(coag ~ diet, coagulation)))
+```
+
+```{r}
+plot(tci)
+```
+
