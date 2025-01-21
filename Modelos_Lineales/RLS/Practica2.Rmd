@@ -1,0 +1,86 @@
+---
+title: "Resultados practica"
+author: "Grupo"
+date: "2024-11-23"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+#------------------------------------------------------------
+#       Análisis de caso de estudio 2 - Correlación
+#------------------------------------------------------------
+
+#llamamos al conjunto de datos
+library(readxl)
+data2 <- read_excel("data2.xlsx")
+View(data2)
+
+#realizamos el diagrama de dispersión
+library(ggplot2)
+ggplot(data2, aes(x=X, y=Y)) + geom_point() + ggtitle("Gráfica 2: Diagrama de Dispersión") + xlab("Edad (días)") + ylab("Longitud ala (cm)") + geom_smooth(method=lm)
+
+plot(data2, xlab = "X = Edad (días)", ylab = "Y = Longitud ala (cm)", xlim = c(0, 20), ylim = c(1, 6), pch = 19, col = "blue")
+
+#calculamos la covarianza
+covarianza= cov(data2)
+covarianza
+
+#calculamos el coeficiente de correlación de Pearson
+r=cor(data2)
+r
+
+library(psych)
+psych::corr.test(data2, use = "complete")
+
+#Prueba para el coeficiente de correlación
+
+cor.test(data2$X,data2$Y, method = c("pearson"), conf.level = 0.95)
+
+#------------------------------------------------------------
+#       Análisis de caso - Regresión Lineal
+#------------------------------------------------------------
+# ( y ~ x )
+modeloR <- lm( Y ~ X, data = data2)
+modeloR
+
+# para ver el resumen del modelo
+summary( modeloR )
+
+plot(data2$X, data2$Y, xlab = "X = Edad (días)", ylab = "Y = Longitud ala (cm)", xlim = c(0, 20), ylim = c(1, 6), pch = 19, col = "blue")
+abline(modeloR, col = 2, lwd = 3) #añadir la recta de regresión
+
+
+#ANOVA para el modelo
+anova(modeloR)
+
+#--------------------------------------------------------------------------------------------------------------
+#Diagnóstico del modelo. Normalidad de los residuos, homogeneidad de varianzas e incorrelación de los residuos
+#--------------------------------------------------------------------------------------------------------------
+
+# valores ajustados
+data2$fitted.modeloR <- fitted( modeloR ) 
+
+# residuos
+data2$dresiduals.modeloR <- residuals( modeloR ) 
+
+# residuos estudentizados
+data2$rstudent.modeloR <- rstudent( modeloR ) 
+
+#Normalidad de los residuos
+shapiro.test( data2$rstudent.modeloR )
+
+#Homogeneidad de varianzas - Comprobar la homocedasticidad para los residuos estudentizados del modelo ajustado
+library(lmtest)
+bptest( modeloR )
+
+#Incorrelación de los residuos
+
+dwtest( X ~ Y, 
+        alternative = "two.sided", 
+        data = data2)
+```
+

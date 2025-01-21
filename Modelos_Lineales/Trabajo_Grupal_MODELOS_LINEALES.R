@@ -1,0 +1,269 @@
+#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+#:::::::::::::::::::::::  SCRIPT EJERCICIOS TRABAJO EN GRUPO       :::::::::::::
+# ATAUCHI ROJAS PAVEL JOSER
+# FLORES VELARDE JULIETA
+# HAQUEHUA APAZA KEVIN HEBERTH
+# OJEDA CARCAMO GABRIEL GONZALO
+#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+#Librerias necesarias
+library(MASS)
+
+#::::::::::::::::    PARTICION DE UNA MATRIZ    ::::::::::::::::::::::::::::::::
+#   EJEMPLO 1
+#Matriz 4x4
+filas1 <- c(16,15,14,13)
+filas2 <- c(12,11,10,9)
+filas3 <- c(8,7,6,5)
+filas4 <- c(4,3,2,1)
+
+A = matrix(rbind(filas1,filas2,filas3,filas4), ncol = 4)
+A
+
+#Particion <- A[filas, columnas]
+B_1 <- A[1:2, 1:2] #Particion 2x2
+B_2 <- A[1:2, 3:4] #Particion 2x2 
+B_3 <- A[3:4, 1:2] #Particion 2x2
+B_4 <- A[3:4, 3:4] #Particion 2x2
+
+B_1
+B_2
+B_3
+B_4
+
+#   EJEMPLO 2
+
+# De la misma matriz, particionar en una matriz 2x4
+A_1 <- A[1:2, 1:4]  # Particion 2x4
+A_2 <- A[3:4, 1:4]  # Particion 2x4
+
+A_1
+A_2
+
+#   EJEMPLO 3
+
+# De la misma matriz particionar en una matriz 4x2
+C_1 = A[1:4, 1:2] # Particion 4x2
+C_2 = A[1:4, 3:4] # Particion 4x2
+
+C_1
+C_2
+
+
+#::::::::::::::::       RANGO DE UNA MATRIZ     ::::::::::::::::::::::::::::::::
+#   EJEMPLO 1
+#Matriz 3x3
+filas1 <- c(1,2,3)
+filas2 <- c(2,4,6)
+filas3 <- c(3,6,9)
+
+A = matrix(rbind(filas1,filas2,filas3), ncol = 3)
+A
+
+rango_A <- qr(A)$rank # Función para hallar el rango
+rango_A
+
+#   EJEMPLO 2
+filas1 <- c(1,2,3,4)
+filas2 <- c(2,4,6,8)
+filas3 <- c(0,1,0,0)
+filas4 <- c(5,10,15,20)
+
+B = matrix(rbind(filas1,filas2,filas3,filas4), ncol = 4)
+B
+
+rango_B <- qr(B)$rank # Función para hallar el rango
+rango_B
+
+#   EJEMPLO 3
+filas1 <- c(1,1,2)
+filas2 <- c(2,2,4)
+
+C = matrix(rbind(filas1,filas2), ncol = 3)
+C
+
+rango_C <- qr(C)$rank # Función para hallar el rango
+rango_C
+
+
+#::::::::::::::::     INVERSA DE UNA MATRIZ     ::::::::::::::::::::::::::::::::
+#   EJEMPLO 1
+fila1 <- c(3,4)
+fila2 <- c(2,1)
+
+A <- matrix(rbind(fila1,fila2), ncol = 2) 
+A
+
+INV_A <- solve(A) # Función para hallar la inversa de la matriz
+INV_A
+
+I <-  A %*% INV_A # Demostrar que el producto da la matriz identidad
+I
+
+#   EJEMPLO 2
+A <- matrix(c(1,3,1,2,2,0,3,1,1), nrow = 3, ncol = 3)
+A
+
+INV_A <- solve(A) # Función para hallar la inversa de la matriz
+INV_A
+
+I <-  A %*% INV_A # Demostrar que el producto da la matriz identidad
+I
+
+#   EJEMPLO 3
+A <- matrix(c(1,0,2,-1,1,0,0,0,1), nrow = 3, ncol = 3)
+A 
+
+INV_A <- matrix(c(1,0,-2,1,1,-2,0,0,1), nrow = 3, ncol = 3)
+INV_A
+
+I <-  A %*% INV_A # Demostrar que el producto da la matriz identidad
+I # Si es su inversa
+
+#::::::::::::::::     INVERSA GENERALIZADA MATRIZ     ::::::::::::::::::::::::::
+#   EJEMPLO 1
+A <- matrix(c(1,3,5,2,4,6), ,nrow = 3, ncol = 2) 
+A
+
+INV_GEN_A <- ginv(A)
+INV_GEN_A
+
+I <- A %*% INV_GEN_A #Verificación
+I
+
+#   EJEMPLO 2
+A <- matrix(c(1,2,3,6,2,4), ,nrow = 2, ncol = 3) 
+A
+
+G1 <- matrix(c(1,0,0,0,0,0), ,nrow = 3, ncol = 2)
+G1
+
+cond <- A %*% G1 %*% A
+cond # Si cumple es la misma matriz
+
+#   EJEMPLO 3
+G2 <- matrix(c(-42,5,2,-1,3,2), ,nrow = 3, ncol = 2)
+G2
+
+cond <- A %*% G2 %*% A
+cond # Si cumple es la misma matriz
+
+#::::::::::::::::     MATRICES DEFINIDAS POSITIVAS     :::::::::::::::::::::::::
+#   EJEMPLO 1
+A <- matrix(c(2,0,0,3), ,nrow = 2, ncol = 2) 
+A
+
+# Extraer autovalores
+autovalores_A <- eigen(A)$values
+autovalores_A # Los autovalores son > 0 son positivos, matriz positiva
+
+#   EJEMPLO 2
+B <- matrix(c(4,1,1,3), ,nrow = 2, ncol = 2) 
+B
+
+# Extraer autovalores
+autovalores_B <- eigen(B)$values
+autovalores_B # Los autovalores son > 0 son positivos, matriz positiva
+
+#   EJEMPLO 3
+C <- matrix(c(2,-1,-1,2), ,nrow = 2, ncol = 2) 
+C
+
+# Extraer autovalores
+autovalores_C <- eigen(C)$values
+autovalores_C # Los autovalores son > 0 son positivos, matriz positiva
+
+#::::::::::::::::     VECTORES Y MATRICES ORTOGONALES     ::::::::::::::::::::::
+#:::::  VECTORES ORTOGONALES
+#   EJEMPLO 1
+A <- c(1,2)
+B <- c(-2,1)
+
+A
+B
+
+producto_punto <- sum(A*B)
+producto_punto # 0 ortogonal
+
+#   EJEMPLO 2
+A <- c(1,2,3)
+B <- c(3,-2,-1)
+
+A
+B
+
+producto_punto <- sum(A*B)
+producto_punto # -4 no ortogonal
+
+#   EJEMPLO 3
+A <- c(1,0,0)
+B <- c(0,1,0)
+C <- c(0,0,1)
+
+A
+B
+C
+
+producto_puntoAB <- sum(A*B)
+producto_puntoAB # 0 ortogonal
+
+producto_puntoAC <- sum(A*C)
+producto_puntoAC # 0 ortogonal
+
+producto_puntoBC <- sum(B*C)
+producto_puntoBC # 0 ortogonal
+
+#:::::  MATRICES ORTOGONALES
+#   EJEMPLO 1
+A <- matrix(c(0,1,-1,0), ncol = 2) 
+A
+
+A_T <- t(A) # Matriz transpuesta
+A_T
+
+A_punto_A_T <- A_T %*% A
+A_punto_A_T # Matriz identidad es ortogonal
+
+#   EJEMPLO 2
+A <- matrix(c(1,0,0,1,0,0), ,nrow = 2, ncol = 3) 
+A
+
+A_T <- t(A) # Matriz transpuesta
+A_T
+
+A_punto_A_T <- A_T %*% A
+A_punto_A_T # No es matriz identidad, no es ortogonal
+
+#   EJEMPLO 3
+A <- matrix(c(1,0,0,0,0,1,0,-1,0), ,nrow = 3, ncol = 3) 
+A
+
+A_T <- t(A) # Matriz transpuesta
+A_T
+
+A_punto_A_T <- A_T %*% A
+A_punto_A_T # Matriz identidad, es ortogonal
+
+#::::::::::::::::       AUTOVALORES Y AUTOVECTORES        ::::::::::::::::::::::
+#   EJEMPLO 1
+A <- matrix(c(4,2,1,3), ,nrow = 2, ncol = 2)
+A
+
+resultados <- eigen(A)
+resultados
+
+#   EJEMPLO 2
+A <- matrix(c(3,2,2,3), ,nrow = 2, ncol = 2)
+A
+
+resultados <- eigen(A)
+resultados
+
+#   EJEMPLO 3
+B <- matrix(c(2,0,0,3), ,nrow = 2, ncol = 2)
+B
+
+resultados <- eigen(B)
+resultados
+
+

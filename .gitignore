@@ -14,6 +14,9 @@ Maestria_UNSAAC.Rproj
 1 Fundamentos de Probabilidad/Trabajo_Grupal/main.blg
 1 Fundamentos de Probabilidad/Trabajo_Grupal/main.fdb_latexmk
 
+<<<<<<< HEAD
+Modelos_Lineales/Ejercicios_Script.docx
+=======
 2 Modelos Lineales/Trabajo_Grupal/PROYECTO.aux
 2 Modelos Lineales/Trabajo_Grupal/PROYECTO.fdb_latexmk
 2 Modelos Lineales/Trabajo_Grupal/PROYECTO.fls
@@ -29,6 +32,7 @@ Maestria_UNSAAC.Rproj
 2 Modelos Lineales/Trabajo_Grupal/proyecto/cuerpo.log
 2 Modelos Lineales/Trabajo_Grupal/proyecto/portada.log
 
+<<<<<<< HEAD
 3 Matematica Avanzada/Trabajo_2/PROYECTO.aux
 3 Matematica Avanzada/Trabajo_2/PROYECTO.fdb_latexmk
 3 Matematica Avanzada/Trabajo_2/PROYECTO.fls
@@ -45,3 +49,9 @@ Maestria_UNSAAC.Rproj
 3 Matematica Avanzada/Trabajo_2/proyecto/cuerpo.fdb_latexmk
 3 Matematica Avanzada/Trabajo_2/proyecto/cuerpo.fls
 3 Matematica Avanzada/Trabajo_2/proyecto/cuerpo.log
+=======
+Modelos_Lineales/RLS/Practica2.docx
+
+2 Modelos Lineales/Trabajo_Grupal/ANOVA_1factor/script.docx
+2 Modelos Lineales/Trabajo_Grupal/ANOVA_1factor/script.pdf
+>>>>>>> 125d4ade5b5407ccb6a802770e1022dcfcdfd62b
