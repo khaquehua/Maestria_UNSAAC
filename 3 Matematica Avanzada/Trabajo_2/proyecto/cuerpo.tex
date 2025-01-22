@@ -252,7 +252,6 @@ Para demostrar que uno de los $\mathbf{u},\mathbf{v} \in gen(X)$ se debe cumplir
 \end{defi}
 \subsubsection{Para el vector $\mathbf{u}$}
 Se debe cumplir la siguiente combinación lineal
-
 \[
 \mathbf{u} = {\alpha}_{1}
 \begin{bmatrix}
@@ -269,7 +268,6 @@ Se debe cumplir la siguiente combinación lineal
 \]
 
 Reemplanzado por el vector $\mathbf{u}$ se tiene la siguiente igualdad
-
 \[
 \begin{bmatrix}
 -1 \\ 
@@ -316,7 +314,6 @@ Por lo tanto $\mathbf{u} \notin gen(X)$
 
 \subsubsection{Para el vector $\mathbf{v}$}
 Se debe cumplir la siguiente combinación lineal
-
 \[
 \mathbf{v} = {\alpha}_{1}
 \begin{bmatrix}
@@ -333,7 +330,6 @@ Se debe cumplir la siguiente combinación lineal
 \]
 
 Reemplanzado por el vector $\mathbf{v}$ se tiene la siguiente igualdad
-
 \[
 \begin{bmatrix}
 -1 \\ 
@@ -968,19 +964,74 @@ En lo cual debemos hallar los vectores ortonormales ${u}_{i}$, desarrollemos de 
         {w}_{3} &=& {v}_{3} - {\textsl{proy}}_{{w}_{1}}({v}_{2}) - {\textsl{proy}}_{{w}_{2}}({v}_{3}) \nonumber \\
         {w}_{3} &=& (0,0,1,1) - \frac{\langle {w}_{1}, {v}_{2} \rangle}{{\| {w}_{1} \|}^{2}} {w}_{1} - \frac{\langle {w}_{2}, {v}_{3} \rangle}{{\| {w}_{2} \|}^{2}} {w}_{2} \nonumber \\
         {w}_{3} &=& (0,0,1,1) - \left( \frac{3}{4}, \frac{3}{4}, \frac{3}{4}, \frac{3}{4} \right) - \frac{\langle \left(- \frac{3}{4}, \frac{1}{4}, \frac{1}{4}, \frac{1}{4} \right), (0,0,1,1) \rangle}{{\left( \frac{2\sqrt{3}}{4} \right)}^{2}} \left(- \frac{3}{4}, \frac{1}{4}, \frac{1}{4}, \frac{1}{4} \right) \nonumber \\
-        {w}_{2} &=& (0,1,1,1) - \frac{0+1+1+1}{4} (1,1,1,1) \nonumber \\
-        {w}_{2} &=& (0,1,1,1) - \frac{3}{4} (1,1,1,1) \nonumber \\
-        {w}_{2} &=& (0,1,1,1) - \left( \frac{3}{4}, \frac{3}{4}, \frac{3}{4}, \frac{3}{4} \right)  \nonumber \\
-        {w}_{2} &=& \left(- \frac{3}{4}, \frac{1}{4}, \frac{1}{4}, \frac{1}{4} \right) \nonumber
+        {w}_{3} &=& \left(- \frac{3}{4},- \frac{3}{4}, \frac{1}{4}, \frac{1}{4} \right) - \frac{\frac{1}{2}}{\frac{3}{4}} \left(- \frac{3}{4}, \frac{1}{4}, \frac{1}{4}, \frac{1}{4} \right) \nonumber \\
+        {w}_{3} &=& \left(- \frac{3}{4},- \frac{3}{4}, \frac{1}{4}, \frac{1}{4} \right) - \frac{2}{3} \left(- \frac{3}{4}, \frac{1}{4}, \frac{1}{4}, \frac{1}{4} \right) \nonumber \\
+        {w}_{3} &=& \left(- \frac{3}{4},- \frac{3}{4}, \frac{1}{4}, \frac{1}{4} \right) - \left(- \frac{1}{2}, \frac{1}{6}, \frac{1}{6}, \frac{1}{6} \right)  \nonumber \\
+        {w}_{3} &=& \left(- \frac{1}{4},- \frac{11}{12}, \frac{1}{12}, \frac{1}{12} \right) \nonumber
     \end{eqnarray}
-    Ahora calculemos el segundo vector ortonormal ${u}_{2}$
+    Ahora calculemos el tercer vector ortonormal ${u}_{3}$
     \begin{eqnarray}
-        {u}_{2} &=& \frac{{w}_{2}}{\|{w}_{2} \|} \nonumber \\
-        {u}_{2} &=& \frac{\left(- \frac{3}{4}, \frac{1}{4}, \frac{1}{4}, \frac{1}{4} \right)}{\sqrt{\langle {w}_{2}, {w}_{2} \rangle}} \nonumber \\
-        {u}_{2} &=& \frac{\left(- \frac{3}{4}, \frac{1}{4}, \frac{1}{4}, \frac{1}{4} \right)}{\sqrt{{\left(-\frac{3}{4} \right)}^{2}+{\left(\frac{1}{4} \right)}^{2}+{\left(\frac{1}{4} \right)}^{2}+{\left(\frac{1}{4} \right)}^{2}}} \nonumber \\
-        {u}_{2} &=& \frac{\left(- \frac{3}{4}, \frac{1}{4}, \frac{1}{4}, \frac{1}{4} \right)}{\sqrt{\left(\frac{9}{16}\right) + \left(\frac{1}{16}\right) + \left(\frac{1}{16}\right) + \left(\frac{1}{16}\right) }} \nonumber \\
-        {u}_{2} &=& \frac{\left(- \frac{3}{4}, \frac{1}{4}, \frac{1}{4}, \frac{1}{4} \right)}{\sqrt{\left( \frac{12}{16} \right) }} \nonumber \\
-        {u}_{2} &=& \frac{\left(- \frac{3}{4}, \frac{1}{4}, \frac{1}{4}, \frac{1}{4} \right)}{\frac{2\sqrt{3}}{4}} \nonumber \\
-        {u}_{2} &=& \left(- \frac{3}{2 \sqrt{3}}, \frac{1}{2 \sqrt{3}}, \frac{1}{2 \sqrt{3}}, \frac{1}{2 \sqrt{3}} \right) \nonumber
+        {u}_{3} &=& \frac{{w}_{3}}{\|{w}_{3} \|} \nonumber \\
+        {u}_{3} &=& \frac{\left(- \frac{1}{4},- \frac{11}{12}, \frac{1}{12}, \frac{1}{12} \right)}{\sqrt{\langle {w}_{3}, {w}_{3} \rangle}} \nonumber \\
+        {u}_{3} &=& \frac{\left(- \frac{1}{4},- \frac{11}{12}, \frac{1}{12}, \frac{1}{12} \right)}{\sqrt{{\left(-\frac{1}{4} \right)}^{2}+{\left(-\frac{11}{12} \right)}^{2}+{\left(\frac{1}{12} \right)}^{2}+{\left(\frac{1}{12} \right)}^{2}}} \nonumber \\
+        {u}_{3} &=& \frac{\left(- \frac{1}{4},- \frac{11}{12}, \frac{1}{12}, \frac{1}{12} \right)}{\sqrt{\left(\frac{1}{16}\right) + \left(\frac{121}{144}\right) + \left(\frac{1}{144}\right) + \left(\frac{1}{144}\right) }} \nonumber \\
+        {u}_{3} &=& \frac{\left(- \frac{1}{4},- \frac{11}{12}, \frac{1}{12}, \frac{1}{12} \right)}{\sqrt{\left( \frac{132}{144} \right) }} \nonumber \\
+        {u}_{3} &=& \frac{\left(- \frac{1}{4},- \frac{11}{12}, \frac{1}{12}, \frac{1}{12} \right)}{\frac{2\sqrt{33}}{12}} \nonumber \\
+        {u}_{3} &=& \left(- \frac{3}{2 \sqrt{33}},- \frac{11}{2 \sqrt{33}}, \frac{1}{2 \sqrt{33}}, \frac{1}{2 \sqrt{33}} \right) \nonumber
+    \end{eqnarray}
+    \item \textbf{Hallar el cuarto vector ortonormal}\\
+    En este caso primero tenemos que calcular ${w}_{4}$ el cual sería de la siguiente manera
+    \begin{eqnarray}
+        {w}_{4} &=& {v}_{4} - {\textsl{proy}}_{{w}_{1}}({v}_{2}) - {\textsl{proy}}_{{w}_{2}}({v}_{3}) - {\textsl{proy}}_{{w}_{3}}({v}_{4}) \nonumber \\
+        {w}_{4} &=& (0,0,0,1) - \frac{\langle {w}_{1}, {v}_{2} \rangle}{{\| {w}_{1} \|}^{2}} {w}_{1} - \frac{\langle {w}_{2}, {v}_{3} \rangle}{{\| {w}_{2} \|}^{2}} {w}_{2} - \frac{\langle {w}_{3}, {v}_{4} \rangle}{{\| {w}_{3} \|}^{2}} {w}_{3} \nonumber \\
+        {w}_{4} &=& (0,0,0,1) - \left( \frac{3}{4}, \frac{3}{4}, \frac{3}{4}, \frac{3}{4} \right) - \left(- \frac{1}{2}, \frac{1}{6}, \frac{1}{6}, \frac{1}{6} \right) - \frac{\langle \left(- \frac{1}{4},- \frac{11}{12}, \frac{1}{12}, \frac{1}{12} \right), (0,0,0,1) \rangle}{{\left( \frac{2\sqrt{33}}{12} \right)}^{2}} \left(- \frac{1}{4},- \frac{11}{12}, \frac{1}{12}, \frac{1}{12} \right) \nonumber \\
+        {w}_{4} &=& \left(- \frac{1}{4},- \frac{11}{12},- \frac{11}{12}, \frac{1}{12} \right) - \frac{\frac{1}{12}}{\frac{11}{12}} \left(- \frac{1}{4},- \frac{11}{12}, \frac{1}{12}, \frac{1}{12} \right) \nonumber \\
+        {w}_{4} &=& \left(- \frac{1}{4},- \frac{11}{12},- \frac{11}{12}, \frac{1}{12} \right) - \frac{1}{11} \left(- \frac{1}{4},- \frac{11}{12}, \frac{1}{12}, \frac{1}{12} \right) \nonumber \\
+        {w}_{4} &=& \left(- \frac{1}{4},- \frac{11}{12},- \frac{11}{12}, \frac{1}{12} \right) - \left(- \frac{1}{44},- \frac{1}{12}, \frac{1}{132}, \frac{1}{132} \right)  \nonumber \\
+        {w}_{4} &=& \left(- \frac{5}{22},- \frac{5}{6},- \frac{61}{66}, \frac{5}{66} \right) \nonumber
+    \end{eqnarray}
+    Ahora calculemos el cuarto vector ortonormal ${u}_{4}$
+    \begin{eqnarray}
+        {u}_{4} &=& \frac{{w}_{4}}{\|{w}_{4} \|} \nonumber \\
+        {u}_{4} &=& \frac{\left(- \frac{5}{22},- \frac{5}{6},- \frac{61}{66}, \frac{5}{66} \right)}{\sqrt{\langle {w}_{4}, {w}_{4} \rangle}} \nonumber \\
+        {u}_{4} &=& \frac{\left(- \frac{5}{22},- \frac{5}{6},- \frac{61}{66}, \frac{5}{66} \right)}{\sqrt{{\left(-\frac{5}{22} \right)}^{2}+{\left(-\frac{5}{6} \right)}^{2}+{\left(-\frac{61}{66} \right)}^{2}+{\left(\frac{5}{66} \right)}^{2}}} \nonumber \\
+        {u}_{4} &=& \frac{\left(- \frac{5}{22},- \frac{5}{6},- \frac{61}{66}, \frac{5}{66} \right)}{\sqrt{\left(\frac{25}{484}\right) + \left(\frac{25}{36}\right) + \left(\frac{3721}{4356}\right) + \left(\frac{25}{4356}\right) }} \nonumber \\
+        {u}_{4} &=& \frac{\left(- \frac{5}{22},- \frac{5}{6},- \frac{61}{66}, \frac{5}{66} \right)}{\sqrt{\left( \frac{6996}{4356} \right) }} \nonumber \\
+        {u}_{4} &=& \frac{\left(- \frac{5}{22},- \frac{5}{6},- \frac{61}{66}, \frac{5}{66} \right)}{\frac{\sqrt{53}}{\sqrt{33}}} \nonumber \\
+        {u}_{4} &=& \left(- \frac{5 \sqrt{33}}{22 \sqrt{53}},- \frac{5 \sqrt{33}}{6 \sqrt{53}},- \frac{61 \sqrt{33}}{66 \sqrt{53}}, \frac{5 \sqrt{33}}{66 \sqrt{53}} \right) \nonumber
     \end{eqnarray}
 \end{enumerate}
+
+\textbf{CONCLUSIÓN:} La base ortonormal está formado por los vectores $u = \{ {u}_{1}, {u}_{2} , {u}_{3}, {u}_{4} \}$ expresados de la siguiente manera:
+
+\[
+u = 
+    \left\{ 
+    \begin{bmatrix}
+    \frac{1}{2} \\ 
+    \frac{1}{2} \\ 
+    \frac{1}{2} \\
+    \frac{1}{2}
+    \end{bmatrix}
+    ,
+    \begin{bmatrix}
+    -\frac{3}{2 \sqrt{3}} \\ 
+    \frac{1}{2 \sqrt{3}} \\ 
+    \frac{1}{2 \sqrt{3}} \\
+    \frac{1}{2 \sqrt{3}}
+    \end{bmatrix}
+    ,
+    \begin{bmatrix}
+    -\frac{3}{2 \sqrt{33}} \\ 
+    -\frac{11}{2 \sqrt{33}} \\ 
+    \frac{1}{2 \sqrt{33}} \\
+    \frac{1}{2 \sqrt{33}}
+    \end{bmatrix}
+    ,
+    \begin{bmatrix}
+    -\frac{5 \sqrt{33}}{22 \sqrt{53}} \\ 
+    -\frac{5 \sqrt{33}}{6 \sqrt{53}} \\ 
+    -\frac{61 \sqrt{33}}{66 \sqrt{53}} \\
+    \frac{5 \sqrt{33}}{66 \sqrt{53}}
+    \end{bmatrix} \right\}.
+    \]
