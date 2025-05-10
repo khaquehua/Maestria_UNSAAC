@@ -35,7 +35,7 @@ x
 
 ## Simulación de n valores variable aleatoria que siguen una distribución exponencial
 set.seed(12345)
-nsims <- 10
+nsims <- 10000
 u <- runif(nsims, 0, 1)
 u
 # Simulando los nuevos valores de x en función de u
@@ -44,7 +44,16 @@ x <- -(1/lambda)*log(1-u)
 x
 
 # Generando histograma para los nuevos valores de x
-hist(x)
+hist(x, breaks = "FD", freq = FALSE, xlab = "Valores simulados de X",
+     ylab = "Densidad de los valores simulados de X", col = "red",
+     main = "Histograma de la V.A. X")
+curve(dexp(x, lambda), lwd = 3, add = TRUE)
+
+boxplot(x, col = "skyblue")
+
+# resumen de medidas descriptivas de la variable simulada
+summary(x)
+
 hist(u)
 
 plot(x,u)
