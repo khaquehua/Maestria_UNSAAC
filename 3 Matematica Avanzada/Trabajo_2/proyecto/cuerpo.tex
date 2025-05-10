@@ -1,0 +1,1037 @@
+
+%\tableofcontents
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%% Capítulo I
+%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Problema}
+
+Demuestre que $S$ es un subespacio de $\mathbb{R}^3$, donde
+
+\[
+S = \left\{ \mathbf{x} \in \mathbb{R}^3 : \mathbf{x} = \alpha
+\begin{bmatrix}
+1 \\ 
+2 \\ 
+3
+\end{bmatrix}
++ \beta
+\begin{bmatrix}
+2 \\ 
+1 \\ 
+0
+\end{bmatrix}, \, \alpha, \beta \in \mathbb{R} \right\}.
+\]
+
+\subsection{Solución}
+Para demostrar que $S$ es un subespacio vectorial de $\mathbb{R}^3$, comprobemos que cumpla la siguiente definición
+
+\begin{defi}\textbf{Espacio vectorial en $\mathbb{R}^n$}
+    \\
+    Un conjunto $S$ no vacío de $\mathbb{R}^n$, es llamado un espacio vectorial en $\mathbb{R}^n$ si verifica las siguientes condiciones
+    \begin{itemize}
+        \item[i)] Para $\mathbf{x},\mathbf{y} \in S$, entonces $\mathbf{x}+\mathbf{y} \in S$ 
+        \item[ii)] Para $\alpha \in \mathbb{R}$, $\mathbf{x} \in S$, entonces $\alpha \mathbf{x} \in S$ 
+    \end{itemize}
+\end{defi}
+
+\subsubsection{Primera condición}
+Sean $\mathbf{x}$,$\mathbf{y} \in S$, expresados de la siguiente manera:
+
+\[
+\mathbf{x} = {\alpha}_{1} 
+\begin{bmatrix}
+1 \\ 
+2 \\ 
+3
+\end{bmatrix}
++
+{\beta}_{1}
+\begin{bmatrix}
+2 \\ 
+1 \\ 
+0
+\end{bmatrix},
+\qquad
+\mathbf{y} = {\alpha}_{2} 
+\begin{bmatrix}
+1 \\ 
+2 \\ 
+3
+\end{bmatrix}
++
+{\beta}_{2}
+\begin{bmatrix}
+2 \\ 
+1 \\ 
+0
+\end{bmatrix},
+\]
+
+Donde ${\alpha}_{1},{\alpha}_{2},{\beta}_{1},{\beta}_{2} \in \mathbb{R}$, realizemos la siguiente operación $\mathbf{x}+\mathbf{y}$ el cual debe pertenecer a $S$
+
+\[
+\mathbf{x} + \mathbf{y} = \left( {\alpha}_{1} 
+\begin{bmatrix}
+1 \\ 
+2 \\ 
+3
+\end{bmatrix}
++
+{\beta}_{1}
+\begin{bmatrix}
+2 \\ 
+1 \\ 
+0
+\end{bmatrix} \right)
++
+\left( {\alpha}_{2} 
+\begin{bmatrix}
+1 \\ 
+2 \\ 
+3
+\end{bmatrix}
++
+{\beta}_{2}
+\begin{bmatrix}
+2 \\ 
+1 \\ 
+0
+\end{bmatrix} \right)
+\]
+
+En esta parte se puede agrupar los vectores $\begin{bmatrix}
+1 \\ 
+2 \\ 
+3
+\end{bmatrix}$ y
+$
+\begin{bmatrix}
+2 \\ 
+1 \\ 
+0
+\end{bmatrix}$ como términos comúnes
+
+\[
+\mathbf{x} + \mathbf{y} = ({\alpha}_{1}+{\alpha}_{2}) 
+\begin{bmatrix}
+1 \\ 
+2 \\ 
+3
+\end{bmatrix}
++
+({\beta}_{1}+{\beta}_{2})
+\begin{bmatrix}
+2 \\ 
+1 \\ 
+0
+\end{bmatrix}
+\]
+
+Se sabe que si ${\alpha}_{1},{\alpha}_{2},{\beta}_{1},{\beta}_{2} \in \mathbb{R}$ entonces ${\alpha}_{1}+{\alpha}_{2} \in \mathbb{R}$, de igual forma ${\beta}_{1}+{\beta}_{2} \in \mathbb{R}$, entonces se cumple que $\mathbf{x} +\mathbf{y} \in S$
+
+\subsubsection{Segunda condición}
+Sea $\mathbf{x} \in S$, esto es
+
+\[
+\mathbf{x} = \alpha 
+\begin{bmatrix}
+1 \\ 
+2 \\ 
+3
+\end{bmatrix}
++
+\beta
+\begin{bmatrix}
+2 \\ 
+1 \\ 
+0
+\end{bmatrix}, \alpha , \beta \in \mathbb{R}
+\]
+
+Multipliquemos por un escalar $\gamma \in \mathbb{R}$:
+
+\[
+\gamma \mathbf{x} = \gamma \left( \alpha 
+\begin{bmatrix}
+1 \\ 
+2 \\ 
+3
+\end{bmatrix}
++
+\beta
+\begin{bmatrix}
+2 \\ 
+1 \\ 
+0
+\end{bmatrix} \right)
+\]
+
+\[
+\gamma \mathbf{x} = \gamma \alpha 
+\begin{bmatrix}
+1 \\ 
+2 \\ 
+3
+\end{bmatrix}
++
+\gamma \beta
+\begin{bmatrix}
+2 \\ 
+1 \\ 
+0
+\end{bmatrix}
+\]
+
+Se sabe que si ${\alpha},{\beta},{\gamma} \in \mathbb{R}$ entonces ${\alpha}{\gamma} \in \mathbb{R}$, de igual forma ${\beta}{\gamma} \in \mathbb{R}$, entonces se cumple que $\gamma \mathbf{x} \in S$ \\
+
+\textbf{CONCLUSIÓN: }$S$ es un subespacio vectorial de $\mathbb{R}^3$
+
+\section{Problema}
+
+Considere el siguiente conjunto de vectores en $\mathbb{R}^3$:
+
+\[
+X = \left\{ 
+\begin{bmatrix}
+1 \\ 
+0 \\ 
+-1
+\end{bmatrix}
+,
+\begin{bmatrix}
+-2 \\ 
+1 \\ 
+1
+\end{bmatrix} \right\}.
+\]
+
+Demuestre que uno de los dos vectores
+
+\[
+\mathbf{u} = 
+\begin{bmatrix}
+-1 \\ 
+2 \\ 
+1
+\end{bmatrix}
+\quad
+\text{y}
+\quad
+\mathbf{v} = 
+\begin{bmatrix}
+-1 \\ 
+1 \\ 
+1
+\end{bmatrix}
+\]
+
+pertenece a $gen(X)$, mientras que el otro no.\\
+Encuentre un número real de $\lambda$ tal que
+
+\[
+\begin{bmatrix}
+1 \\ 
+1 \\ 
+\lambda
+\end{bmatrix}
+\in gen(X)
+\]
+
+\subsection{Solución}
+Para demostrar que uno de los $\mathbf{u},\mathbf{v} \in gen(X)$ se debe cumplir la siguiente definición
+
+\begin{defi}\textbf{Espacio generado por los vectores}
+    \\
+    El conjunto de todas las posibles combinaciones lineales de ${v}_{1} , {v}_{2} , \cdots , {v}_{r}$ es llamado espacio generado $gen(X)$ por ${v}_{1} , \cdots , {v}_{n}$ si
+    $$
+    gen({v}_{1} , \cdots , {v}_{n} ) = \{ {\alpha}_{1} {v}_{1} + \cdots + {\alpha}_{r} {v}_{r} / {\alpha}_{i} \in \mathbb{R} , i = 1 , \cdots , r \}
+    $$
+\end{defi}
+\subsubsection{Para el vector $\mathbf{u}$}
+Se debe cumplir la siguiente combinación lineal
+\[
+\mathbf{u} = {\alpha}_{1}
+\begin{bmatrix}
+1 \\ 
+0 \\ 
+-1
+\end{bmatrix}
++ {\alpha}_{2}
+\begin{bmatrix}
+-2 \\ 
+1 \\ 
+1
+\end{bmatrix}
+\]
+
+Reemplanzado por el vector $\mathbf{u}$ se tiene la siguiente igualdad
+\[
+\begin{bmatrix}
+-1 \\ 
+2 \\ 
+1
+\end{bmatrix}
+= {\alpha}_{1}
+\begin{bmatrix}
+1 \\ 
+0 \\ 
+-1
+\end{bmatrix}
++ {\alpha}_{2}
+\begin{bmatrix}
+-2 \\ 
+1 \\ 
+1
+\end{bmatrix}
+\]
+
+Se tienen las siguientes combinaciones lineales
+\begin{eqnarray}
+    {\alpha}_{1} - 2 {\alpha}_{2} &=& -1 \\
+    {\alpha}_{2} &=& 2 \\
+    -{\alpha}_{1} + {\alpha}_{2} &=& 1
+\end{eqnarray}
+Del cual de (2) se tiene que $\alpha_2 = 2$, reemplazemos estos valores en (1) y (3):
+\begin{itemize}
+     \item Reemplanzado en (1):
+     \begin{eqnarray}
+         {\alpha}_{1} - 2 {\alpha}_{2} &=& -1 \nonumber \\
+         {\alpha}_{1} - 2 (2) &=& -1 \nonumber \\
+         {\alpha}_{1} &=& 3 \nonumber
+     \end{eqnarray}
+     Se observa que ${\alpha}_{1} = 3$, y cumple la igualdad en $\mathbf{u}$, ahora reemplazemos ${\alpha}_{1} = 3$ y ${\alpha}_{2} = 2$ en (3) 
+     \item Reemplanzado en (3):
+     \begin{eqnarray}
+         -{\alpha}_{1} + {\alpha}_{2} &=& 1 \nonumber \\
+         -(3) + (2) &=& -1 \neq 1 \nonumber
+     \end{eqnarray}
+     Se observa que no cumple la igualdad.
+ \end{itemize} 
+Por lo tanto $\mathbf{u} \notin gen(X)$
+
+\subsubsection{Para el vector $\mathbf{v}$}
+Se debe cumplir la siguiente combinación lineal
+\[
+\mathbf{v} = {\alpha}_{1}
+\begin{bmatrix}
+1 \\ 
+0 \\ 
+-1
+\end{bmatrix}
++ {\alpha}_{2}
+\begin{bmatrix}
+-2 \\ 
+1 \\ 
+1
+\end{bmatrix}
+\]
+
+Reemplanzado por el vector $\mathbf{v}$ se tiene la siguiente igualdad
+\[
+\begin{bmatrix}
+-1 \\ 
+1 \\ 
+1
+\end{bmatrix}
+= {\alpha}_{1}
+\begin{bmatrix}
+1 \\ 
+0 \\ 
+-1
+\end{bmatrix}
++ {\alpha}_{2}
+\begin{bmatrix}
+-2 \\ 
+1 \\ 
+1
+\end{bmatrix}
+\]
+\setcounter{equation}{0}
+Se tienen las siguientes combinaciones lineales
+\begin{eqnarray}
+    {\alpha}_{1} - 2 {\alpha}_{2} &=& -1 \\
+    {\alpha}_{2} &=& 1 \\
+    -{\alpha}_{1} + {\alpha}_{2} &=& 1
+\end{eqnarray}
+Del cual de (2) se tiene que $\alpha_2 = 1$, reemplazemos estos valores en (1) y (3):
+\begin{itemize}
+     \item Reemplanzado en (1):
+     \begin{eqnarray}
+         {\alpha}_{1} - 2 {\alpha}_{2} &=& -1 \nonumber \\
+         {\alpha}_{1} - 2 (1) &=& -1 \nonumber \\
+         {\alpha}_{1} &=& 1 \nonumber
+     \end{eqnarray}
+     Se observa que ${\alpha}_{1} = 1$, y cumple la igualdad en $\mathbf{v}$, ahora reemplazemos ${\alpha}_{1} = 1$ y ${\alpha}_{2} = 1$ en (3) 
+     \item Reemplanzado en (3):
+     \begin{eqnarray}
+         -{\alpha}_{1} + {\alpha}_{2} &=& 1 \nonumber \\
+         -(1) + (1) &=& 0 \neq 1 \nonumber
+     \end{eqnarray}
+     Se observa que no cumple la igualdad.\\
+     Por lo tanto $\mathbf{v} \notin gen(X)$
+ \end{itemize} 
+
+\textbf{CONCLUSIÓN:} Ninguno de los vectores $\mathbf{u},\mathbf{v} \notin gen(X)$
+
+\subsection{Encontrar un número real $\lambda$}
+De igual forma igualamos la combinación lineal e igualamos al vector para hallar el valor de $\lambda$
+
+\setcounter{equation}{0}
+Se tienen las siguientes combinaciones lineales
+\begin{eqnarray}
+    {\alpha}_{1} - 2 {\alpha}_{2} &=& 1 \\
+    {\alpha}_{2} &=& 1 \\
+    -{\alpha}_{1} + {\alpha}_{2} &=& \lambda
+\end{eqnarray}
+Del cual de (2) se tiene que $\alpha_2 = 1$, reemplazemos estos valores en (1) y (3):
+\begin{itemize}
+     \item Reemplanzado en (1):
+     \begin{eqnarray}
+         {\alpha}_{1} - 2 {\alpha}_{2} &=& 1 \nonumber \\
+         {\alpha}_{1} - 2 (1) &=& 1 \nonumber \\
+         {\alpha}_{1} &=& 3 \nonumber
+     \end{eqnarray}
+     Se observa que ${\alpha}_{1} = 3$ y ${\alpha}_{2} = 1$, reemplazemos estos valores en (3) 
+     \item Reemplanzado en (3):
+     \begin{eqnarray}
+         -{\alpha}_{1} + {\alpha}_{2} &=& \lambda \nonumber \\
+         -(3) + (1) &=& \lambda \nonumber \\
+         \lambda &=& -2 \nonumber
+     \end{eqnarray}
+     El valor de $\lambda$ para que el vector $\begin{bmatrix}
+1 \\ 
+1 \\ 
+\lambda
+\end{bmatrix} \in gen(X)$ es -2 
+ \end{itemize} 
+
+\textbf{CONCLUSIÓN:} El número real de $\lambda$ es -2
+
+\section{Problema}
+
+Verifique si cada uno de los siguientes conjuntos de vectores son linealmente independientes:
+
+\begin{enumerate}[label=\alph*)] % Cambia el formato a a), b), c), etc.
+    \item 
+
+    \[
+    \left\{ 
+    \begin{bmatrix}
+    1 \\ 
+    2 \\ 
+    3
+    \end{bmatrix}
+    ,
+    \begin{bmatrix}
+    1 \\ 
+    0 \\ 
+    -1
+    \end{bmatrix}
+    ,
+    \begin{bmatrix}
+    -2 \\ 
+    1 \\ 
+    1
+    \end{bmatrix} \right\}.
+    \]
+
+    \item 
+    
+    \[
+    \left\{ 
+    \begin{bmatrix}
+    1 \\ 
+    2 \\ 
+    3
+    \end{bmatrix}
+    ,
+    \begin{bmatrix}
+    4 \\ 
+    5 \\ 
+    6
+    \end{bmatrix}
+    ,
+    \begin{bmatrix}
+    7 \\ 
+    8 \\ 
+    9
+    \end{bmatrix} \right\}.
+    \]
+
+    \item
+
+    \[
+    \left\{ 
+    \begin{bmatrix}
+    1 \\ 
+    2 \\ 
+    3 \\
+    4
+    \end{bmatrix}
+    ,
+    \begin{bmatrix}
+    1 \\ 
+    1 \\ 
+    1 \\
+    1
+    \end{bmatrix}
+    ,
+    \begin{bmatrix}
+    1 \\ 
+    3 \\ 
+    1 \\
+    2
+    \end{bmatrix}
+    ,
+    \begin{bmatrix}
+    2 \\ 
+    1 \\ 
+    1 \\
+    2
+    \end{bmatrix} \right\}.
+    \]
+
+    \item
+
+    \[
+    \left\{ 
+    \begin{bmatrix}
+    1 \\ 
+    2 \\ 
+    -1 \\
+    0
+    \end{bmatrix}
+    ,
+    \begin{bmatrix}
+    0 \\ 
+    1 \\ 
+    2 \\
+    1
+    \end{bmatrix}
+    ,
+    \begin{bmatrix}
+    2 \\ 
+    3 \\ 
+    -4 \\
+    -1
+    \end{bmatrix} \right\}.
+    \]
+
+\end{enumerate}
+
+\subsection{Solución}
+
+Para verificar que uno de los conjuntos de vectores son linealmente independientes de la definición de \textbf{Independencia lineal} tomamos los siguientes enunciados:
+\begin{itemize}
+    \item El conjunto $A = \{ {v}_{1}, \cdots , {v}_{r} \}$ de vectores ${v}_{i} \in \mathbb{R}^n$, es llamado conjunto linealmente independiente si los vectores ${v}_{1}, \cdots , {v}_{r}$ son linealmente independientes.
+    \item Sea $A = \{ {v}_{1}, \cdots , {v}_{r} \} \subset \mathbb{R}^n$ y sea $A = [ {v}_{1} \quad {v}_{2} \quad \cdots \quad {v}_{r} ]$ una matriz de orden $nxr$. $A$ es linealmente independiente $\iff N(A)=\{ 0 \}$
+\end{itemize}
+
+\subsubsection{Para a)}
+Tenemos los siguientes vectores
+\begin{itemize}
+    \item ${v}_{1} = (1,2,3)$
+    \item ${v}_{2} = (1,0,-1)$
+    \item ${v}_{3} = (-2,1,1)$ 
+\end{itemize}
+y el conjunto $A=\{ {v}_{1}, {v}_{2}, {v}_{3} \}$ expresando el conjunto en una matriz quedaría de la siguiente forma
+
+\[
+A = [ {v}_{1} \quad {v}_{2} \quad {v}_{3} ] =
+\begin{bmatrix}
+1 & 1 & -2 \\ 
+2 & 0 & 1 \\
+3 & -1 & 1
+\end{bmatrix}
+\Longrightarrow N(A) = \{ \mathbf{0} \} ?
+\]
+$$
+N(A) = \{ \mathbf{x} \in \mathbb{R}^3 / A \mathbf{x} = \mathbf{0} \}
+$$
+La solución del sistema lineal estaría representado de la siguiente manera:
+\[
+\begin{bmatrix}
+1 & 1 & -2 \\ 
+2 & 0 & 1 \\
+3 & -1 & 1
+\end{bmatrix}
+\begin{bmatrix}
+{x}_{1} \\ 
+{x}_{2} \\
+{x}_{3}
+\end{bmatrix} =
+\begin{bmatrix}
+0 \\ 
+0 \\
+0
+\end{bmatrix}
+\]
+El cual nos da el siguiente sistema de combinaciones lineales
+\setcounter{equation}{0}
+\begin{eqnarray}
+    {x}_{1} + {x}_{2} - 2{x}_{3} &=& 0 \\
+    2{x}_{1} + {x}_{3} &=& 0 \\
+    3{x}_{1} - {x}_{2} + {x}_{3} &=& 0
+\end{eqnarray}
+De lo cual en la ecuación (2) se tiene que ${x}_{3} = -2{x}_{1}$, si reemplazamos este valor en la ecuación (1) se tiene
+\begin{eqnarray}
+    {x}_{1} + {x}_{2} - 2{x}_{3} &=& 0 \nonumber \\
+    {x}_{1} + {x}_{2} - 2(-2{x}_{1}) &=& 0 \nonumber \\
+    {x}_{1} + {x}_{2} + 4{x}_{1} &=& 0 \nonumber \\
+    {x}_{2} &=& -5{x}_{1} \nonumber
+\end{eqnarray}
+Reemplanzado estos valores en (3)
+\begin{eqnarray}
+    3{x}_{1} - {x}_{2} + {x}_{3} &=& 0 \nonumber \\
+    3{x}_{1} - (-5{x}_{1}) + (-2{x}_{1}) &=& 0 \nonumber \\
+    6{x}_{1} &=& 0 \nonumber \\
+    {x}_{1} &=& 0 \nonumber
+\end{eqnarray}
+Reemplazando ${x}_{1} = 0$ en (2) se tiene que ${x}_{3} = 0$. Ahora por último si reemplazamos estos valores en (1) o (3) se tiene que ${x}_{2} = 0$. Por lo que el vector $\mathbf{x}$ estaría expresado de la siguiente forma
+$$
+\mathbf{x} = (0, 0, 0)
+$$
+\textbf{CONCLUSIÓN:} $A$ es linealmente independiente
+
+\subsubsection{Para b)}
+Tenemos los siguientes vectores
+\begin{itemize}
+    \item ${v}_{1} = (1,2,3)$
+    \item ${v}_{2} = (4,5,6)$
+    \item ${v}_{3} = (7,8,9)$ 
+\end{itemize}
+y el conjunto $B=\{ {v}_{1}, {v}_{2}, {v}_{3} \}$ expresando el conjunto en una matriz quedaría de la siguiente forma
+
+\[
+B = [ {v}_{1} \quad {v}_{2} \quad {v}_{3} ] =
+\begin{bmatrix}
+1 & 4 & 7 \\ 
+2 & 5 & 8 \\
+3 & 6 & 9
+\end{bmatrix}
+\Longrightarrow N(B) = \{ \mathbf{0} \} ?
+\]
+$$
+N(B) = \{ \mathbf{x} \in \mathbb{R}^3 / B \mathbf{x} = \mathbf{0} \}
+$$
+Reduzcamos la matriz escalonada, mediante el programa nos da la siguiente matriz:
+$$
+\begin{bmatrix}
+1 & 0 & -1 \\ 
+0 & 1 & 2 \\
+0 & 0 & 0
+\end{bmatrix}
+$$
+La solución del sistema lineal estaría representado de la siguiente manera:
+\[
+\begin{bmatrix}
+1 & 0 & -1 \\ 
+0 & 1 & 2 \\
+0 & 0 & 0
+\end{bmatrix}
+\begin{bmatrix}
+{x}_{1} \\ 
+{x}_{2} \\
+{x}_{3}
+\end{bmatrix} =
+\begin{bmatrix}
+0 \\ 
+0 \\
+0
+\end{bmatrix}
+\]
+El cual nos da el siguiente sistema de combinaciones lineales
+\setcounter{equation}{0}
+\begin{eqnarray}
+    {x}_{1} - {x}_{3} &=& 0 \\
+    {x}_{2} + 2{x}_{3} &=& 0
+\end{eqnarray}
+De lo cual en la ecuación (1) se tiene que ${x}_{1} = {x}_{3}$, de la misma forma se tiene mediante la ecuación (2) que ${x}_{2} = -2{x}_{3}$ y si reemplazamos ${x}_{3}$ por ${x}_{1}$ en la ecuación (2) se tiene que ${x}_{2} = -2{x}_{1}$.\\
+
+Expresando el vector $\mathbf{x}$ en función de ${x}_{1}$ se tiene lo siguiente
+$$
+\mathbf{x} = ({x}_{1}, {x}_{2}, {x}_{3}) = ({x}_{1}, -2{x}_{1}, {x}_{1}) = {x}_{1}(1, -2, 1)
+$$
+\textbf{CONCLUSIÓN:} $B$ no es linealmente independiente
+
+\subsubsection{Para c)}
+Tenemos los siguientes vectores
+\begin{itemize}
+    \item ${v}_{1} = (1,2,3,4)$
+    \item ${v}_{2} = (1,1,1,1)$
+    \item ${v}_{3} = (1,3,1,2)$
+    \item ${v}_{4} = (2,1,1,2)$ 
+\end{itemize}
+y el conjunto $C=\{ {v}_{1}, {v}_{2}, {v}_{3}, {v}_{4} \}$ expresando el conjunto en una matriz quedaría de la siguiente forma
+
+\[
+C = [ {v}_{1} \quad {v}_{2} \quad {v}_{3} \quad {v}_{4} ] =
+\begin{bmatrix}
+1 & 1 & 1 & 2 \\ 
+2 & 1 & 3 & 1 \\
+3 & 1 & 1 & 1 \\
+4 & 1 & 2 & 2 \\
+\end{bmatrix}
+\Longrightarrow N(C) = \{ \mathbf{0} \} ?
+\]
+$$
+N(C) = \{ \mathbf{x} \in \mathbb{R}^4 / C \mathbf{x} = \mathbf{0} \}
+$$
+Reduzcamos la matriz escalonada, mediante el programa nos da la siguiente matriz:
+$$
+\begin{bmatrix}
+1 & 0 & 0 & 0 \\ 
+0 & 1 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1
+\end{bmatrix}
+$$
+La solución del sistema lineal estaría representado de la siguiente manera:
+\[
+\begin{bmatrix}
+1 & 0 & 0 & 0 \\ 
+0 & 1 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1
+\end{bmatrix}
+\begin{bmatrix}
+{x}_{1} \\ 
+{x}_{2} \\
+{x}_{3} \\
+{x}_{4}
+\end{bmatrix} =
+\begin{bmatrix}
+0 \\ 
+0 \\
+0 \\
+0
+\end{bmatrix}
+\]
+El cual nos da el siguiente sistema de combinaciones lineales
+\setcounter{equation}{0}
+\begin{eqnarray}
+    {x}_{1} &=& 0 \\
+    {x}_{2} &=& 0 \\
+    {x}_{3} &=& 0 \\
+    {x}_{4} &=& 0
+\end{eqnarray}
+Expresando el vector $\mathbf{x}$ de la siguiente manera
+$$
+\mathbf{x} = ({x}_{1}, {x}_{2}, {x}_{3}, {x}_{4}) = (0, 0, 0, 0)
+$$
+\textbf{CONCLUSIÓN:} $C$ es linealmente independiente
+
+\subsubsection{Para d)}
+Tenemos los siguientes vectores
+\begin{itemize}
+    \item ${v}_{1} = (1,2,-1,0)$
+    \item ${v}_{2} = (0,1,2,1)$
+    \item ${v}_{3} = (2,3,-4,-1)$ 
+\end{itemize}
+y el conjunto $D=\{ {v}_{1}, {v}_{2}, {v}_{3} \}$ expresando el conjunto en una matriz quedaría de la siguiente forma
+
+\[
+D = [ {v}_{1} \quad {v}_{2} \quad {v}_{3} ] =
+\begin{bmatrix}
+1 & 0 & 2 \\ 
+2 & 1 & 3 \\
+-1 & 2 & -4 \\
+0 & 1 & -1
+\end{bmatrix}
+\Longrightarrow N(D) = \{ \mathbf{0} \} ?
+\]
+$$
+N(D) = \{ \mathbf{x} \subset \mathbb{R}^4 / D \mathbf{x} = \mathbf{0} \}
+$$
+Reduzcamos la matriz escalonada, mediante el programa nos da la siguiente matriz:
+$$
+\begin{bmatrix}
+1 & 0 & 2 \\ 
+0 & 1 & -1 \\
+0 & 0 & 0 \\
+0 & 0 & 0
+\end{bmatrix}
+$$
+La solución del sistema lineal estaría representado de la siguiente manera:
+\[
+\begin{bmatrix}
+1 & 0 & 2 \\ 
+0 & 1 & -1 \\
+0 & 0 & 0 \\
+0 & 0 & 0
+\end{bmatrix}
+\begin{bmatrix}
+{x}_{1} \\ 
+{x}_{2} \\
+{x}_{3}
+\end{bmatrix} =
+\begin{bmatrix}
+0 \\ 
+0 \\
+0 \\
+0
+\end{bmatrix}
+\]
+El cual nos da el siguiente sistema de combinaciones lineales
+\setcounter{equation}{0}
+\begin{eqnarray}
+    {x}_{1} + 2{x}_{3} &=& 0 \\
+    {x}_{2} - {x}_{3} &=& 0
+\end{eqnarray}
+De lo cual en la expresión (2) se tiene que ${x}_{2} = {x}_{3}$, en la expresión (1) se tiene que ${x}_{1} = -2 {x}_{3}$. Asimismo reemplazando ${x}_{3}$ por $-\frac{1}{2}{x}_{1}$ en la ecuación (2) se tiene que ${x}_{2} = -\frac{1}{2}{x}_{1}$
+
+Expresando el vector $\mathbf{x}$ en función de ${x}_{1}$ se queda de la siguiente manera
+$$
+\mathbf{x} = ({x}_{1}, {x}_{2}, {x}_{3}) = \left( {x}_{1}, -\frac{1}{2}{x}_{1}, -\frac{1}{2}{x}_{1} \right) = {x}_{1} \left(1, -\frac{1}{2}, -\frac{1}{2} \right)
+$$
+\textbf{CONCLUSIÓN:} $D$ no es linealmente independiente
+
+\section{Problema}
+
+Sea $A$ una matriz $mxn$, y sea $X \subseteq \mathbb{R}^n$ un subconjunto arbitrario de $\mathbb{R}^n$. La imagen de $X$ bajo la transformación de $A$ se define como el conjunto
+
+$$
+A(X) = \{ A \mathbf{x} : \mathbf{x} \in X \}
+$$
+
+\begin{itemize}
+    \item[(a)] Demuestre que $A(X) \subseteq C(A)$
+
+    \item[(b)] Si $X$ es un subespacio de $\mathbb{R}^n$, pruebe que $A(X)$ es un subespacio de $\mathbb{R}^m$.
+\end{itemize}
+
+\subsection{Solucion a)}
+Utilizando la definición de rango de una matriz definimos $C(A)$
+\begin{defi}\textbf{Rango de matriz}
+    \\
+    El rango de una matriz $A$ es la dimensión de $C(A)$ donde
+    $$
+    C(A) = \{ \mathbf{y} \in \mathbb{R}^m / A\mathbf{x} = \mathbf{y}, \text{para algún }\mathbf{x} \in \mathbb{R}^n \}
+    $$
+\end{defi}
+
+Tomemos en cuenta que 
+$$
+A(X) = \{ A \mathbf{x} / \mathbf{x} \in X \subseteq \mathbb{R}^n \}
+$$
+
+Es decir que cualquier $\mathbf{x}$ que pertenece a $X$, pertenece a $\mathbb{R}^n$ \\
+
+Ahora de $C(A)$ se tiene
+$$
+C(A) = \{ \mathbf{y} \in \mathbb{R}^m / A \mathbf{x} = \mathbf{y}, \text{para algún }\mathbf{x} \in \mathbb{R}^n \}
+$$
+Cada $A\mathbf{x} \in A(X)$ también está incluido en $C(A)$ por lo que generalizando se tiene que
+$$
+A(X) \subseteq C(A)
+$$
+
+\subsection{Solucion b)}
+Para probar tenemos que comprobar la misma definición que se planteo en el problema 1 acerca de espacio vectorial en $\mathbb{R}^n$
+
+\subsubsection{Primera condición}
+Sean los vectores $\mathbf{u}$, $\mathbf{v} \in A(X)$ de donde podemos expresarlos de la siguiente manera:
+$$
+\mathbf{u} = Ax \quad \text{y} \quad \mathbf{v} = Ay
+$$
+Lo cual indica que $x,y \in X$ entonces tenemos que demostrar que $\mathbf{u}+\mathbf{v} \in A(X)$, desarrollando esto tenemos
+$$
+\mathbf{u} + \mathbf{v} = Ax + Ay = A(x+y)
+$$
+De lo cual se sabe que como $x, y \in X$, también $(x+y) \in X$, se observa que $A(x+y)$ esta incluido en el conjunto, es decir $\mathbf{u} + \mathbf{v} \in A(X)$
+
+\subsubsection{Segunda condición}
+Sea $c \in \mathbb{R}$ un escalar, debemos demotrar que $c\mathbf{u} \in A(X)$, desarrollando se tiene la siguiente expresión
+$$
+c \mathbf{u} = c (Ax) = A(cx)
+$$
+De lo cual se sabe que como $x \in X$, también $cx \in X$, para todo $c \in \mathbb{R}$ se observa que $A(cx)$ esta incluido en el conjunto, es decir $c\mathbf{u} \in A(X)$\\
+
+\textbf{CONCLUSIÓN:} Si $X$ es un subespacio de $\mathbb{R}^n, A(X)$ es un subespacio de $\mathbb{R}^{m}$
+
+\section{Problema}
+
+Considere los siguientes vectores en $\mathbb{R}^4$:
+
+\[
+    \left\{ 
+    \begin{bmatrix}
+    1 \\ 
+    1 \\ 
+    1 \\
+    1
+    \end{bmatrix}
+    ,
+    \begin{bmatrix}
+    0 \\ 
+    1 \\ 
+    1 \\
+    1
+    \end{bmatrix}
+    ,
+    \begin{bmatrix}
+    0 \\ 
+    0 \\ 
+    1 \\
+    1
+    \end{bmatrix}
+    ,
+    \begin{bmatrix}
+    0 \\ 
+    0 \\ 
+    0 \\
+    1
+    \end{bmatrix} \right\}.
+    \]
+
+Aplique el procedimiento de Gram-Schmidt a estos vectores para obtener una base ortonormal de $\mathbb{R}^4$.
+
+\subsection{Solución}
+Para obtener la base ortonormal utilizamos la definición de Ortogonalización de Gram-Schmidt
+
+\begin{defi}\textbf{Ortogonalización de Gram-Schmidt}
+    \\
+    Sea $A = \{ {v}_{1}, \cdots , {v}_{n} \}$ una base para un espacio euclidiano
+    \begin{itemize}
+        \item ${w}_{1} = {v}_{1} \quad ; \quad {u}_{1} = \frac{{w}_{1}}{\|{w}_{1} \|}$
+        \item ${w}_{2} = {v}_{2} - {\textsl{proy}}_{{w}_{1}}({v}_{2}) \quad ; \quad {u}_{2} = \frac{{w}_{2}}{\|{w}_{2} \|}$
+        \item ${w}_{3} = {v}_{3} - {\textsl{proy}}_{{w}_{1}}({v}_{2}) - {\textsl{proy}}_{{w}_{2}}({v}_{3}) \quad ; \quad {u}_{3} = \frac{{w}_{3}}{\|{w}_{3} \|}$
+        $$
+        \vdots 
+        $$
+        \item ${w}_{n} = {v}_{n} - {\textsl{proy}}_{{w}_{1}}({v}_{2}) - \cdots - {\textsl{proy}}_{{w}_{n-1}}({v}_{n}) \quad ; \quad {u}_{n} = \frac{{w}_{n}}{\|{w}_{n} \|}$
+        \item $\{ {w}_{1}, \cdots , {w}_{n} \}$ es ortogonal.
+        \item $\{ {u}_{1}, \cdots , {u}_{n} \}$ es ortonormal.
+    \end{itemize}
+\end{defi}
+
+En nuestro caso tenemos los vectores en $\mathbb{R}^4$ de la siguiente manera $A = \{ {v}_{1}, {v}_{2}, {v}_{3}, {v}_{4} \}$ donde los vectores estan expresados de la siguiente manera
+\begin{itemize}
+    \item ${v}_{1} = (1, 1, 1, 1)$
+    \item ${v}_{2} = (0, 1, 1, 1)$
+    \item ${v}_{3} = (0, 0, 1, 1)$
+    \item ${v}_{4} = (0, 0, 0, 1)$
+\end{itemize}
+Tenemos los siguientes ejemplos hasta $n = 4$
+\begin{itemize}
+    \item ${w}_{1} = {v}_{1} \quad ; \quad {u}_{1} = \frac{{w}_{1}}{\|{w}_{1} \|}$
+    \item ${w}_{2} = {v}_{2} - {\textsl{proy}}_{{w}_{1}}({v}_{2}) \quad ; \quad {u}_{2} = \frac{{w}_{2}}{\|{w}_{2} \|}$
+    \item ${w}_{3} = {v}_{3} - {\textsl{proy}}_{{w}_{1}}({v}_{2}) - {\textsl{proy}}_{{w}_{2}}({v}_{3}) \quad ; \quad {u}_{3} = \frac{{w}_{3}}{\|{w}_{3} \|}$
+    \item ${w}_{4} = {v}_{4} - {\textsl{proy}}_{{w}_{1}}({v}_{2}) - {\textsl{proy}}_{{w}_{2}}({v}_{3}) - {\textsl{proy}}_{{w}_{3}}({v}_{4}) \quad ; \quad {u}_{4} = \frac{{w}_{4}}{\|{w}_{4} \|}$
+    \item $\{ {w}_{1}, {w}_{2}, {w}_{3} , {w}_{4} \}$ es ortogonal.
+    \item $\{ {u}_{1}, {u}_{2} , {u}_{3}, {u}_{4} \}$ es ortonormal.
+\end{itemize}
+En lo cual debemos hallar los vectores ortonormales ${u}_{i}$, desarrollemos de la siguiente manera
+\begin{enumerate}
+    \item \textbf{Hallar el primer vector ortonormal}\\
+    Como ${w}_{1} = {v}_{1}$, reemplazamos en la ecuación
+    \begin{eqnarray}
+        {u}_{1} &=& \frac{{w}_{1}}{\|{w}_{1} \|} \nonumber \\
+        {u}_{1} &=& \frac{{v}_{1}}{\|{v}_{1} \|} \nonumber \\
+        {u}_{1} &=& \frac{(1,1,1,1)}{\sqrt{\langle {v}_{1}, {v}_{1} \rangle}} \nonumber \\
+        {u}_{1} &=& \frac{(1,1,1,1)}{\sqrt{{1}^{2}+{1}^{2}+{1}^{2}+{1}^{2}}} \nonumber \\
+        {u}_{1} &=& \frac{(1,1,1,1)}{\sqrt{4}} \nonumber \\
+        {u}_{1} &=& \frac{(1,1,1,1)}{2} \nonumber \\
+        {u}_{1} &=& \left( \frac{1}{2}, \frac{1}{2}, \frac{1}{2}, \frac{1}{2} \right) \nonumber
+    \end{eqnarray}
+    \item \textbf{Hallar el segundo vector ortonormal}\\
+    En este caso primero tenemos que calcular ${w}_{2}$ el cual sería de la siguiente manera
+    \begin{eqnarray}
+        {w}_{2} &=& {v}_{2} - {\textsl{proy}}_{{w}_{1}}({v}_{2}) \nonumber \\
+        {w}_{2} &=& (0,1,1,1) - \frac{\langle {w}_{1}, {v}_{2} \rangle}{{\| {w}_{1} \|}^{2}} {w}_{1} \nonumber \\
+        {w}_{2} &=& (0,1,1,1) - \frac{\langle (1,1,1,1), (0,1,1,1) \rangle}{{2}^{2}} (1,1,1,1) \nonumber \\
+        {w}_{2} &=& (0,1,1,1) - \frac{0+1+1+1}{4} (1,1,1,1) \nonumber \\
+        {w}_{2} &=& (0,1,1,1) - \frac{3}{4} (1,1,1,1) \nonumber \\
+        {w}_{2} &=& (0,1,1,1) - \left( \frac{3}{4}, \frac{3}{4}, \frac{3}{4}, \frac{3}{4} \right)  \nonumber \\
+        {w}_{2} &=& \left(- \frac{3}{4}, \frac{1}{4}, \frac{1}{4}, \frac{1}{4} \right) \nonumber
+    \end{eqnarray}
+    Ahora calculemos el segundo vector ortonormal ${u}_{2}$
+    \begin{eqnarray}
+        {u}_{2} &=& \frac{{w}_{2}}{\|{w}_{2} \|} \nonumber \\
+        {u}_{2} &=& \frac{\left(- \frac{3}{4}, \frac{1}{4}, \frac{1}{4}, \frac{1}{4} \right)}{\sqrt{\langle {w}_{2}, {w}_{2} \rangle}} \nonumber \\
+        {u}_{2} &=& \frac{\left(- \frac{3}{4}, \frac{1}{4}, \frac{1}{4}, \frac{1}{4} \right)}{\sqrt{{\left(-\frac{3}{4} \right)}^{2}+{\left(\frac{1}{4} \right)}^{2}+{\left(\frac{1}{4} \right)}^{2}+{\left(\frac{1}{4} \right)}^{2}}} \nonumber \\
+        {u}_{2} &=& \frac{\left(- \frac{3}{4}, \frac{1}{4}, \frac{1}{4}, \frac{1}{4} \right)}{\sqrt{\left(\frac{9}{16}\right) + \left(\frac{1}{16}\right) + \left(\frac{1}{16}\right) + \left(\frac{1}{16}\right) }} \nonumber \\
+        {u}_{2} &=& \frac{\left(- \frac{3}{4}, \frac{1}{4}, \frac{1}{4}, \frac{1}{4} \right)}{\sqrt{\left( \frac{12}{16} \right) }} \nonumber \\
+        {u}_{2} &=& \frac{\left(- \frac{3}{4}, \frac{1}{4}, \frac{1}{4}, \frac{1}{4} \right)}{\frac{2\sqrt{3}}{4}} \nonumber \\
+        {u}_{2} &=& \left(- \frac{3}{2 \sqrt{3}}, \frac{1}{2 \sqrt{3}}, \frac{1}{2 \sqrt{3}}, \frac{1}{2 \sqrt{3}} \right) \nonumber
+    \end{eqnarray}
+    \item \textbf{Hallar el tercer vector ortonormal}\\
+    En este caso primero tenemos que calcular ${w}_{3}$ el cual sería de la siguiente manera
+    \begin{eqnarray}
+        {w}_{3} &=& {v}_{3} - {\textsl{proy}}_{{w}_{1}}({v}_{2}) - {\textsl{proy}}_{{w}_{2}}({v}_{3}) \nonumber \\
+        {w}_{3} &=& (0,0,1,1) - \frac{\langle {w}_{1}, {v}_{2} \rangle}{{\| {w}_{1} \|}^{2}} {w}_{1} - \frac{\langle {w}_{2}, {v}_{3} \rangle}{{\| {w}_{2} \|}^{2}} {w}_{2} \nonumber \\
+        {w}_{3} &=& (0,0,1,1) - \left( \frac{3}{4}, \frac{3}{4}, \frac{3}{4}, \frac{3}{4} \right) - \frac{\langle \left(- \frac{3}{4}, \frac{1}{4}, \frac{1}{4}, \frac{1}{4} \right), (0,0,1,1) \rangle}{{\left( \frac{2\sqrt{3}}{4} \right)}^{2}} \left(- \frac{3}{4}, \frac{1}{4}, \frac{1}{4}, \frac{1}{4} \right) \nonumber \\
+        {w}_{3} &=& \left(- \frac{3}{4},- \frac{3}{4}, \frac{1}{4}, \frac{1}{4} \right) - \frac{\frac{1}{2}}{\frac{3}{4}} \left(- \frac{3}{4}, \frac{1}{4}, \frac{1}{4}, \frac{1}{4} \right) \nonumber \\
+        {w}_{3} &=& \left(- \frac{3}{4},- \frac{3}{4}, \frac{1}{4}, \frac{1}{4} \right) - \frac{2}{3} \left(- \frac{3}{4}, \frac{1}{4}, \frac{1}{4}, \frac{1}{4} \right) \nonumber \\
+        {w}_{3} &=& \left(- \frac{3}{4},- \frac{3}{4}, \frac{1}{4}, \frac{1}{4} \right) - \left(- \frac{1}{2}, \frac{1}{6}, \frac{1}{6}, \frac{1}{6} \right)  \nonumber \\
+        {w}_{3} &=& \left(- \frac{1}{4},- \frac{11}{12}, \frac{1}{12}, \frac{1}{12} \right) \nonumber
+    \end{eqnarray}
+    Ahora calculemos el tercer vector ortonormal ${u}_{3}$
+    \begin{eqnarray}
+        {u}_{3} &=& \frac{{w}_{3}}{\|{w}_{3} \|} \nonumber \\
+        {u}_{3} &=& \frac{\left(- \frac{1}{4},- \frac{11}{12}, \frac{1}{12}, \frac{1}{12} \right)}{\sqrt{\langle {w}_{3}, {w}_{3} \rangle}} \nonumber \\
+        {u}_{3} &=& \frac{\left(- \frac{1}{4},- \frac{11}{12}, \frac{1}{12}, \frac{1}{12} \right)}{\sqrt{{\left(-\frac{1}{4} \right)}^{2}+{\left(-\frac{11}{12} \right)}^{2}+{\left(\frac{1}{12} \right)}^{2}+{\left(\frac{1}{12} \right)}^{2}}} \nonumber \\
+        {u}_{3} &=& \frac{\left(- \frac{1}{4},- \frac{11}{12}, \frac{1}{12}, \frac{1}{12} \right)}{\sqrt{\left(\frac{1}{16}\right) + \left(\frac{121}{144}\right) + \left(\frac{1}{144}\right) + \left(\frac{1}{144}\right) }} \nonumber \\
+        {u}_{3} &=& \frac{\left(- \frac{1}{4},- \frac{11}{12}, \frac{1}{12}, \frac{1}{12} \right)}{\sqrt{\left( \frac{132}{144} \right) }} \nonumber \\
+        {u}_{3} &=& \frac{\left(- \frac{1}{4},- \frac{11}{12}, \frac{1}{12}, \frac{1}{12} \right)}{\frac{2\sqrt{33}}{12}} \nonumber \\
+        {u}_{3} &=& \left(- \frac{3}{2 \sqrt{33}},- \frac{11}{2 \sqrt{33}}, \frac{1}{2 \sqrt{33}}, \frac{1}{2 \sqrt{33}} \right) \nonumber
+    \end{eqnarray}
+    \item \textbf{Hallar el cuarto vector ortonormal}\\
+    En este caso primero tenemos que calcular ${w}_{4}$ el cual sería de la siguiente manera
+    \begin{eqnarray}
+        {w}_{4} &=& {v}_{4} - {\textsl{proy}}_{{w}_{1}}({v}_{2}) - {\textsl{proy}}_{{w}_{2}}({v}_{3}) - {\textsl{proy}}_{{w}_{3}}({v}_{4}) \nonumber \\
+        {w}_{4} &=& (0,0,0,1) - \frac{\langle {w}_{1}, {v}_{2} \rangle}{{\| {w}_{1} \|}^{2}} {w}_{1} - \frac{\langle {w}_{2}, {v}_{3} \rangle}{{\| {w}_{2} \|}^{2}} {w}_{2} - \frac{\langle {w}_{3}, {v}_{4} \rangle}{{\| {w}_{3} \|}^{2}} {w}_{3} \nonumber \\
+        {w}_{4} &=& (0,0,0,1) - \left( \frac{3}{4}, \frac{3}{4}, \frac{3}{4}, \frac{3}{4} \right) - \left(- \frac{1}{2}, \frac{1}{6}, \frac{1}{6}, \frac{1}{6} \right) - \frac{\langle \left(- \frac{1}{4},- \frac{11}{12}, \frac{1}{12}, \frac{1}{12} \right), (0,0,0,1) \rangle}{{\left( \frac{2\sqrt{33}}{12} \right)}^{2}} \left(- \frac{1}{4},- \frac{11}{12}, \frac{1}{12}, \frac{1}{12} \right) \nonumber \\
+        {w}_{4} &=& \left(- \frac{1}{4},- \frac{11}{12},- \frac{11}{12}, \frac{1}{12} \right) - \frac{\frac{1}{12}}{\frac{11}{12}} \left(- \frac{1}{4},- \frac{11}{12}, \frac{1}{12}, \frac{1}{12} \right) \nonumber \\
+        {w}_{4} &=& \left(- \frac{1}{4},- \frac{11}{12},- \frac{11}{12}, \frac{1}{12} \right) - \frac{1}{11} \left(- \frac{1}{4},- \frac{11}{12}, \frac{1}{12}, \frac{1}{12} \right) \nonumber \\
+        {w}_{4} &=& \left(- \frac{1}{4},- \frac{11}{12},- \frac{11}{12}, \frac{1}{12} \right) - \left(- \frac{1}{44},- \frac{1}{12}, \frac{1}{132}, \frac{1}{132} \right)  \nonumber \\
+        {w}_{4} &=& \left(- \frac{5}{22},- \frac{5}{6},- \frac{61}{66}, \frac{5}{66} \right) \nonumber
+    \end{eqnarray}
+    Ahora calculemos el cuarto vector ortonormal ${u}_{4}$
+    \begin{eqnarray}
+        {u}_{4} &=& \frac{{w}_{4}}{\|{w}_{4} \|} \nonumber \\
+        {u}_{4} &=& \frac{\left(- \frac{5}{22},- \frac{5}{6},- \frac{61}{66}, \frac{5}{66} \right)}{\sqrt{\langle {w}_{4}, {w}_{4} \rangle}} \nonumber \\
+        {u}_{4} &=& \frac{\left(- \frac{5}{22},- \frac{5}{6},- \frac{61}{66}, \frac{5}{66} \right)}{\sqrt{{\left(-\frac{5}{22} \right)}^{2}+{\left(-\frac{5}{6} \right)}^{2}+{\left(-\frac{61}{66} \right)}^{2}+{\left(\frac{5}{66} \right)}^{2}}} \nonumber \\
+        {u}_{4} &=& \frac{\left(- \frac{5}{22},- \frac{5}{6},- \frac{61}{66}, \frac{5}{66} \right)}{\sqrt{\left(\frac{25}{484}\right) + \left(\frac{25}{36}\right) + \left(\frac{3721}{4356}\right) + \left(\frac{25}{4356}\right) }} \nonumber \\
+        {u}_{4} &=& \frac{\left(- \frac{5}{22},- \frac{5}{6},- \frac{61}{66}, \frac{5}{66} \right)}{\sqrt{\left( \frac{6996}{4356} \right) }} \nonumber \\
+        {u}_{4} &=& \frac{\left(- \frac{5}{22},- \frac{5}{6},- \frac{61}{66}, \frac{5}{66} \right)}{\frac{\sqrt{53}}{\sqrt{33}}} \nonumber \\
+        {u}_{4} &=& \left(- \frac{5 \sqrt{33}}{22 \sqrt{53}},- \frac{5 \sqrt{33}}{6 \sqrt{53}},- \frac{61 \sqrt{33}}{66 \sqrt{53}}, \frac{5 \sqrt{33}}{66 \sqrt{53}} \right) \nonumber
+    \end{eqnarray}
+\end{enumerate}
+
+\textbf{CONCLUSIÓN:} La base ortonormal está formado por los vectores $u = \{ {u}_{1}, {u}_{2} , {u}_{3}, {u}_{4} \}$ expresados de la siguiente manera:
+
+\[
+u = 
+    \left\{ 
+    \begin{bmatrix}
+    \frac{1}{2} \\ 
+    \frac{1}{2} \\ 
+    \frac{1}{2} \\
+    \frac{1}{2}
+    \end{bmatrix}
+    ,
+    \begin{bmatrix}
+    -\frac{3}{2 \sqrt{3}} \\ 
+    \frac{1}{2 \sqrt{3}} \\ 
+    \frac{1}{2 \sqrt{3}} \\
+    \frac{1}{2 \sqrt{3}}
+    \end{bmatrix}
+    ,
+    \begin{bmatrix}
+    -\frac{3}{2 \sqrt{33}} \\ 
+    -\frac{11}{2 \sqrt{33}} \\ 
+    \frac{1}{2 \sqrt{33}} \\
+    \frac{1}{2 \sqrt{33}}
+    \end{bmatrix}
+    ,
+    \begin{bmatrix}
+    -\frac{5 \sqrt{33}}{22 \sqrt{53}} \\ 
+    -\frac{5 \sqrt{33}}{6 \sqrt{53}} \\ 
+    -\frac{61 \sqrt{33}}{66 \sqrt{53}} \\
+    \frac{5 \sqrt{33}}{66 \sqrt{53}}
+    \end{bmatrix} \right\}.
+    \]
