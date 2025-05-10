@@ -58,3 +58,85 @@ hist(u)
 
 plot(x,u)
 
+## Simulación de n valores variable aleatoria que siguen una distribución uniforme
+set.seed(12345)
+nsims <- 10000
+u <- runif(nsims, 0, 1)
+u
+# Simulando los nuevos valores de x en función de u
+b <- 3
+a <- 2
+x <- u*(b-a)+a
+x
+
+# Generando histograma para los nuevos valores de x
+hist(x, breaks = "FD", freq = FALSE, xlab = "Valores simulados de X",
+     ylab = "Densidad de los valores simulados de X", col = "red",
+     main = "Histograma de la V.A. X")
+curve(dunif(x, a, b), lwd = 3, add = TRUE)
+
+boxplot(x, col = "skyblue")
+
+# resumen de medidas descriptivas de la variable simulada
+summary(x)
+
+hist(u)
+
+plot(x,u)
+
+
+## Simulación de n valores variable aleatoria que siguen una distribución uniforme
+set.seed(12345)
+a <- 2
+b <- 4
+nsims <- 100
+#Primer caso generar los casos de la uniforme
+u <- runif(nsims, 0, 1)
+u
+
+# simulando los valores de x que sigue una distribución uniforme
+x <- u * (b-a)+a
+x
+
+# Generando histograma para los nuevos valores de x
+hist(x, breaks = "FD", freq = FALSE, xlab = "Valores simulados de X",
+     ylab = "Densidad de los valores simulados de X", col = "red",
+     main = "Histograma de la V.A. X")
+curve(dunif(x, a, b), lwd = 3, add = TRUE)
+
+boxplot(x, col = "skyblue")
+
+# resumen de medidas descriptivas de la variable simulada
+summary(x)
+
+hist(u)
+
+plot(x,u)
+
+## Simulación de n valores variable aleatoria que siguen una distribución pareto
+set.seed(12345)
+alpha <- 3
+x_m <- 1
+nsims <- 1000
+#Primer caso generar los casos de la uniforme
+u <- runif(nsims, 0, 1)
+u
+
+# simulando los valores de x que sigue una distribución uniforme
+x <- x_m / ((1-u)^(1/alpha))
+x
+
+# Generando histograma para los nuevos valores de x
+hist(x, breaks = "FD", freq = FALSE, xlab = "Valores simulados de X",
+     ylab = "Densidad de los valores simulados de X", col = "red",
+     main = "Histograma de la V.A. X")
+curve(dunif(x, a, b), lwd = 3, add = TRUE)
+
+boxplot(x, col = "skyblue")
+
+# resumen de medidas descriptivas de la variable simulada
+summary(x)
+
+hist(u)
+
+plot(x,u)
