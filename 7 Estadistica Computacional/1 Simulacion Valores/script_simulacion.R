@@ -114,6 +114,7 @@ hist(u)
 plot(x,u)
 
 ## Simulación de n valores variable aleatoria que siguen una distribución pareto
+#library(distrEx)
 set.seed(12345)
 alpha <- 3
 x_m <- 1
@@ -130,7 +131,7 @@ x
 hist(x, breaks = "FD", freq = FALSE, xlab = "Valores simulados de X",
      ylab = "Densidad de los valores simulados de X", col = "red",
      main = "Histograma de la V.A. X")
-curve(dunif(x, a, b), lwd = 3, add = TRUE)
+curve(dpareto(x, alpha, x_m), lwd = 3, add = TRUE)
 
 boxplot(x, col = "skyblue")
 
