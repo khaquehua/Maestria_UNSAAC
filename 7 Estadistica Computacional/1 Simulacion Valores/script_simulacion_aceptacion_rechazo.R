@@ -95,15 +95,15 @@ legend("topright",legend = c("Función de densidad: 2x","Histograma"), col = c("
 
 ## Generar 5000 valores
 set.seed(12005)
-muestra <- metodo_ar(5000)
+muestra <- metodo_ar(1000000)
 muestra
 
 ## Histograma de los valores simulados
-hist(muestra, probability = TRUE, breaks = 25, 
+hist(muestra, probability = TRUE, breaks = 100, 
      xlab = "Muestra con valores simulados de X",
      ylab = "Densidad de X",
      xlim = c(0,1), ylim = c(0, 3.5),
      col = "green")
 curve(3*x^2, from = 0, to = 1, lwd=3, col = "blue", add = TRUE)
 legend("topright",legend = c("Función de densidad: 3x^2","Histograma"), col = c("blue","green"), lwd =3)
-
+boxplot(muestra, col = "skyblue")
