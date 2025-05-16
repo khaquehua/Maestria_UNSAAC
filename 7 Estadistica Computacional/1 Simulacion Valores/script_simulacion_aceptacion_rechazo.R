@@ -66,7 +66,7 @@ metodo_ar <- function(nsims){
     x <- runif(1, 0, 1) # Valor de la función propuesta g(x), es una Uniforme [0,1]
     u <- runif(1, 0, 1) # Valor de la uniforme para comparar 
     
-    if (u <= x^2) { #Criterio de aceptación (f(x)/c*g(x)) = 2x/2  = x
+    if (u <= x^2) { #Criterio de aceptación (f(x)/c*g(x)) = 3x^2/3  = x
       aceptado <- aceptado + 1
       muestra[aceptado] <- x
     }
