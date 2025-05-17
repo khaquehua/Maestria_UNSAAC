@@ -107,3 +107,47 @@ hist(muestra, probability = TRUE, breaks = 100,
 curve(3*x^2, from = 0, to = 1, lwd=3, col = "blue", add = TRUE)
 legend("topright",legend = c("Función de densidad: 3x^2","Histograma"), col = c("blue","green"), lwd =3)
 boxplot(muestra, col = "skyblue")
+
+
+
+
+### Simular valores de Variable Aleatoria por el método de aceptación-rechazo
+
+# 1. Generar dos numeros aleatorios U_1, U_2.
+set.seed(3)
+u1 <- runif(1)
+u2 <- runif(1)
+
+# 2. Comparar con f(x)/cg(x)
+while(u2>(256/27)*u1*(1-u1)^3){
+  u1 <- runif(1)
+  u2 <- runif(1)
+}
+X=u1
+X
+
+
+ddensidad<- function(x){
+  20*x*(1-x)^3
+}
+## Creamos una funcion para simular los valores de la variable
+beta20 <- function(){
+  # 1. Generar dos numeros aleatorios U_1, U_2.
+  u1 <- runif(1)
+  u2 <- runif(1)
+  # 2. Comparar con f(x)/cg(x)
+  while(u2 > (256 / 27) * u1 * (1 - u1) ^ 3){
+    u1 <- runif(1)
+    u2 <- runif(1)
+  }
+  u1
+}
+library(dplyr)
+library(plyr)
+sims <- rdply(10000, beta20)
+sims
+
+
+hist(sims$V1, breaks="FD", freq=FALSE,
+     xlim = c(0,1),ylim = c(0,2.5),main = "Histograma para valores simulados")
+curve(ddensidad(x), add=TRUE, col="red")
