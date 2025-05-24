@@ -1,51 +1,32 @@
-## Métodos Monte  Carlo vía cardenas de Markok
-## Generar una cadena de Markov
-
-#Dada la siguiente función de densidad: f(x) = 0.3x, construir una cadena 
-#que tenga una distribución estacionario o distribución de equilibrio f(x)
-
-x <- NULL
+## Script para el algoritmo de MH
+set.seed(4606)
+sigma <-2 #Parámetro de escala de la distribución Normal
+n <- 10000 ## generar 100 iteraciones
+x <- rep(0,n) #Creamos estados de la cadena
 x
-x[1] = rnorm(1,0,1)
-for (i in 2:2000) {
-  x[i] = 0.3 * x[(i-1)] + rnorm(1,0,1)
+x[1] <- rnorm(1) # Si no se coloca los parametro de escala y forma entonces N(0,1)
+for (i in 2: n){
+  y <- x[i-1]+sigma*rnorm(1) # y es el parametro
+  # propuesto, x[i] es el para¡metro a ser inferenciado
+  u <- runif(1)
+  ratio <- (dcauchy(y)*dnorm(x[i-1],y,sigma))/
+    (dcauchy(x[i-1])*dnorm(y,x[i-1],sigma))
+  alpha <- min(1,ratio)
+  if(u<=alpha){x[i] <- y}
+  else{x[i] <- x[i-1]}
 }
-
-#Gráfica de la cadena
-plot(ts(x), col = "hotpink", xlab = "Estados t", ylab = "Valores de los estados", 
-     main = "Cadena de Markov para f(x) = 0.3x")
-
-## Forma empirica de verificar la convergencia
-#1. Promedio Ergodico
-mergod = cumsum(x)/(1:length(x))
-plot(1:2000, mergod, col = "red", cex=0.7, type = "l",
-     ylab = "Promedio de la cadena", xlab = "t")
-
-#2. No correlación serial
-acf(x)
-
-#3. Histograma de los datos simulados
-hist(x, breaks = 50, prob = T)
-grid = seq(-8, 8, 0.01)
-var.x = 1/(1-0.3^2)
-lines(grid, dnorm(grid, 0, sqrt(var.x)), col = "hotpink", lwd = 3)
+y=x
+#Visualmente vemos el comportamiento de la cadena (Ver si ya convergio)
+#Ultimas 10,000 iteraciones
+plot(seq(n-1000,n),y[(length(y)-1000):length(y)],
+     type = "l",xlab='t',ylab=expression(y),main="Cadena")
 
 
-
-
-#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-#Formar grupo de 3 integrantes, cada grupo va a proponer simular valores de variables
-#aleatorias por el metodo de la inversa, aceptacion-rechazo o composicion
-
-#A ese caso se nos va a brindar la distribucion compleja
-#Simular los valores de la distribucion que se va a brindar
-
-#Encontrar por el metodo de la composicion, pero hacer el mismo proceso utilizando
-#Por el metodo de la inversa
-
-#Aplicar la inversa a todo o solo cada valor, pero como se realiza
-
-#Buscar puntos de equilibrio
-
-
-# Proponer 2 ejercicios: Utilizar uno de los metodos 
+#calentamiento o burn-in, eliminando las 100 primeras iteraciones
+burn<-1000
+y=y[burn:length(y)]
+#Vemos independencia
+acf(y)
+library(MASS)
+truehist(y)
+curve(dcauchy(x),-30,30,add = TRUE, col="red")
