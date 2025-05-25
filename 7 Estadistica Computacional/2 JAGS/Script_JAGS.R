@@ -22,7 +22,7 @@ data_jags <- list(
   N = length(y)
 )
 
-# Valores iniciales
+# Valores iniciales de los parámetros alpha y beta
 inits <- function() {
   list(alpha = 1, beta = 1)
 }
@@ -43,6 +43,7 @@ jags1 <- jags(
 )
 
 summary(jags1)
+jags1$BUGSoutput
 
 # Estadísticas descriptivas distribuciones a posteriori
 jags1$BUGSoutput$summary
@@ -58,7 +59,7 @@ jags1$BUGSoutput$summary["theta[2]", ]
 jags1$BUGSoutput$DIC
 
 # Diagnósticos de convergencia
-library(mcmc)
+library(ggmcmc)
 library(coda)
 
 jags1.mcmc <- as.mcmc(jags1)
