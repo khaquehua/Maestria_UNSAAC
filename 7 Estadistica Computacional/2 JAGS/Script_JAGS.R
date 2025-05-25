@@ -66,7 +66,7 @@ jags1.mcmc <- as.mcmc(jags1)
 M <- ggs(jags1.mcmc)
 
 # Diagnósticos gráficos
-densidad <- ggs_denity(M) ## densidad de los parámetros esetimados
+densidad <- ggs_density(M) ## densidad de los parámetros esetimados
 densidad
 traceplot <- ggs_traceplot(M) ## cadenas de los parámetros estimados
 traceplot
