@@ -1,9 +1,40 @@
 \begin{thebibliography}{}
 
-\bibitem[Grana y Chyzhyk, 2015]{grana2015image}
-Grana, M. y Chyzhyk, D. (2015).
-\newblock Image understanding applications of lattice autoassociative memories.
-\newblock {\em IEEE Transactions on Neural Networks and Learning Systems},
-  27(9):1920--1932.
+\bibitem[Awwad et~al., 2025]{awwad2025thickness}
+Awwad, S.~T., Hammoud, B., Assaf, J.~F., Asroui, L., Randleman, J.~B., Roberts,
+  C.~J., Koch, D.~D., Kaisania, J., Mehanna, C.-J., y Elbassuoni, S. (2025).
+\newblock Thickness speed progression index: Machine learning approach for
+  keratoconus detection.
+\newblock {\em American Journal of Ophthalmology}, 271:188--201.
+
+\bibitem[Elkitkat et~al., 2022]{elkitkat2022accuracy}
+Elkitkat, R.~S., Rifay, Y., Gharieb, H.~M., y Ziada, H. E.~A. (2022).
+\newblock Accuracy of the indices of ms-39 anterior segment optical coherence
+  tomography in the diagnosis of keratoconic corneas.
+\newblock {\em European Journal of Ophthalmology}, 32(4):2116--2124.
+
+\bibitem[Li et~al., 2025]{li2025enhancing}
+Li, S., Huo, Y., Xie, R., Han, Y., Zou, H., y Wang, Y. (2025).
+\newblock Enhancing early detection of keratoconus suspects using interocular
+  corneal tomography asymmetry.
+\newblock {\em International Ophthalmology}, 45(1):55.
+
+\bibitem[Peck, 2006]{peck2006statistics}
+Peck, R. (2006).
+\newblock Statistics: A guide to the unknown.
+\newblock {\em (No Title)}.
+
+\bibitem[Sinjab, 2021]{sinjab2021corneal}
+Sinjab, M.~M. (2021).
+\newblock {\em Corneal tomography in clinical practice (Pentacam system):
+  Basics and clinical interpretation}.
+\newblock JP Medical Ltd.
+
+\bibitem[Zhao et~al., 2024]{zhao2024evaluation}
+Zhao, S.~H., Berkowitz, C., Ralay~Ranaivo, H., Laurenti, K., Bohnsack, B.~L.,
+  Basti, S., y Rossen, J.~L. (2024).
+\newblock Evaluation of parameters for early detection of pediatric
+  keratoconus.
+\newblock {\em BMC ophthalmology}, 24(1):463.
 
 \end{thebibliography}
