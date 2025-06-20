@@ -1,0 +1,63 @@
+\documentclass[12pt,a4paper,oneside]{article}
+%\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage[utf8]{inputenc} %Acentos y caracteristicas del idioma español
+\usepackage[spanish]{babel} %Secciones y partes en español
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{makeidx}
+\usepackage{graphicx}
+\usepackage{lmodern}
+\usepackage{enumerate}
+\usepackage{amsthm}
+\usepackage{hyperref}
+\usepackage{float}
+
+
+
+%%----------------------------------, 
+%\usepackage[backend=biber, style=ieee]{biblatex}
+%\usepackage[T1]{fontenc}
+%\usepackage[light,math]{anttor}
+%%----------Normaliza el tamaño de texto en secciones----------------
+\usepackage{sectsty} %tipo de letra-buscar
+\usepackage{newtxtext,newtxmath}
+\usepackage{fancyhdr}
+\allsectionsfont{\normalsize}
+\usepackage[left=2.54cm, right=2.54cm, top=2.54cm, bottom=2.54cm]{geometry}
+\usepackage[dvipsnames,x11names,table]{xcolor} % x11names habilita un conjunto de colore
+\usepackage{fancybox}
+\usepackage{verbatim}
+\usepackage{tabularx}
+\newtheorem{teo}{Teorema}[section]
+\newtheorem{propo}{Proposición}[section]
+\newtheorem{coro}{Corolario}[section]
+\newtheorem{lema}{Lema}[section]
+\theoremstyle{definition}
+\newtheorem{defi}{Definición}[section]
+\newtheorem{ejem}{Ejemplo}[section]
+\newtheorem{obs}{Observación}[section]
+\def\proof{\paragraph{Demostraci\'on:\\}}
+\def\endproof{\hfill$\square$} %%coloca un recuadro al final de la demostración
+\usepackage{setspace}
+\spacing{2}
+\usepackage{multirow}
+\renewcommand{\baselinestretch}{2}%\normalsize interlineado
+\parindent=0mm %ELIMINA SANGRIA
+\definecolor{carmine}{rgb}{0.59, 0.0, 0.09}
+
+
+\begin{document}
+
+
+\spacing{2}
+
+\input{proyecto/portada}
+\pagestyle{plain}
+\input{proyecto/cuerpo}
+\pagestyle{empty}
+\bibliographystyle{apalike}
+
+\bibliography{bibliografia}
+\end{document}
