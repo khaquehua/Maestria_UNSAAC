@@ -2,11 +2,40 @@
 \newpage
 
 \section{Planteamiento del problema}
+\subsection{Situación problemática}
 El queratocono es una enfermedad que afecta a la córnea causando mala visión de forma progresiva y evolutia en pacientes jóvenes. Según la Organización Mundial de la Salud (OMS) esta enfermedad puede indicar cifras epidémicas. A pesar de que se considere una afección de impacto moderado y no tan grave que afecta a la función visual y calidad de vida, esta enfermedad puede resultar más perjudicial ya que puede afectar a individuos totalmente activos \cite{thalasselis1988keratoconus}. El queratocono generalmente inicia en la pubertad hasta la tercera o casos de cuarta década de vida \cite{althomali2018prevalence}, sus síntomas son variables y dependen de la etapa de progresión que se encuentre, en etapas iniciales no pueden presentarse síntomas hasta etapas más avanzadas en donde el paciente experimenta una distorsión notable en la visión acompañada de una pérdida visual severa. A pesar de eso no llegan a producir ceguera completa debido a esta enfermedad \cite{rabinowitz1998keratoconus}. 
 
 Los primeros estudios de prevalencia se llevó en la población de Indianapolis, USA encontró 600 casos por 100,000 (0.6$\%$). Un estudio poblacional más reciente informó una prevalencia de 375 por 100,000 (0.375$\%$) en Países Bajos \cite{godefrooij2017age}. Mientras que en Latino América  los registros de prevalencia son muy pocos, teniendo en Paraná entre Ríos-Argentina una prevalencia aproximada de 229 por cada 100,000 habitantes con edad promedio de diagnóstico a los 24.5 años \cite{pussetto2011alta}, en la ciudad de Quito en Ecuador se tuvo una prevalencia de (0.75$\%$) \cite{mansfield2017queratocono}, por otra parte en el Hospital Regional Honorio Delgado, durante el periodo 2014 - 2017 en Arequipa-Perú se evidenció que la prevalencia de queratocono fue de 1.37 por cada mil pacientes atendidos \cite{ramos2018prevalencia}. Por último con respecto a la ciudad del Cusco en el trabajo de investigación de \cite{samaniego2023prevalencia} reportó en el Centro de Salud Integral La Fuente una prevalencia de 3.32$\%$ siendo esta mayor a las otras zonas estudiadas en el cual aún no se le esta dando la importancia por parte del estado peruano.
 
-Asimismo en la clínica Oftalmo Salud del Perú indica que no se sabe con certeza porque algunas personas desarrollan Queratocono, aunque hay estudios con asociaciones a la genética o dicho hereditaria, asimismo con alergías y lesiones oculares provocado por la frotación excesiva de los ojos, el uso inapropiado de lentes de contacto y la presencia de algunas patologías como la queratoconjuntivis vernal, la retinitis pigmentaria o la retinopatía del prematura. Múltiples estudios han desarrollado técnicas para poder realizar la detección temprana de esta enfermedad ya sea por modelos de Machine Learning que indicaron que índices de PENTACAM fueron anormales para detección y exclusión de pacientes con queratocono \cite{zhao2024evaluation}, usando la regresión logística tomando los índices de asimetría \cite{li2025enhancing}.
+Asimismo en la clínica Oftalmo Salud del Perú indica que no se sabe con certeza porque algunas personas desarrollan Queratocono, aunque hay estudios con asociaciones a la genética o dicho hereditaria, asimismo con alergías y lesiones oculares provocado por la frotación excesiva de los ojos, el uso inapropiado de lentes de contacto y la presencia de algunas patologías como la queratoconjuntivis vernal, la retinitis pigmentaria o la retinopatía del prematura. Múltiples estudios han desarrollado técnicas para poder realizar la detección temprana de esta enfermedad ya sea por modelos de Machine Learning que indicaron que índices de PENTACAM fueron anormales para detección y exclusión de pacientes con queratocono \cite{zhao2024evaluation}
 
-En este caso va la importancia del correcto de modelos estadísticos
+En el que teniendo este enfoque nos encontramos en un marco de incertidumbre en el cual es necesario construir un modelo probabilístico del comportamiento de esta enfermedad. Los enfoques bayesianos para problemas bioestadísticos se volvieron comunes en aplicaciones epidemiológicas, el uso de la metodología bayesiana ha experimentado grandes avances, aumentando el enfoque del uso bayesiano \cite{lawson2018bayesian}. Centrandonos en la construcción de modelos para relacionar estructura de datos complicados con preguntas científicas, verificando el ajuste de dicho modelo e investigando la sensibilidad de las conclusiones a supuestos de modelos razonables. \cite{Gelman_2013} indica que una de las fortalezas del enfoque bayesiano reside en combinar información de diferentes fuentes y dar una explicación más amplia de la incertidumbre acerca de las incógnitas en un problema estadístico.
+Estudios de enfermedades raras ya aplican este enfoque como lo es de \cite{fouarge2021hierarchical} en el que estudia las miopatías centronucleares con un modelo jerárquico bayesiano con distribución de probabilidad beta y una función logit de enlace, en el cual el autor menciona que este tipo de problemas pueden ser abordado bajo el enfoque bayesiano en el que se deban realizar más investigaciones con el diálogo continuo de autoridades reguladoras que permitan la aplicación de la estadística bayesiana. Asimismo en el trabajo de \cite{ferez2017redes} indicó que una herramienta para apoyar en la tomade decisiones de la medicina basada en la evidencia son las redes bayesianas ya que tiene una capacidad para representar las relaciones causales que tienen las variables involucradas en un problema, y que se visualice de una manera intuitiva.
+
+En el cual el objetivo es determinar un modelo probabilístico basado en los modelos bayesianos jerárquicos que permitan cuantificar la incertidumbre de la detección de la enfermedad del queratocono en la ciudad del Cusco, tomando en cuenta los diferentes estudios de esta enfermedad ya sea en la asociación de variables clínicas, tomográficas, tests, etc. Con el fin de modelar una distribución probabilística que permita cuantificar la incertidumbre de esta enfermedad y asimismo optimizar los costos en pruebas más costosas en base a la información disponible para la mayor parte de centros de salud.
+
+\subsection{Formulación del problema de investigación}
+\subsubsection{Problema general}
+¿Cómo detectar el queratocono bajo un enfoque probabilístico tomando la información dada por las diferentes investigaciones?
+
+\subsubsection{Problemas específicos}
+\begin{enumerate}
+\item ¿Qué variables clínicas, demográficas y tomográficas apoyan en la detección del queratocono?
+\item ¿Qué modelo jerárquico representa la relación entre las variables clínicas, demográficas y tomográficas en la detección del queratocono?
+\item ¿Cómo obtenemos la inferencia de probabilidad en la presencia o ausencia de queratocono a partir del modelo?
+\item ¿Cómo implementar las inferencias de riesgo a nivel individual?
+\end{enumerate}
+
+
+\subsection{Objetivos de investigación}
+\subsubsection{Objetivo general}
+Desarrollar una detección probabilística del queratocono utilizando modelos jerárquicos bayesianos y redes bayesianas, en el que se integren múltiples fuentes de información clínica.
+
+\subsubsection{Objetivo específicos}
+\begin{enumerate}
+\item Determinar las variables clínicas, demográficas y tomográficas que apoyen en la detección del queratocono.
+\item Diseñar un modelo jerárquico que represente la relación entre las variables clínicas, demográficas y tomográficas en la detección del queratocono.
+\item Construir una red bayesiana estructurada que infiera la probabilidad de presencia o ausencia del queratocono a partir de las variables observadas.
+\item Implementar un prototipo computacional que visualize las inferencias de riesgo de queratocono a nivel individual.
+\end{enumerate}
 
