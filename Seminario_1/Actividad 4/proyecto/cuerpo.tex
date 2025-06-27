@@ -42,14 +42,53 @@ Desarrollar un protocolo de detección de queratocono bajo un enfoque metodológ
 \newpage
 \section{Marco teórico conceptual}
 \subsection{Bases teóricas}
+\subsubsection{Axiomas de probabilidad y notaciones básicas}
 
+\begin{defi}
+    \textbf{Notaciones} \cite{koski2011bayesian}
+    \begin{itemize}
+        \item El conjunto de todos los posibles resultados de un experimento aleatorio es denotado por $\Omega$
+        \item El resultado de un posible experimento aleatorio o un conjunto del resultado es representado por $X$
+        \item El espacio de parámetros es denotado por $\tilde{\Theta}$, tal que $\Omega = X \times \tilde{\Theta}$
+        \item Si $A$ y $B$ son dos conjuntos, luego $A \cup B$ representa la unión, además que si ${A}_{1},{A}_{2},\cdots,{A}_{n}$ son una colección finita de conjuntos, entonces $\bigcup_{i=1}^{n} {A}_{i}$ representa la unión de conjuntos.
+        \item Si $A$ y $B$ son dos conjuntos, luego $A \cap B$ representa la intersección, además que si ${A}_{1},{A}_{2},\cdots,{A}_{n}$ son una colección finita de conjuntos, entonces $\bigcap_{i=1}^{n} {A}_{i}$ representa la intersección de conjuntos.
+        \item $A \subset B$ denota que $A$ es un subconjunto de $B$. $A \subseteq B$ denota que $A$ es un subconjunto de $B$, posiblemente igual a $B$
+        \item El conjunto vacío puede ser denotado por $\emptyset$
+        \item ${A}^{c}$ denota el complemento de $A$ 
+    \end{itemize}
+\end{defi}
+
+\begin{defi}
+    \textbf{Probabilidad} \cite{koski2011bayesian}
+    La distribución de probabilidad $P$ es una función que satisface los axiomas de Kolmogorov
+    \begin{enumerate}
+        \item $P(\emptyset) = 0$ y $P(\Omega) = 1$
+        \item Si ${A}_{1},{A}_{2},\cdots,{A}_{n}$ es una colección finita tal que para cada $A_i$ como eventos que satisface ${A}_{j} \cap {A}_{k} = \emptyset$ para todo $j \neq k$, entonces
+        $$P(\bigcup_{i=1}^{n} {A}_{i})=\sum\limits_{i = 1}^{n}P(A_i)$$ 
+        \item $0 \leq P(A) \leq 1$ para todo $A$ que pertenece a $\Omega$
+    \end{enumerate}
+\end{defi}
+
+\begin{defi}
+    \textbf{Distribución de probabilidad sobre $X$} \cite{koski2011bayesian}
+    Si $X$ contiene un número finito de elementos $x$, una distribución de probabilidad sobre $X$ satisface
+    \begin{enumerate}
+        \item $P(x) \geq 0$ para todo $x \in X$
+        \item $\sum\limits_{x \in X}^{}P(x) = 1$
+    \end{enumerate}
+\end{defi}
 
 \subsection{Marco conceptual (palabras clave)}
 
 
 \subsection{Antecedentes empíricos de la investigación}
 \subsubsection{Antecedentes Internacionales}
-El estudio de \cite{waddell2023applying} aplicó las redes bayesianas para el apoyo en la toma de decisiones, tomando datos de diferentes fuentes para explorar fenotípicos específicos y resultados clínicos, en la cual se pueden tener deficiencias debido al conjunto de datos pequeños y cohortes desequilibrados llegando a realizar inferencias falsas probabilísticas. Algo importante de destacar es como el uso de redes bayesianas ayuda en la detección de enfermedades especialmente en incertidumbre compleja, asimismo el autor indicar de que a pesar que la medicina actualmente se encuentra en competencia con el desarrollo de la inteligencia artificial, esta a su vez debe ser poder interpretada por los médicos en el cual el verdadero potencial de las redes bayesianas viene a ser la capacidad de hablar el lenguaje clínico, modelar preguntas relacionales causales y responder preguntas al explorar fenotipos individuales llegando a plantear preguntas cruciales como ¿por qué? y ¿que pasaria sí?
+El estudio de \cite{waddell2023applying} aplicó las redes bayesianas para el apoyo en la toma de decisiones, tomando datos de diferentes fuentes para explorar fenotípicos específicos y resultados clínicos, en la cual se pueden tener deficiencias debido al conjunto de datos pequeños y cohortes desequilibrados llegando a realizar inferencias falsas probabilísticas. Algo importante de destacar es como el uso de redes bayesianas ayuda en la detección de enfermedades especialmente en incertidumbre compleja, asimismo el autor indicar de que a pesar que la medicina actualmente se encuentra en competencia con el desarrollo de la inteligencia artificial, esta a su vez debe ser poder interpretada por los médicos en el cual el verdadero potencial de las redes bayesianas viene a ser la capacidad de hablar el lenguaje clínico, modelar preguntas relacionales causales y responder preguntas al explorar fenotipos individuales llegando a plantear preguntas cruciales como ¿por qué? y ¿que pasaria sí?. \\
+
+El trabajo de \cite{ferez2017redes} presenta una mejor evidencia de la medicina basada en la evidencia en el cual se debe tener un uso consciente, explícito y juicioso de la evidencia científica disponible para tomar la decisión de los pacientes, en el cual comprender la realidad y expresarla de manera sistemática, inteligible y sintética. Integrar la experiencia de los profesionales con la evidencia científica disponible para mejorar la toma de decisiones clínicas. Para conseguir este propósito se tienen diferentes entes matemáticas en la que su estudio enfatizó a las redes bayesianas como una de las herramientas más valiosas en el proceso de toma de decisiones. El trabajo planteo conceptos probabilísticos enfocado al análisis bayesiano en los cuales se fundamentan las redes bayesianas, para posteriormente crear dos redes a ejemplos prácticos, en la cual la red bayesiana tiene una capacidad para representar la relación causa entre variables involucradas en un problema y visualizarlas de una manera muy intuitiva, el cual es el modelo gráfico probabilístico más utilizado en el marco de la toma de decisión diagnóstica.
+
+\subsubsection{Antecedentes Nacionales}
+La investigación de \cite{lopezmodelamiento} para optar el título de maestro en Estadística de la Pontífice Universidad Católica del Perú, se basó acerca de las infecciones respiratorias, en la cual buscó establecer una relación entre la incidencia de infecciones respiratorias agudas (IRA) y la incidencia de neumonía en el Perú en la cual además de ver si estas variables están correlacionadas quiso dar un enfoque espacial a nivel provincial en la cual se esperaría que la incidencia de (IRA) y neumonía sea mayor en provincias vecinas. Por lo cual se estudió la distribución espacial entre la incidencia de (IRA) y neumonía a nivel provincial en el Perú a través de un modelo espacial multivariado con efectos aleatorios condicionales autoregresivos utilizando inferencia bayesiana en el modelo jerárquico espacial multivariado a través del método de integración anidada de Laplace (INLA). El cual mostró una bondad de ajuste del modelo y su eficacia en la simulación realizada teniendo una optimización de tiempo menor, asimismo se vio una correlación positiva directa entre las personas con (IRA) sin neumonía y neumonía. Además de que se tuvo evidencia estadística entre las precipitaciones y la neumonía, indicando que el aumento de precipitaciones en una provincia reduce significativamente la incidencia de IRA sin neumonía, mientras el aumento de precipitación en una provincia aumenta la incidencia de neumonías en dicha provincia, teniendo una autocorrelación espacial moderada con respecto a las tasas de enfermedad entre provincias vecinas, recomendado que se puede trabajar con más covariables y factores que expliquen mejor la causalidad del modelo, de la misma forma incluir un modelo espacio-temporal empleando INLA que tiene una mejor eficiencia computacional al trabajar con más datos.
 
 \begin{landscape}
 \section{Matriz de consistencia}
