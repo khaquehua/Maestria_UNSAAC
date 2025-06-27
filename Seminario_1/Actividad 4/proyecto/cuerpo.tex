@@ -1,4 +1,4 @@
-
+\tableofcontents
 \newpage
 
 \section{Planteamiento del problema}
@@ -77,6 +77,78 @@ Desarrollar un protocolo de detección de queratocono bajo un enfoque metodológ
         \item $\sum\limits_{x \in X}^{}P(x) = 1$
     \end{enumerate}
 \end{defi}
+
+\begin{defi}
+    \textbf{Regla de Bayes} \cite{koski2011bayesian}
+    La regla de Bayes para dos eventos $A$ y $C$ es dada por
+    $$P(A/C) = \frac{P(C/A)P(A)}{P(C)}$$
+\end{defi}
+
+\subsubsection{Análisis de datos bayesiano}
+La característica esencial de los métodos bayesianos es uso de la probabilidad para cuantificar la incertidumbre en inferencias basadas en el análisis de datos estadísticos. En los que \cite{gelman1995bayesian} los divide en estos tres pasos:
+\begin{enumerate}
+    \item Configurar un modelo de probabilidad completo en el cual se debe de tener una distribución de probabilidad conjunta para todas cantidades observadas y no observadas en un problema, en el cual el modelo debe ser coherente con el conocimiento científico subyacente y el proceso de recopilación de datos.
+    \item El condicionamiento sobre datos observados en el que se debe calcular e interpretar la distribución aposteriori apropiada en el que la distribución de probabilidad no observada como último interés que va a estar dado por los datos observados.
+    \item Evaluación del ajuste del modelo y las implicaciones de las distribuciones aposteriori resultante, planteando las siguientes preguntas: ¿Qué tan bien se ajusta el modelo a los datos?¿Son razonables las conclusiones sustanciales?¿Qué tan sensibles son los resultados a los supuestos del modelo del primer paso?. En respuesta se puede modificar o expandir el modelo y repetir los tres pasos.
+\end{enumerate}
+
+\subsubsection{Inferencia Bayesiana}
+Las conclusiones estadísticas bayesianas acerca de un parámetro desconocido $\theta$ de datos no observados $\tilde{y}$ son explicados en términos de probabilidad que son condicionadas de los valores observados de $y$, en la que su notación puede ser escrito como $P(\theta | x)$, también se condiciona los valores conocidos de cualquier covariable $x$ \cite{gelman1995bayesian}
+
+\subsubsection{Modelo de verosimilitud}\cite{lawson2018bayesian}
+La verosimilitud dado los datos $y_i$ donde $i = 1, \cdots, m$ es definido como
+$$
+L(\mathbf{y}|\theta) = \prod\limits_{i = 1}^{m}f({y}_{i}|\theta)
+$$
+Donde $\theta$ es un vector de longitud $p$: $\{ {\theta}_{1}, {\theta}_{2}, \cdots , {\theta}_{p} \}$ y $f(\cdot | \cdot)$ es una función de densidad (o masa), es posible calcular el producto de las contribuciones individuales ya que los valores de la muestra $\mathbf{y}$ dado los parámetros son independientes. El logaritmo de verosimilitud es importante en el desarrollo de modelos y es definido como:
+$$
+l(\mathbf{y}| \theta) = \sum\limits_{i = 1}^{m}\text{log }f({y}_{i}| \theta)
+$$
+
+\subsubsection{Distribución a priori}
+Todos los parámetros de los modelos bayesianos son estocásticos y son asignados apropiadamente por las distribuciones de probabilidad, la distribución a priori se asigna al parámetro antes de ver los datos, además que las distribuciones a priori es que proporcionan datos adicionales a un problema y que pueden usarse para mejorar la estimación o la identificación de los parámetros \cite{lawson2018bayesian}.
+
+Para un vector de parámetros $\theta$, la distribución a priori puede ser denotada como $\mathbf{g}(\theta)$
+
+\subsubsection{Distribución a posteriori}
+Las distribuciones a priori y la verosimilitud proporcionan dos fuentes de información acerca de cualquier problema. La verosimilitud informa sobre el parámetro con los datos, mientras que la distribución a priori informa sobre las creencias o informaciones previas \cite{lawson2018bayesian}. Cuando hay grandes cantidades de datos, es decir un tamaño de muestra grande, la probabilidad contribuirá más en la estimación del riesgo relativo, cuando se tienen pocos datos, la distribución a priori dominará el análisis.
+
+El producto de la verosimilitud y la distribución a priori es llamado como la distribución a posteriori, en el cual esta distribución describe los parámetros dado los datos observados y poder realizar suposiciones previas, esta es definida como:
+$$
+P(\theta | \mathbf{y}) = L(\mathbf{y} | \theta)\mathbf{g(\theta)/C}
+$$
+Donde $C = \int_{P}^{}L(\mathbf{y}|\theta)\mathbf{g}(\theta)d\theta$ con $\mathbf{g}(\theta)$ como la distribución conjunta de los vectores $\theta$. Alternativamente este vector puede ser especificada de manera proporcional: $P(\theta | \mathbf{y}) \propto L (\mathbf{y} | \theta)\mathbf{g}(\theta)$
+
+\subsubsection{Conjugación}
+Ciertas combinaciones de distribuciones a priori y verosimilitudes conducen a una distribución a posteriori que la distribución a priori. Esto genera ventajas en la inferencia, ya que la forma a posteriori se desprenderá de la especificación previa \cite{lawson2018bayesian}. La Tabla \ref{tabla:distribuciones} muestra unos ejemplos de conjugación.
+
+\begin{table}[htb]
+\centering
+\begin{tabular}{|p{4cm}|p{4cm}|p{7cm}|}
+\hline
+\textbf{Verosimilitud} & \textbf{Priori}& \textbf{Posteriori} \\ \hline
+$\mathbf{y} \sim Poisson(\theta)$ & $\theta \sim G(\alpha, \beta)$ & $\theta|\mathbf{y} \sim G(\sum{y}_{i} + \alpha,m + \beta)$ \\
+$\mathbf{y} \sim binomial(\mathbf{p},1)$ & $\mathbf{p} \sim Beta({\alpha}_{1}, {\alpha}_{2})$ & $\mathbf{p}|\mathbf{y} \sim Beta(\sum{y}_{i} + {\alpha}_{1},m - \sum {y}_{i} + {\alpha}_{2})$ \\
+$\mathbf{y} \sim N(\mu, \tau), \tau \text{ fijo}$ & $\mu \sim N({\alpha}_{0}, {\tau}_{0})$ & $\mu|\mathbf{y} \sim N\left( \frac{{\tau}_{0}\sum {y}_{i} + {\alpha}_{0} \tau}{m {\tau}_{0} + \tau}, \frac{{\tau}_{0}\tau}{m{\tau}_{0}+\tau} \right)$ \\
+$\mathbf{y} \sim gamma(1,\beta)$ & $\beta \sim G({\alpha}_{0}, {\beta}_{0})$ & $\beta|\mathbf{y} \sim G(1 + {\alpha}_{0}, {\beta}_{0} + \sum{y}_{i})$ \\
+\hline
+\end{tabular}
+\caption{Ejemplos de distribuciones conjugadas}
+\label{tabla:distribuciones}
+\end{table}
+
+Por lo que la elección de la distribución a priori de los parámetros es muy importante ya que puede afectar a la distribución a posteriori significativamente, asimismo el equilibro entre la evidencia a priori y posteriori es relacionado a la verosimilitud y el tamaño de muestra.
+
+\subsubsection{Distribuciones predictivas}
+Las distribuciones a posteriori resume la comprensión de los parámetros dado los datos observados y toma un rol fundamental en el modelado bayesiano. Sin embargo también se puede examinar otras distribuciones relacionadas que pueden ser útiles cuando se requieren la predicción de nuevos datos, si definimos una nueva observación de $y$ como $y^*$. Podemos determinar la distribución predictiva de $y^*$ de dos formas. En general la distribución predictiva es definida como
+$$
+P(y^* | \mathbf{y}) = \int_{}^{} L(y^* | \theta)P(\theta | \mathbf{y})d\theta
+$$
+Aqui la predicción es basada en la marginal sobre los parámetros en la verosimilitud de los nuevos datos $L(y^* | \theta)$ usando la distribución a posteriori $P(\theta | y)$ para definir la contribución de los datos observados en la predicción. Definida como distribución predictiva posteriori. Una variante de esta definición usan la distribución a priori en lugar de la distribución a posteriori.
+$$
+P(y^* | \mathbf{y}) = \int_{}^{} L(y^* | \theta)P(\theta)d\theta
+$$
+Esto enfatiza la predicción basada solo en la distribución a priori (antes de ver algún dato), la cual simplemente es la distribución marginal de $y^*$
 
 \subsection{Marco conceptual (palabras clave)}
 
