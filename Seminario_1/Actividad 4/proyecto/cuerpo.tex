@@ -140,7 +140,7 @@ $\mathbf{y} \sim gamma(1,\beta)$ & $\beta \sim G({\alpha}_{0}, {\beta}_{0})$ & $
 Por lo que la elección de la distribución a priori de los parámetros es muy importante ya que puede afectar a la distribución a posteriori significativamente, asimismo el equilibro entre la evidencia a priori y posteriori es relacionado a la verosimilitud y el tamaño de muestra.
 
 \subsubsection{Distribuciones predictivas}
-Las distribuciones a posteriori resume la comprensión de los parámetros dado los datos observados y toma un rol fundamental en el modelado bayesiano. Sin embargo también se puede examinar otras distribuciones relacionadas que pueden ser útiles cuando se requieren la predicción de nuevos datos, si definimos una nueva observación de $y$ como $y^*$. Podemos determinar la distribución predictiva de $y^*$ de dos formas. En general la distribución predictiva es definida como
+Las distribuciones a posteriori resume la comprensión de los parámetros dado los datos observados y toma un rol fundamental en el modelado bayesiano. Sin embargo también se puede examinar otras distribuciones relacionadas que pueden ser útiles cuando se requieren la predicción de nuevos datos \cite{lawson2018bayesian}, si definimos una nueva observación de $y$ como $y^*$. Podemos determinar la distribución predictiva de $y^*$ de dos formas. En general la distribución predictiva es definida como
 $$
 P(y^* | \mathbf{y}) = \int_{}^{} L(y^* | \theta)P(\theta | \mathbf{y})d\theta
 $$
@@ -150,7 +150,48 @@ P(y^* | \mathbf{y}) = \int_{}^{} L(y^* | \theta)P(\theta)d\theta
 $$
 Esto enfatiza la predicción basada solo en la distribución a priori (antes de ver algún dato), la cual simplemente es la distribución marginal de $y^*$
 
+\subsubsection{Modelos Jerárquicos Bayesianos}
+En el modelado bayesiano, los parámetros libres tienen distribuciones. Estas distribuciones controlan la forma de los parámetros y son especificadas por el investigador basado generalmente en creencias previas sobre su comportamiento \cite{lawson2018bayesian}. 
+
+La idea de que los valores de los parámetros podrían surgir de distribuciones es una característica fundamental de la metodología bayesiana y conduce al uso de modelos donde los parámetros surgen dentro de jerarquías
+
+\subsubsection{Redes bayesianas}
+Las redes bayesianas constituyen el refinamiento de un método de diagnóstico probabilístico conocido como el método probabilístico clásico \cite{koski2011bayesian}, tomemos en cuenta para el diagnóstico de enfermedades los siguientes conceptos:
+
+Si se desea diagnosticar $n$ enfermedades ${E}_{1},{E}_{2},{E}_{3}, \cdots, {E}_{n}$ a partir de un conjunto de $m$ hallazgos ${H}_{1}, {H}_{2}, {H}_{3}, \cdots, {H}_{m}$ mostrado en el grafo se tiene una representación en la Figura \ref{figura:red_bayesiana}
+
+\begin{figure}[htb]
+\centering
+\includegraphics[scale=0.7]{imagenes/redes_bayesianas.png}
+\caption{Grafo de una red bayesiana entre enfermedades y hallazgos}
+\label{figura:red_bayesiana}
+\end{figure}
+
+Entonces el objetivo sería calcular las probabilidades del tipo:
+
+$$
+P({E}_{1}, {E}_{2}, \cdots, {E}_{n} | {H}_{1}, {H}_{2}, \cdots, {H}_{m})
+$$
+
+Estas probabilidades refieren a las probabilidades de cada enfermedad si están presentes o ausentes cuando se conoce una serie de observaciones asociadas a cada uno de los distintos hallazgos, entonces es necesario conocer:
+
+\begin{itemize}
+\item Probabilidad a priori de las distintas enfermedades
+\item Probabilidad de que se obtengan determinadas observaciones asociadas a los distintos hallazgos conocida como la presencia o ausencia de las distintas enfermedades, es decir la verosimilitud.
+\end{itemize}
+En la cual integrando todas las probabilidades por la regla de Bayes se tiene:
+$$
+P({E}_{1},{E}_{2},\cdots,{E}_{n}|{H}_{1},{H}_{2},\cdots,{H}_{m}) = \frac{P({H}_{1},{H}_{2},\cdots,{H}_{m}|{E}_{1},{E}_{2},\cdots,{E}_{n})P({E}_{1},{E}_{2},\cdots,{E}_{n})}{\sum\limits_{{E}_{1}^{c},\cdots,{E}_{n}^{c} }^{}P({H}_{1},{H}_{2},\cdots,{H}_{m}|{E}_{1}^{c},{E}_{2}^{c},\cdots,{E}_{n}^{c})P({E}_{1}^{c},{E}_{2}^{c},\cdots,{E}_{n}^{c})}
+$$
 \subsection{Marco conceptual (palabras clave)}
+
+\begin{itemize}
+\item \textbf{Queratocono:} Transtorno corneal ectásico, caracterizado por adelgazamiento progresivo del estroma y debilitamiento estructural con protrusión apical en forma de cono, llevando a defectos refractivos como miopía progresiva, astigmatismo irregular, cicatrización y disminución de la visión \cite{caruso2024corneal}
+
+\item \textbf{Modelos bayesianos:} Modelos basados en la regla de Bayes en las cuales se estima la probabilidad a posteriori basada en información previa y verosimilitud de los datos \cite{koski2011bayesian}
+
+\item \textbf{Redes bayesianas:} Representación gráfica de dependencias para razonamiento probabilístico, en la cual los nodos son las variables aleatorias y representa dependencia directa entre las variables \cite{sucar2006redes}
+\end{itemize}
 
 
 \subsection{Antecedentes empíricos de la investigación}
