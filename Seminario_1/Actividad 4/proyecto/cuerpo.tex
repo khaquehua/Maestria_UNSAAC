@@ -26,6 +26,12 @@ En el cual el objetivo es determinar un modelo probabilístico basado en los mod
 \item ¿Cómo implementar las inferencias de riesgo a nivel individual?
 \end{enumerate}
 
+\subsection{Justificación de la investigación}
+El presente estudio aplica modelos estadísticos bayesianos jerárquicos y redes bayesianas como herramientas metodológicas robustas para el análisis y detección del queratocono. La elección de enfoques bayesianos se fundamenta en su capacidad para incorporar conocimiento previo (experiencia clínica, estudios anteriores, o literatura científica) y actualizar continuamente las inferencias a medida que se dispone de nuevos datos. En particular, los modelos jerárquicos permiten estructurar la incertidumbre en múltiples niveles (por ejemplo, paciente, grupo poblacional, centro de salud), lo cual es especialmente útil en contextos médicos con datos heterogéneos o limitados. Por otro lado, las redes bayesianas facilitan la representación gráfica y probabilística de relaciones causales o condicionales entre variables clínicas, permitiendo la detección temprana, el diagnóstico asistido por probabilidad, y la simulación de escenarios clínicos bajo distintos supuestos.
+
+Asimismo, la implementación de estos modelos permite mejorar la precisión diagnóstica, optimizar los protocolos de atención clínica y reducir el riesgo de error médico en contextos de alta incertidumbre o recursos limitados. Al integrar evidencia previa con datos observacionales, se fortalece la toma de decisiones basada en datos, tanto a nivel individual (diagnóstico del paciente) como poblacional (definición de políticas de intervención). Además, estos enfoques pueden adaptarse a diversos contextos geográficos o epidemiológicos mediante su capacidad de actualización dinámica, permitiendo así protocolos clínicos personalizados y adaptativos. En conjunto, esta metodología no solo mejora la eficacia clínica, sino que también contribuye a una asignación más eficiente de los recursos sanitarios y al diseño de estrategias preventivas basadas en riesgo.
+
+
 
 \subsection{Objetivos de investigación}
 \subsubsection{Objetivo general}
@@ -203,6 +209,26 @@ El trabajo de \cite{ferez2017redes} presenta una mejor evidencia de la medicina 
 \subsubsection{Antecedentes Nacionales}
 La investigación de \cite{lopezmodelamiento} para optar el título de maestro en Estadística de la Pontífice Universidad Católica del Perú, se basó acerca de las infecciones respiratorias, en la cual buscó establecer una relación entre la incidencia de infecciones respiratorias agudas (IRA) y la incidencia de neumonía en el Perú en la cual además de ver si estas variables están correlacionadas quiso dar un enfoque espacial a nivel provincial en la cual se esperaría que la incidencia de (IRA) y neumonía sea mayor en provincias vecinas. Por lo cual se estudió la distribución espacial entre la incidencia de (IRA) y neumonía a nivel provincial en el Perú a través de un modelo espacial multivariado con efectos aleatorios condicionales autoregresivos utilizando inferencia bayesiana en el modelo jerárquico espacial multivariado a través del método de integración anidada de Laplace (INLA). El cual mostró una bondad de ajuste del modelo y su eficacia en la simulación realizada teniendo una optimización de tiempo menor, asimismo se vio una correlación positiva directa entre las personas con (IRA) sin neumonía y neumonía. Además de que se tuvo evidencia estadística entre las precipitaciones y la neumonía, indicando que el aumento de precipitaciones en una provincia reduce significativamente la incidencia de IRA sin neumonía, mientras el aumento de precipitación en una provincia aumenta la incidencia de neumonías en dicha provincia, teniendo una autocorrelación espacial moderada con respecto a las tasas de enfermedad entre provincias vecinas, recomendado que se puede trabajar con más covariables y factores que expliquen mejor la causalidad del modelo, de la misma forma incluir un modelo espacio-temporal empleando INLA que tiene una mejor eficiencia computacional al trabajar con más datos.
 
+\section{Hipótesis y variables}
+\subsection{Hipótesis general}
+El enfoque bayesiano mejorará la detección y protocolo del queratocono
+
+\subsection{Hipótesis específicas}
+\begin{enumerate}
+    \item Las variables más influyentes son las evaluadas en estudios previos de factores asociados al queratocono.
+    \item El modelo jerárquico bayesiano que representa la relación entre variables viene a ser un ordinal beta.
+    \item Las redes bayesianas representarán la relación causalidad del queratocono entre variables.
+    \item El prototipo computacional apoyará en las inferencias de riesgo a nivel individual.
+\end{enumerate}
+
+\subsection{Identificación de variables e indicadores}
+Las variables independientes viene a ser 
+
+
+
+
+
+
 \begin{landscape}
 \section{Matriz de consistencia}
 %\addcontentsline{toc}{chapter}{ANEXOS}
@@ -260,3 +286,4 @@ En proceso
 \end{table}
 
 \end{landscape}
+
