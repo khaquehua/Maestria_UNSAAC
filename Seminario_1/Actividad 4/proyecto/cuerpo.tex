@@ -12,7 +12,7 @@ Asimismo en la clínica Oftalmo Salud del Perú indica que no se sabe con certez
 En el que teniendo este enfoque nos encontramos en un marco de incertidumbre en el cual es necesario construir un modelo probabilístico del comportamiento de esta enfermedad. Los enfoques bayesianos para problemas bioestadísticos se volvieron comunes en aplicaciones epidemiológicas, el uso de la metodología bayesiana ha experimentado grandes avances, aumentando el enfoque del uso bayesiano \cite{lawson2018bayesian}. Centrandonos en la construcción de modelos para relacionar estructura de datos complicados con preguntas científicas, verificando el ajuste de dicho modelo e investigando la sensibilidad de las conclusiones a supuestos de modelos razonables. \cite{Gelman_2013} indica que una de las fortalezas del enfoque bayesiano reside en combinar información de diferentes fuentes y dar una explicación más amplia de la incertidumbre acerca de las incógnitas en un problema estadístico.
 Estudios de enfermedades raras ya aplican este enfoque como lo es de \cite{fouarge2021hierarchical} en el que estudia las miopatías centronucleares con un modelo jerárquico bayesiano con distribución de probabilidad beta y una función logit de enlace, en el cual el autor menciona que este tipo de problemas pueden ser abordado bajo el enfoque bayesiano en el que se deban realizar más investigaciones con el diálogo continuo de autoridades reguladoras que permitan la aplicación de la estadística bayesiana. Asimismo en el trabajo de \cite{ferez2017redes} indicó que una herramienta para apoyar en la tomade decisiones de la medicina basada en la evidencia son las redes bayesianas ya que tiene una capacidad para representar las relaciones causales que tienen las variables involucradas en un problema, y que se visualice de una manera intuitiva.
 
-En el cual el objetivo es determinar un modelo probabilístico basado en los modelos bayesianos jerárquicos que permitan cuantificar la incertidumbre de la detección de la enfermedad del queratocono en la ciudad del Cusco, tomando en cuenta los diferentes estudios de esta enfermedad ya sea en la asociación de variables clínicas, tomográficas, tests, etc. Con el fin de modelar una distribución probabilística que permita cuantificar la incertidumbre de esta enfermedad y asimismo optimizar los costos en pruebas más costosas en base a la información disponible para la mayor parte de centros de salud.
+En el cual el objetivo es determinar un modelo probabilístico basado en los modelos bayesianos jerárquicos que permitan cuantificar la incertidumbre de la detección de la enfermedad del queratocono en la ciudad del Cusco, tomando en cuenta los diferentes estudios de esta enfermedad ya sea en la asociación de variables clínicas, topográficas, tests, etc. Con el fin de modelar una distribución probabilística que permita cuantificar la incertidumbre de esta enfermedad y asimismo optimizar los costos en pruebas más costosas en base a la información disponible para la mayor parte de centros de salud.
 
 \subsection{Formulación del problema de investigación}
 \subsubsection{Problema general}
@@ -20,8 +20,8 @@ En el cual el objetivo es determinar un modelo probabilístico basado en los mod
 
 \subsubsection{Problemas específicos}
 \begin{enumerate}
-\item ¿Qué variables clínicas, demográficas y tomográficas apoyan en la detección del queratocono?
-\item ¿Qué modelo jerárquico bayesiano representa la relación entre las variables clínicas, demográficas y tomográficas en la detección del queratocono?
+\item ¿Qué variables clínicas, demográficas y topográficas apoyan en la detección del queratocono?
+\item ¿Qué modelo jerárquico bayesiano representa la relación entre las variables clínicas, demográficas y topográficas en la detección del queratocono?
 \item ¿Cómo obtenemos la inferencia de probabilidad en la presencia o ausencia de queratocono a partir del modelo?
 \item ¿Cómo implementar las inferencias de riesgo a nivel individual?
 \end{enumerate}
@@ -39,8 +39,8 @@ Desarrollar un protocolo de detección de queratocono bajo un enfoque metodológ
 
 \subsubsection{Objetivo específicos}
 \begin{enumerate}
-\item Determinar las variables clínicas, demográficas y tomográficas que apoyen en la detección del queratocono.
-\item Diseñar un modelo jerárquico bayesiano que represente la relación entre las variables clínicas, demográficas y tomográficas en la detección del queratocono.
+\item Determinar las variables clínicas, demográficas y topográficas que apoyen en la detección del queratocono.
+\item Diseñar un modelo jerárquico bayesiano que represente la relación entre las variables clínicas, demográficas y topográficas en la detección del queratocono.
 \item Construir una red bayesiana estructurada que infiera la probabilidad de presencia o ausencia del queratocono a partir de las variables observadas.
 \item Implementar un prototipo computacional que visualize las inferencias de riesgo de queratocono a nivel individual.
 \end{enumerate}
@@ -222,7 +222,7 @@ El enfoque bayesiano mejorará la detección y protocolo del queratocono
 \end{enumerate}
 
 \subsection{Identificación de variables e indicadores}
-Las variables independientes viene a ser las probabilidades de generar queratocono en el nivel que se encuentre, asimismo como la clasificación de presencia o ausencia de esta enfermedad, que va a estar dependiendo principalmente de variables clínicas, demográficas y tomográficas.
+Las variables independientes viene a ser las probabilidades de generar queratocono en el nivel que se encuentre, asimismo como la clasificación de presencia o ausencia de esta enfermedad, que va a estar dependiendo principalmente de variables clínicas, demográficas y topográficas.
 
 \begin{enumerate}
     \item \textbf{Variables dependientes}
@@ -234,14 +234,14 @@ Las variables independientes viene a ser las probabilidades de generar queratoco
     \begin{itemize}
         \item Variables clínicas
         \item Variables demográficas
-        \item Variables tomográficas 
+        \item Variables topográficas 
     \end{itemize}
 \end{enumerate}
 
 \begin{landscape} % Iniciar la página en formato horizontal
 \subsection{Operacionalización de variables}
 
-\begin{longtable}{p{3.5cm}p{6.5cm}p{5cm}p{3cm}p{2.5cm}}
+\begin{longtable}{p{4cm}p{6.5cm}p{5cm}p{3cm}p{2.5cm}}
     \caption{Matriz de operacionalización de variables} 
     \label{tab:matriz_operacionalizacion} \\
 
@@ -279,23 +279,151 @@ Las variables independientes viene a ser las probabilidades de generar queratoco
     \cline{3-5}
     & & Antecedentes familiares con queratocono & Dicotómica & Nominal \\
     \hline \\
-    \multirow{4}{*}{Variables demográficas} & \multirow{4}{6.5cm}{Variables tomadas en la revisión de la historia clínica usando test o cuestionarios.} & Ojo seco & Dicotómica & Nominal \\
+    \multirow{4}{*}{Variables demográficas} & \multirow{4}{6.5cm}{Información general de los pacientes} & Género & Dicotómica & Nominal \\
     \cline{3-5}
-    & & Alergias & Dicotómica & Nominal \\
+    & & Edad & Continua & Razón \\
     \cline{3-5}
-    & & Frotamiento de ojos & Dicotómica & Nominal \\
+    & & Altitud vive & Continua & Razón \\
     \cline{3-5}
-    & & Antecedentes familiares con queratocono & Dicotómica & Nominal \\
+    & & Clasificación altitud & Politómica & Ordinal \\
+    \hline
+    \hline \\
+    \multirow{4}{*}{Variables topográficas} & \multirow{4}{6.5cm}{Son indicadores claves que se obtienen en los equipos de oftalmología de forma general} & Esfera topográfica & Continua & Intervalar \\
+    \cline{3-5}
+    & & Cilindro topográfico & Continua & Razón \\
+    \cline{3-5}
+    & & Eje topográfico & Continua & Razón \\
+    \cline{3-5}
+    & & Esfera manifiesta & Continua & Intervalar \\
+    \cline{3-5}
+    & & Cilindro manifiesto & Continua & Razón \\
+    \cline{3-5}
+    & & Eje manifiesto & Continua & Razón \\
+    \cline{3-5}
+    & & Emetropía & Politómica & Nominal \\
+    \cline{3-5}
+    & & Queratometria media & Continua & Razón \\
+    \cline{3-5}
+    & & Paquimetría & Continua & Razón \\
+    \cline{3-5}
+    & & Queratometria media & Continua & Razón \\
+    \cline{3-5}
+    & & BAD-D & Continua & Razón \\
+    \cline{3-5}
+    & & RMS & Continua & Razón \\
+    \cline{3-5}
+    & & IPP media & Continua & Razón \\
+    \cline{3-5}
+    & & Elevación frontal & Continua & Razón \\
+    \cline{3-5}
+    & & Elevación posterior & Continua & Razón \\
     \hline
 \end{longtable}
 
 \end{landscape}
 
+\section{Metodología}
+\subsection{Ámbito de estudio: localización política y geográfica}
+El estudio se realizará en el centro de salud integral La Fuente en la ciudad del Cusco, ubicado en el distrito de San Jerónimo, provincia de Cusco, departamento de Cusco en el Perú.
+
+\subsection{Tipo y nivel de investigación}
+La investigación será de tipo aplicada no experimental retrospectivo ya que tomará en cuenta la información de los pacientes atendidos en el centro de salud en el año 2025 para evaluar los factores influyentes aplicando el análisis bayesiano de tal forma que se aumente el conocimiento científico acerca de la metodología estadística bayesiana y su aplicación. \cite{hernandez2004introduccion}.
+Asimismo el trabajo de investigación tiene un nivel relacional causal ya que se estudiará la relación y la causalidad que puedan tener las diferentes variables con respecto a la presencia del queratocono.
+
+\subsection{Unidad de análisis}
+La unidad de análisis serán los pacientes entre 10 a 40 años atendidos en el centro de salud integral La Fuente en el año 2025.
+
+\subsection{Población de estudio}
+La población de estudio serán todos los pacientes atendidos en el centro de salud integral la fuente que cumplan con los criterios de inclusión.
+
+\subsubsection{Criterios de inclusión}
+\begin{enumerate}
+    \item Edad entre 10 a 40 años.
+    \item Tengan información clínica de interés completa.
+    \item Tengan información demográfica de interés completa.
+    \item Tengan los exámenes topográficos de interés completos. 
+\end{enumerate}
+
+\subsection{Tamaño de muestra}
+El tamaño de muestra que se utilizará para la recolección de información será de 400 individuos.
+
+\subsection{Técnicas de la selección de muestra}
+Las técnicas de selección de muestra será un muestreo probabilístico en el cual se utilizará el muestreo aleatorio simple para la selección de individuos que conformarán la muestra de estudio.
+
+\subsection{Técnicas de recolección de información}
+Las técnicas de recolección de información será a través de la revisión de documentos y/o análisis de datos secundarios, teniendo como instrumento la historia clínica y resultados del topógrafo de PENTACAM.
+
+\subsection{Técnicas de análisis e interpretación de la información}
+Los datos serán recopilados en un archivo de extensión \textsl{.xlsx} (Archivo Excel), en el cual los análisis se realizarán en el lenguaje de programación R bajo el entorno de desarrollo RStudio debido a su alta capacidad para manejar análisis estadístico desde los descriptivos hasta la realización de modelos robustos.
+
+\subsection{Técnicas para demostrar la verdad o falsedad de las hipótesis planteadas}
+Las hipótesis de investigación planteadas en el estudio serán comprobadas a través de los resultados a nivel inferencial que se obtenga mediante el modelo bayesiano establecido, asimismo por la inferencia que indiquen las redes bayesianas. Utilizando los criterios como es el criterio de AKAIKE (AIC), criterio bayesiano (BIC), entre otros.
+
+\section{Presupuesto}
 
 
+\begin{table}[htb]
+\centering
+\begin{tabular}{|p{7cm}|c|c|}
+\hline
+\textbf{RUBROS} & \textbf{COSTO(S/.)}& \textbf{TOTAL (S/.)} \\ \hline
+\textbf{A) Recursos humanos:} & & \\
+Laptop & 2000.00& \\
+Papel bond A4 $80^0$ &100.00 & \\
+USB &60.00&\\
+Plumones cargador de plumones&50.00&\\
+Corrector &10.00&\\
+Lapiceros &30.00&\\
+Documentos &100.00& 2 350\\ \hline
+\textbf{B) SERVICIOS:} &&\\
+Movilidad &500.00& \\
+Tinta de impresora &240.00& \\
+Impresión &150.00 &\\
+Anillados &100.00&\\
+Imprevistos &400.00& 1 390\\ \hline
+& \textbf{TOTAL}& 3 740\\
+ \hline
+\end{tabular}
+\caption{Presupuesto.}
+\label{tabla:final}
+\end{table}
+
+
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+
+\section{Cronograma de la realización de la tesis}
+
+\begin{center}
+\begin{table}[htb]
+\begin{tabular}{|p{4cm}|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+\multirow{2}{*}{\textbf{Actividades }} &\multicolumn{10}{c|}{\textbf{Fechas}} \\
+
+ \cline{2-11}
+ & \textbf{7-24} & \textbf{8-24} & \textbf{9-24}&\textbf{10-24}&\textbf{11-24}&\textbf{12-24}&
+ \textbf{1-25}&\textbf{2-25}&\textbf{3-25}&\textbf{4-25}\\ \hline
+ Revisión Bibliográfica & $X$ &&&&&&&&&\\ \hline
+ Proyecto de Tesis &&$X$ &$X$&$X$&$X$&$X$&$X$&$X$&$X$&$X$ \\ \hline
+ Capítulo 1 &&$X$ & $X$&$X$&$X$&$X$&&&&\\ \hline
+Capítulo 2&&& &$X$&$X$& $X$& &&&\\ \hline
+Capítulo 3 &&& &&$X$&$X$&$X$& & &\\ \hline
+Conclusiones&&& &&&$X$&$X$&$X$&$X$& \\ \hline
+Presentación y Revisión&&& &&&&&&&$X$\\ \hline
+\end{tabular}
+\caption{Actividades del proyecto de investigación}
+\label{tabla:final}
+\end{table}
+\end{center}
+
+\bibliographystyle{apalike}
+
+\bibliography{bibliografia}
 
 \begin{landscape}
-\section{Matriz de consistencia}
+\section{ANEXOS}
+\subsection{Matriz de consistencia}
 %\addcontentsline{toc}{chapter}{ANEXOS}
 %\textbf{\Large{ANEXOS}}\\
 %\addcontentsline{toc}{section}{A. Matriz de consistencia}
@@ -310,10 +438,16 @@ Las variables independientes viene a ser las probabilidades de generar queratoco
 \multicolumn{3}{|c|}{\textbf{General}}                               & \textbf{Dependientes}  & \multirow{4}{=}{
 \begin{minipage}{4.2cm}
 \justify
-En proceso
+$\circ$ \textbf{Ámbito de estudio:} La Fuente Centro de Salud Integral - Cusco - Perú \\
+$\circ$ \textbf{Tipo y nivel:} aplicada no experimental retrospectiva, relacional-causal\\
+$\circ$ \textbf{Unidad de análisis:} Pacientes atendidos en el centro de salud integral\\
+$\circ$ \textbf{Población:} Pacientes atendidos que cumplan los criterios de inclusión\\
+$\circ$ \textbf{Muestreo:} Aleatorio simple\\
+$\circ$ \textbf{Instrumento recolección de datos:}Historia clínica y resultados topográfico de PENTACAM\\
+$\circ$ \textbf{Análisis e interpretación de datos:}Archivo de extensión \textsl{.xlsx} y RStudio.
 \end{minipage}
 } \\ \cline{1-4}
-\multicolumn{1}{|p{4.2cm}|}{¿Cómo aplicar la metodología bayesiana en la detección del queratocono?} & \multicolumn{1}{p{4.5cm}|}{Desarrollar un protocolo de detección de queratocono bajo un enfoque metodológico bayesiano} & En proceso & 
+\multicolumn{1}{|p{4.2cm}|}{¿Cómo aplicar la metodología bayesiana en la detección del queratocono?} & \multicolumn{1}{p{4.5cm}|}{Desarrollar un protocolo de detección de queratocono bajo un enfoque metodológico bayesiano} & El enfoque bayesiano mejorará la detección y protocolo del queratocono & 
     \vspace{0.2cm}
     $\circ$ Probabilidad de presencia de queratocono\vspace{0.2cm}
 
@@ -321,23 +455,29 @@ En proceso
   &                       \\ \cline{1-4}
 \multicolumn{3}{|c|}{\textbf{Específicos}}                               & \textbf{Independientes} &  \\ \cline{1-4}
 \multicolumn{1}{|p{4.2cm}|}{
-    $\circ$ ¿Qué variables clínicas, demográficas y tomográficas apoyan en la detección del queratocono?\vspace{0.2cm}
+    $\circ$ ¿Qué variables clínicas, demográficas y topográficas apoyan en la detección del queratocono?\vspace{0.2cm}
 
-    $\circ$ ¿Qué modelo jerárquico bayesiano representa la relación entre las variables clínicas, demográficas y tomográficas en la detección del queratocono?\vspace{0.2cm}
+    $\circ$ ¿Qué modelo jerárquico bayesiano representa la relación entre las variables clínicas, demográficas y topográficas en la detección del queratocono?\vspace{0.2cm}
 
     $\circ$ ¿Cómo obtenemos la inferencia de probabilidad en la presencia o ausencia de queratocono a partir del modelo?\vspace{0.2cm}
 
     $\circ$ ¿Cómo implementar las inferencias de riesgo a nivel individual?} & \multicolumn{1}{p{4.5cm}|}{
-    $\circ$ Determinar las variables clínicas, demográficas y tomográficas que apoyen en la detección del queratocono.\vspace{0.2cm}
+    $\circ$ Determinar las variables clínicas, demográficas y topográficas que apoyen en la detección del queratocono.\vspace{0.2cm}
 
-    $\circ$ Diseñar un modelo jerárquico bayesiano que represente la relación entre las variables clínicas, demográficas y tomográficas en la detección del queratocono.\vspace{0.2cm}
+    $\circ$ Diseñar un modelo jerárquico bayesiano que represente la relación entre las variables clínicas, demográficas y topográficas en la detección del queratocono.\vspace{0.2cm}
 
     $\circ$ Construir una red bayesiana estructurada que infiera la probabilidad de presencia o ausencia del queratocono a partir de las variables observadas.\vspace{0.2cm}
 
-    $\circ$ Implementar un prototipo computacional que visualize las inferencias de riesgo de queratocono a nivel individual.
+    $\circ$ Implementar un prototipo computacional de inferencia de riesgo a nivel individual.
 
     } & \multicolumn{1}{p{4.5cm}|}{
-    En proceso
+    $\circ$ Las variables más influyentes son las evaluadas en estudios previos de factores asociados al queratocono.\vspace{0.2cm}
+
+    $\circ$ El modelo jerárquico bayesiano que representa la relación entre variables viene a ser un ordinal beta.\vspace{0.2cm}
+
+    $\circ$ Las redes bayesianas representarán la relación causalidad del queratocono entre variables.\vspace{0.2cm}
+
+    $\circ$ El prototipo computacional apoyará en las inferencias de riesgo a nivel individual.\vspace{0.2cm}
 
     } & \multicolumn{1}{p{3cm}|}{
     \vspace{0.2cm}
@@ -345,7 +485,7 @@ En proceso
 
     $\circ$ Variables clínicas.\vspace{0.2cm}
 
-    $\circ$ Variables tomográficas.
+    $\circ$ Variables topográficas.
     }  & \\ \hline
 \end{tabular}
 \end{table}
