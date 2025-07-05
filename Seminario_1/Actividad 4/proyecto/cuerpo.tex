@@ -3,14 +3,14 @@
 
 \section{Planteamiento del problema}
 \subsection{Situación problemática}
-El queratocono es una enfermedad que afecta a la córnea causando mala visión de forma progresiva y evolutia en pacientes jóvenes. Según la Organización Mundial de la Salud (OMS) esta enfermedad puede indicar cifras epidémicas. A pesar de que se considere una afección de impacto moderado y no tan grave que afecta a la función visual y calidad de vida, esta enfermedad puede resultar más perjudicial ya que puede afectar a individuos totalmente activos \cite{thalasselis1988keratoconus}. El queratocono generalmente inicia en la pubertad hasta la tercera o casos de cuarta década de vida \cite{althomali2018prevalence}, sus síntomas son variables y dependen de la etapa de progresión que se encuentre, en etapas iniciales no pueden presentarse síntomas hasta etapas más avanzadas en donde el paciente experimenta una distorsión notable en la visión acompañada de una pérdida visual severa. A pesar de eso no llegan a producir ceguera completa debido a esta enfermedad \cite{rabinowitz1998keratoconus}. 
+El queratocono es una enfermedad que afecta a la córnea causando mala visión de forma progresiva y evolutia en pacientes jóvenes. Según la Organización Mundial de la Salud (OMS) esta enfermedad puede indicar cifras epidémicas. A pesar de que se considere una afección de impacto moderado y no tan grave que afecta a la función visual y calidad de vida, esta enfermedad puede resultar más perjudicial ya que puede afectar a individuos totalmente activos \parencite{thalasselis1988keratoconus}. El queratocono generalmente inicia en la pubertad hasta la tercera o casos de cuarta década de vida \parencite{althomali2018prevalence}, sus síntomas son variables y dependen de la etapa de progresión que se encuentre, en etapas iniciales no pueden presentarse síntomas hasta etapas más avanzadas en donde el paciente experimenta una distorsión notable en la visión acompañada de una pérdida visual severa. A pesar de eso no llegan a producir ceguera completa debido a esta enfermedad \parencite{rabinowitz1998keratoconus}. 
 
-Los primeros estudios de prevalencia se llevó en la población de Indianapolis, USA encontró 600 casos por 100,000 (0.6$\%$). Un estudio poblacional más reciente informó una prevalencia de 375 por 100,000 (0.375$\%$) en Países Bajos \cite{godefrooij2017age}. Mientras que en Latino América  los registros de prevalencia son muy pocos, teniendo en Paraná entre Ríos-Argentina una prevalencia aproximada de 229 por cada 100,000 habitantes con edad promedio de diagnóstico a los 24.5 años \cite{pussetto2011alta}, en la ciudad de Quito en Ecuador se tuvo una prevalencia de (0.75$\%$) \cite{mansfield2017queratocono}, por otra parte en el Hospital Regional Honorio Delgado, durante el periodo 2014 - 2017 en Arequipa-Perú se evidenció que la prevalencia de queratocono fue de 1.37 por cada mil pacientes atendidos \cite{ramos2018prevalencia}. Por último con respecto a la ciudad del Cusco en el trabajo de investigación de \cite{samaniego2023prevalencia} reportó en el Centro de Salud Integral La Fuente una prevalencia de 3.32$\%$ siendo esta mayor a las otras zonas estudiadas en el cual aún no se le esta dando la importancia por parte del estado peruano.
+Los primeros estudios de prevalencia se llevó en la población de Indianapolis, USA encontró 600 casos por 100,000 (0.6$\%$). Un estudio poblacional más reciente informó una prevalencia de 375 por 100,000 (0.375$\%$) en Países Bajos \parencite{godefrooij2017age}. Mientras que en Latino América  los registros de prevalencia son muy pocos, teniendo en Paraná entre Ríos-Argentina una prevalencia aproximada de 229 por cada 100,000 habitantes con edad promedio de diagnóstico a los 24.5 años \parencite{pussetto2011alta}, en la ciudad de Quito en Ecuador se tuvo una prevalencia de (0.75$\%$) \parencite{mansfield2017queratocono}, por otra parte en el Hospital Regional Honorio Delgado, durante el periodo 2014 - 2017 en Arequipa-Perú se evidenció que la prevalencia de queratocono fue de 1.37 por cada mil pacientes atendidos \parencite{ramos2018prevalencia}. Por último con respecto a la ciudad del Cusco en el trabajo de investigación de \textcite{samaniego2023prevalencia} reportó en el Centro de Salud Integral La Fuente una prevalencia de 3.32$\%$ siendo esta mayor a las otras zonas estudiadas en el cual aún no se le esta dando la importancia por parte del estado peruano.
 
-Asimismo en la clínica Oftalmo Salud del Perú indica que no se sabe con certeza porque algunas personas desarrollan Queratocono, aunque hay estudios con asociaciones a la genética o dicho hereditaria, asimismo con alergías y lesiones oculares provocado por la frotación excesiva de los ojos, el uso inapropiado de lentes de contacto y la presencia de algunas patologías como la queratoconjuntivis vernal, la retinitis pigmentaria o la retinopatía del prematura. Múltiples estudios han desarrollado técnicas para poder realizar la detección temprana de esta enfermedad ya sea por modelos de Machine Learning que indicaron que índices de PENTACAM fueron anormales para detección y exclusión de pacientes con queratocono \cite{zhao2024evaluation}
+Asimismo en la clínica Oftalmo Salud del Perú indica que no se sabe con certeza porque algunas personas desarrollan Queratocono, aunque hay estudios con asociaciones a la genética o dicho hereditaria, asimismo con alergías y lesiones oculares provocado por la frotación excesiva de los ojos, el uso inapropiado de lentes de contacto y la presencia de algunas patologías como la queratoconjuntivis vernal, la retinitis pigmentaria o la retinopatía del prematura. Múltiples estudios han desarrollado técnicas para poder realizar la detección temprana de esta enfermedad ya sea por modelos de Machine Learning que indicaron que índices de PENTACAM fueron anormales para detección y exclusión de pacientes con queratocono \parencite{zhao2024evaluation}
 
-En el que teniendo este enfoque nos encontramos en un marco de incertidumbre en el cual es necesario construir un modelo probabilístico del comportamiento de esta enfermedad. Los enfoques bayesianos para problemas bioestadísticos se volvieron comunes en aplicaciones epidemiológicas, el uso de la metodología bayesiana ha experimentado grandes avances, aumentando el enfoque del uso bayesiano \cite{lawson2018bayesian}. Centrandonos en la construcción de modelos para relacionar estructura de datos complicados con preguntas científicas, verificando el ajuste de dicho modelo e investigando la sensibilidad de las conclusiones a supuestos de modelos razonables. \cite{Gelman_2013} indica que una de las fortalezas del enfoque bayesiano reside en combinar información de diferentes fuentes y dar una explicación más amplia de la incertidumbre acerca de las incógnitas en un problema estadístico.
-Estudios de enfermedades raras ya aplican este enfoque como lo es de \cite{fouarge2021hierarchical} en el que estudia las miopatías centronucleares con un modelo jerárquico bayesiano con distribución de probabilidad beta y una función logit de enlace, en el cual el autor menciona que este tipo de problemas pueden ser abordado bajo el enfoque bayesiano en el que se deban realizar más investigaciones con el diálogo continuo de autoridades reguladoras que permitan la aplicación de la estadística bayesiana. Asimismo en el trabajo de \cite{ferez2017redes} indicó que una herramienta para apoyar en la tomade decisiones de la medicina basada en la evidencia son las redes bayesianas ya que tiene una capacidad para representar las relaciones causales que tienen las variables involucradas en un problema, y que se visualice de una manera intuitiva.
+En el que teniendo este enfoque nos encontramos en un marco de incertidumbre en el cual es necesario construir un modelo probabilístico del comportamiento de esta enfermedad. Los enfoques bayesianos para problemas bioestadísticos se volvieron comunes en aplicaciones epidemiológicas, el uso de la metodología bayesiana ha experimentado grandes avances, aumentando el enfoque del uso bayesiano \textcite{lawson2018bayesian}. Centrandonos en la construcción de modelos para relacionar estructura de datos complicados con preguntas científicas, verificando el ajuste de dicho modelo e investigando la sensibilidad de las conclusiones a supuestos de modelos razonables. \textcite{Gelman_2013} indican que una de las fortalezas del enfoque bayesiano reside en combinar información de diferentes fuentes y dar una explicación más amplia de la incertidumbre acerca de las incógnitas en un problema estadístico.
+Estudios de enfermedades raras ya aplican este enfoque como lo es de \textcite{fouarge2021hierarchical} en el que se estudia las miopatías centronucleares con un modelo jerárquico bayesiano con distribución de probabilidad beta y una función logit de enlace, en el cual el autor menciona que este tipo de problemas pueden ser abordado bajo el enfoque bayesiano en el que se deban realizar más investigaciones con el diálogo continuo de autoridades reguladoras que permitan la aplicación de la estadística bayesiana. Asimismo en el trabajo de \textcite{ferez2017redes} indicó que una herramienta para apoyar en la tomade decisiones de la medicina basada en la evidencia son las redes bayesianas ya que tiene una capacidad para representar las relaciones causales que tienen las variables involucradas en un problema, y que se visualice de una manera intuitiva.
 
 En el cual el objetivo es determinar un modelo probabilístico basado en los modelos bayesianos jerárquicos que permitan cuantificar la incertidumbre de la detección de la enfermedad del queratocono en la ciudad del Cusco, tomando en cuenta los diferentes estudios de esta enfermedad ya sea en la asociación de variables clínicas, topográficas, tests, etc. Con el fin de modelar una distribución probabilística que permita cuantificar la incertidumbre de esta enfermedad y asimismo optimizar los costos en pruebas más costosas en base a la información disponible para la mayor parte de centros de salud.
 
@@ -51,7 +51,7 @@ Desarrollar un protocolo de detección de queratocono bajo un enfoque metodológ
 \subsubsection{Axiomas de probabilidad y notaciones básicas}
 
 \begin{defi}
-    \textbf{Notaciones} \cite{koski2011bayesian}
+    \textbf{Notaciones} \parencite{koski2011bayesian}
     \begin{itemize}
         \item El conjunto de todos los posibles resultados de un experimento aleatorio es denotado por $\Omega$
         \item El resultado de un posible experimento aleatorio o un conjunto del resultado es representado por $X$
@@ -65,7 +65,7 @@ Desarrollar un protocolo de detección de queratocono bajo un enfoque metodológ
 \end{defi}
 
 \begin{defi}
-    \textbf{Probabilidad} \cite{koski2011bayesian}
+    \textbf{Probabilidad} \parencite{koski2011bayesian}
     La distribución de probabilidad $P$ es una función que satisface los axiomas de Kolmogorov
     \begin{enumerate}
         \item $P(\emptyset) = 0$ y $P(\Omega) = 1$
@@ -76,7 +76,7 @@ Desarrollar un protocolo de detección de queratocono bajo un enfoque metodológ
 \end{defi}
 
 \begin{defi}
-    \textbf{Distribución de probabilidad sobre $X$} \cite{koski2011bayesian}
+    \textbf{Distribución de probabilidad sobre $X$} \parencite{koski2011bayesian}
     Si $X$ contiene un número finito de elementos $x$, una distribución de probabilidad sobre $X$ satisface
     \begin{enumerate}
         \item $P(x) \geq 0$ para todo $x \in X$
@@ -85,13 +85,13 @@ Desarrollar un protocolo de detección de queratocono bajo un enfoque metodológ
 \end{defi}
 
 \begin{defi}
-    \textbf{Regla de Bayes} \cite{koski2011bayesian}
+    \textbf{Regla de Bayes} \parencite{koski2011bayesian}
     La regla de Bayes para dos eventos $A$ y $C$ es dada por
     $$P(A/C) = \frac{P(C/A)P(A)}{P(C)}$$
 \end{defi}
 
 \subsubsection{Análisis de datos bayesiano}
-La característica esencial de los métodos bayesianos es uso de la probabilidad para cuantificar la incertidumbre en inferencias basadas en el análisis de datos estadísticos. En los que \cite{gelman1995bayesian} los divide en estos tres pasos:
+La característica esencial de los métodos bayesianos es uso de la probabilidad para cuantificar la incertidumbre en inferencias basadas en el análisis de datos estadísticos. En los que \textcite{gelman1995bayesian} los divide en estos tres pasos:
 \begin{enumerate}
     \item Configurar un modelo de probabilidad completo en el cual se debe de tener una distribución de probabilidad conjunta para todas cantidades observadas y no observadas en un problema, en el cual el modelo debe ser coherente con el conocimiento científico subyacente y el proceso de recopilación de datos.
     \item El condicionamiento sobre datos observados en el que se debe calcular e interpretar la distribución aposteriori apropiada en el que la distribución de probabilidad no observada como último interés que va a estar dado por los datos observados.
@@ -101,7 +101,7 @@ La característica esencial de los métodos bayesianos es uso de la probabilidad
 \subsubsection{Inferencia Bayesiana}
 Las conclusiones estadísticas bayesianas acerca de un parámetro desconocido $\theta$ de datos no observados $\tilde{y}$ son explicados en términos de probabilidad que son condicionadas de los valores observados de $y$, en la que su notación puede ser escrito como $P(\theta | x)$, también se condiciona los valores conocidos de cualquier covariable $x$ \cite{gelman1995bayesian}
 
-\subsubsection{Modelo de verosimilitud}\cite{lawson2018bayesian}
+\subsubsection{Modelo de verosimilitud}\parencite{lawson2018bayesian}
 La verosimilitud dado los datos $y_i$ donde $i = 1, \cdots, m$ es definido como
 $$
 L(\mathbf{y}|\theta) = \prod\limits_{i = 1}^{m}f({y}_{i}|\theta)
@@ -112,12 +112,12 @@ l(\mathbf{y}| \theta) = \sum\limits_{i = 1}^{m}\text{log }f({y}_{i}| \theta)
 $$
 
 \subsubsection{Distribución a priori}
-Todos los parámetros de los modelos bayesianos son estocásticos y son asignados apropiadamente por las distribuciones de probabilidad, la distribución a priori se asigna al parámetro antes de ver los datos, además que las distribuciones a priori es que proporcionan datos adicionales a un problema y que pueden usarse para mejorar la estimación o la identificación de los parámetros \cite{lawson2018bayesian}.
+Todos los parámetros de los modelos bayesianos son estocásticos y son asignados apropiadamente por las distribuciones de probabilidad, la distribución a priori se asigna al parámetro antes de ver los datos, además que las distribuciones a priori es que proporcionan datos adicionales a un problema y que pueden usarse para mejorar la estimación o la identificación de los parámetros \parencite{lawson2018bayesian}.
 
 Para un vector de parámetros $\theta$, la distribución a priori puede ser denotada como $\mathbf{g}(\theta)$
 
 \subsubsection{Distribución a posteriori}
-Las distribuciones a priori y la verosimilitud proporcionan dos fuentes de información acerca de cualquier problema. La verosimilitud informa sobre el parámetro con los datos, mientras que la distribución a priori informa sobre las creencias o informaciones previas \cite{lawson2018bayesian}. Cuando hay grandes cantidades de datos, es decir un tamaño de muestra grande, la probabilidad contribuirá más en la estimación del riesgo relativo, cuando se tienen pocos datos, la distribución a priori dominará el análisis.
+Las distribuciones a priori y la verosimilitud proporcionan dos fuentes de información acerca de cualquier problema. La verosimilitud informa sobre el parámetro con los datos, mientras que la distribución a priori informa sobre las creencias o informaciones previas \parencite{lawson2018bayesian}. Cuando hay grandes cantidades de datos, es decir un tamaño de muestra grande, la probabilidad contribuirá más en la estimación del riesgo relativo, cuando se tienen pocos datos, la distribución a priori dominará el análisis.
 
 El producto de la verosimilitud y la distribución a priori es llamado como la distribución a posteriori, en el cual esta distribución describe los parámetros dado los datos observados y poder realizar suposiciones previas, esta es definida como:
 $$
@@ -126,7 +126,7 @@ $$
 Donde $C = \int_{P}^{}L(\mathbf{y}|\theta)\mathbf{g}(\theta)d\theta$ con $\mathbf{g}(\theta)$ como la distribución conjunta de los vectores $\theta$. Alternativamente este vector puede ser especificada de manera proporcional: $P(\theta | \mathbf{y}) \propto L (\mathbf{y} | \theta)\mathbf{g}(\theta)$
 
 \subsubsection{Conjugación}
-Ciertas combinaciones de distribuciones a priori y verosimilitudes conducen a una distribución a posteriori que la distribución a priori. Esto genera ventajas en la inferencia, ya que la forma a posteriori se desprenderá de la especificación previa \cite{lawson2018bayesian}. La Tabla \ref{tabla:distribuciones} muestra unos ejemplos de conjugación.
+Ciertas combinaciones de distribuciones a priori y verosimilitudes conducen a una distribución a posteriori que la distribución a priori. Esto genera ventajas en la inferencia, ya que la forma a posteriori se desprenderá de la especificación previa \parencite{lawson2018bayesian}. La Tabla \ref{tabla:distribuciones} muestra unos ejemplos de conjugación.
 
 \begin{table}[htb]
 \centering
@@ -146,7 +146,7 @@ $\mathbf{y} \sim gamma(1,\beta)$ & $\beta \sim G({\alpha}_{0}, {\beta}_{0})$ & $
 Por lo que la elección de la distribución a priori de los parámetros es muy importante ya que puede afectar a la distribución a posteriori significativamente, asimismo el equilibro entre la evidencia a priori y posteriori es relacionado a la verosimilitud y el tamaño de muestra.
 
 \subsubsection{Distribuciones predictivas}
-Las distribuciones a posteriori resume la comprensión de los parámetros dado los datos observados y toma un rol fundamental en el modelado bayesiano. Sin embargo también se puede examinar otras distribuciones relacionadas que pueden ser útiles cuando se requieren la predicción de nuevos datos \cite{lawson2018bayesian}, si definimos una nueva observación de $y$ como $y^*$. Podemos determinar la distribución predictiva de $y^*$ de dos formas. En general la distribución predictiva es definida como
+Las distribuciones a posteriori resume la comprensión de los parámetros dado los datos observados y toma un rol fundamental en el modelado bayesiano. Sin embargo también se puede examinar otras distribuciones relacionadas que pueden ser útiles cuando se requieren la predicción de nuevos datos \parencite{lawson2018bayesian}, si definimos una nueva observación de $y$ como $y^*$. Podemos determinar la distribución predictiva de $y^*$ de dos formas. En general la distribución predictiva es definida como
 $$
 P(y^* | \mathbf{y}) = \int_{}^{} L(y^* | \theta)P(\theta | \mathbf{y})d\theta
 $$
@@ -157,12 +157,12 @@ $$
 Esto enfatiza la predicción basada solo en la distribución a priori (antes de ver algún dato), la cual simplemente es la distribución marginal de $y^*$
 
 \subsubsection{Modelos Jerárquicos Bayesianos}
-En el modelado bayesiano, los parámetros libres tienen distribuciones. Estas distribuciones controlan la forma de los parámetros y son especificadas por el investigador basado generalmente en creencias previas sobre su comportamiento \cite{lawson2018bayesian}. 
+En el modelado bayesiano, los parámetros libres tienen distribuciones. Estas distribuciones controlan la forma de los parámetros y son especificadas por el investigador basado generalmente en creencias previas sobre su comportamiento \parencite{lawson2018bayesian}. 
 
 La idea de que los valores de los parámetros podrían surgir de distribuciones es una característica fundamental de la metodología bayesiana y conduce al uso de modelos donde los parámetros surgen dentro de jerarquías
 
 \subsubsection{Redes bayesianas}
-Las redes bayesianas constituyen el refinamiento de un método de diagnóstico probabilístico conocido como el método probabilístico clásico \cite{koski2011bayesian}, tomemos en cuenta para el diagnóstico de enfermedades los siguientes conceptos:
+Las redes bayesianas constituyen el refinamiento de un método de diagnóstico probabilístico conocido como el método probabilístico clásico \parencite{koski2011bayesian}, tomemos en cuenta para el diagnóstico de enfermedades los siguientes conceptos:
 
 Si se desea diagnosticar $n$ enfermedades ${E}_{1},{E}_{2},{E}_{3}, \cdots, {E}_{n}$ a partir de un conjunto de $m$ hallazgos ${H}_{1}, {H}_{2}, {H}_{3}, \cdots, {H}_{m}$ mostrado en el grafo se tiene una representación en la Figura \ref{figura:red_bayesiana}
 
@@ -192,22 +192,22 @@ $$
 \subsection{Marco conceptual (palabras clave)}
 
 \begin{itemize}
-\item \textbf{Queratocono:} Transtorno corneal ectásico, caracterizado por adelgazamiento progresivo del estroma y debilitamiento estructural con protrusión apical en forma de cono, llevando a defectos refractivos como miopía progresiva, astigmatismo irregular, cicatrización y disminución de la visión \cite{caruso2024corneal}
+\item \textbf{Queratocono:} Transtorno corneal ectásico, caracterizado por adelgazamiento progresivo del estroma y debilitamiento estructural con protrusión apical en forma de cono, llevando a defectos refractivos como miopía progresiva, astigmatismo irregular, cicatrización y disminución de la visión \parencite{caruso2024corneal}
 
-\item \textbf{Modelos bayesianos:} Modelos basados en la regla de Bayes en las cuales se estima la probabilidad a posteriori basada en información previa y verosimilitud de los datos \cite{koski2011bayesian}
+\item \textbf{Modelos bayesianos:} Modelos basados en la regla de Bayes en las cuales se estima la probabilidad a posteriori basada en información previa y verosimilitud de los datos \parencite{koski2011bayesian}
 
-\item \textbf{Redes bayesianas:} Representación gráfica de dependencias para razonamiento probabilístico, en la cual los nodos son las variables aleatorias y representa dependencia directa entre las variables \cite{sucar2006redes}
+\item \textbf{Redes bayesianas:} Representación gráfica de dependencias para razonamiento probabilístico, en la cual los nodos son las variables aleatorias y representa dependencia directa entre las variables \parencite{sucar2006redes}
 \end{itemize}
 
 
 \subsection{Antecedentes empíricos de la investigación}
 \subsubsection{Antecedentes Internacionales}
-El estudio de \cite{waddell2023applying} aplicó las redes bayesianas para el apoyo en la toma de decisiones, tomando datos de diferentes fuentes para explorar fenotípicos específicos y resultados clínicos, en la cual se pueden tener deficiencias debido al conjunto de datos pequeños y cohortes desequilibrados llegando a realizar inferencias falsas probabilísticas. Algo importante de destacar es como el uso de redes bayesianas ayuda en la detección de enfermedades especialmente en incertidumbre compleja, asimismo el autor indicar de que a pesar que la medicina actualmente se encuentra en competencia con el desarrollo de la inteligencia artificial, esta a su vez debe ser poder interpretada por los médicos en el cual el verdadero potencial de las redes bayesianas viene a ser la capacidad de hablar el lenguaje clínico, modelar preguntas relacionales causales y responder preguntas al explorar fenotipos individuales llegando a plantear preguntas cruciales como ¿por qué? y ¿que pasaria sí?. \\
+El estudio de \textcite{waddell2023applying} aplicó las redes bayesianas para el apoyo en la toma de decisiones, tomando datos de diferentes fuentes para explorar fenotípicos específicos y resultados clínicos, en la cual se pueden tener deficiencias debido al conjunto de datos pequeños y cohortes desequilibrados llegando a realizar inferencias falsas probabilísticas. Algo importante de destacar es como el uso de redes bayesianas ayuda en la detección de enfermedades especialmente en incertidumbre compleja, asimismo el autor indicar de que a pesar que la medicina actualmente se encuentra en competencia con el desarrollo de la inteligencia artificial, esta a su vez debe ser poder interpretada por los médicos en el cual el verdadero potencial de las redes bayesianas viene a ser la capacidad de hablar el lenguaje clínico, modelar preguntas relacionales causales y responder preguntas al explorar fenotipos individuales llegando a plantear preguntas cruciales como ¿por qué? y ¿que pasaria sí?. \\
 
-El trabajo de \cite{ferez2017redes} presenta una mejor evidencia de la medicina basada en la evidencia en el cual se debe tener un uso consciente, explícito y juicioso de la evidencia científica disponible para tomar la decisión de los pacientes, en el cual comprender la realidad y expresarla de manera sistemática, inteligible y sintética. Integrar la experiencia de los profesionales con la evidencia científica disponible para mejorar la toma de decisiones clínicas. Para conseguir este propósito se tienen diferentes entes matemáticas en la que su estudio enfatizó a las redes bayesianas como una de las herramientas más valiosas en el proceso de toma de decisiones. El trabajo planteo conceptos probabilísticos enfocado al análisis bayesiano en los cuales se fundamentan las redes bayesianas, para posteriormente crear dos redes a ejemplos prácticos, en la cual la red bayesiana tiene una capacidad para representar la relación causa entre variables involucradas en un problema y visualizarlas de una manera muy intuitiva, el cual es el modelo gráfico probabilístico más utilizado en el marco de la toma de decisión diagnóstica.
+El trabajo de \textcite{ferez2017redes} presenta una mejor evidencia de la medicina basada en la evidencia en el cual se debe tener un uso consciente, explícito y juicioso de la evidencia científica disponible para tomar la decisión de los pacientes, en el cual comprender la realidad y expresarla de manera sistemática, inteligible y sintética. Integrar la experiencia de los profesionales con la evidencia científica disponible para mejorar la toma de decisiones clínicas. Para conseguir este propósito se tienen diferentes entes matemáticas en la que su estudio enfatizó a las redes bayesianas como una de las herramientas más valiosas en el proceso de toma de decisiones. El trabajo planteo conceptos probabilísticos enfocado al análisis bayesiano en los cuales se fundamentan las redes bayesianas, para posteriormente crear dos redes a ejemplos prácticos, en la cual la red bayesiana tiene una capacidad para representar la relación causa entre variables involucradas en un problema y visualizarlas de una manera muy intuitiva, el cual es el modelo gráfico probabilístico más utilizado en el marco de la toma de decisión diagnóstica.
 
 \subsubsection{Antecedentes Nacionales}
-La investigación de \cite{lopezmodelamiento} para optar el título de maestro en Estadística de la Pontífice Universidad Católica del Perú, se basó acerca de las infecciones respiratorias, en la cual buscó establecer una relación entre la incidencia de infecciones respiratorias agudas (IRA) y la incidencia de neumonía en el Perú en la cual además de ver si estas variables están correlacionadas quiso dar un enfoque espacial a nivel provincial en la cual se esperaría que la incidencia de (IRA) y neumonía sea mayor en provincias vecinas. Por lo cual se estudió la distribución espacial entre la incidencia de (IRA) y neumonía a nivel provincial en el Perú a través de un modelo espacial multivariado con efectos aleatorios condicionales autoregresivos utilizando inferencia bayesiana en el modelo jerárquico espacial multivariado a través del método de integración anidada de Laplace (INLA). El cual mostró una bondad de ajuste del modelo y su eficacia en la simulación realizada teniendo una optimización de tiempo menor, asimismo se vio una correlación positiva directa entre las personas con (IRA) sin neumonía y neumonía. Además de que se tuvo evidencia estadística entre las precipitaciones y la neumonía, indicando que el aumento de precipitaciones en una provincia reduce significativamente la incidencia de IRA sin neumonía, mientras el aumento de precipitación en una provincia aumenta la incidencia de neumonías en dicha provincia, teniendo una autocorrelación espacial moderada con respecto a las tasas de enfermedad entre provincias vecinas, recomendado que se puede trabajar con más covariables y factores que expliquen mejor la causalidad del modelo, de la misma forma incluir un modelo espacio-temporal empleando INLA que tiene una mejor eficiencia computacional al trabajar con más datos.
+La investigación de \textcite{lopezmodelamiento} para optar el título de maestro en Estadística de la Pontífice Universidad Católica del Perú, se basó acerca de las infecciones respiratorias, en la cual buscó establecer una relación entre la incidencia de infecciones respiratorias agudas (IRA) y la incidencia de neumonía en el Perú en la cual además de ver si estas variables están correlacionadas quiso dar un enfoque espacial a nivel provincial en la cual se esperaría que la incidencia de (IRA) y neumonía sea mayor en provincias vecinas. Por lo cual se estudió la distribución espacial entre la incidencia de (IRA) y neumonía a nivel provincial en el Perú a través de un modelo espacial multivariado con efectos aleatorios condicionales autoregresivos utilizando inferencia bayesiana en el modelo jerárquico espacial multivariado a través del método de integración anidada de Laplace (INLA). El cual mostró una bondad de ajuste del modelo y su eficacia en la simulación realizada teniendo una optimización de tiempo menor, asimismo se vio una correlación positiva directa entre las personas con (IRA) sin neumonía y neumonía. Además de que se tuvo evidencia estadística entre las precipitaciones y la neumonía, indicando que el aumento de precipitaciones en una provincia reduce significativamente la incidencia de IRA sin neumonía, mientras el aumento de precipitación en una provincia aumenta la incidencia de neumonías en dicha provincia, teniendo una autocorrelación espacial moderada con respecto a las tasas de enfermedad entre provincias vecinas, recomendado que se puede trabajar con más covariables y factores que expliquen mejor la causalidad del modelo, de la misma forma incluir un modelo espacio-temporal empleando INLA que tiene una mejor eficiencia computacional al trabajar con más datos.
 
 \section{Hipótesis y variables}
 \subsection{Hipótesis general}
@@ -327,7 +327,7 @@ Las variables independientes viene a ser las probabilidades de generar queratoco
 El estudio se realizará en el centro de salud integral La Fuente en la ciudad del Cusco, ubicado en el distrito de San Jerónimo, provincia de Cusco, departamento de Cusco en el Perú.
 
 \subsection{Tipo y nivel de investigación}
-La investigación será de tipo aplicada no experimental retrospectivo ya que tomará en cuenta la información de los pacientes atendidos en el centro de salud en el año 2025 para evaluar los factores influyentes aplicando el análisis bayesiano de tal forma que se aumente el conocimiento científico acerca de la metodología estadística bayesiana y su aplicación. \cite{hernandez2004introduccion}.
+La investigación será de tipo aplicada no experimental retrospectivo ya que tomará en cuenta la información de los pacientes atendidos en el centro de salud en el año 2025 para evaluar los factores influyentes aplicando el análisis bayesiano de tal forma que se aumente el conocimiento científico acerca de la metodología estadística bayesiana y su aplicación. \parencite{hernandez2004introduccion}.
 Asimismo el trabajo de investigación tiene un nivel relacional causal ya que se estudiará la relación y la causalidad que puedan tener las diferentes variables con respecto a la presencia del queratocono.
 
 \subsection{Unidad de análisis}
@@ -344,11 +344,6 @@ La población de estudio serán todos los pacientes atendidos en el centro de sa
     \item Tengan los exámenes topográficos de interés completos. 
 \end{enumerate}
 
-\subsection{Tamaño de muestra}
-El tamaño de muestra que se utilizará para la recolección de información será de 400 individuos.
-
-\subsection{Técnicas de la selección de muestra}
-Las técnicas de selección de muestra será un muestreo probabilístico en el cual se utilizará el muestreo aleatorio simple para la selección de individuos que conformarán la muestra de estudio.
 
 \subsection{Técnicas de recolección de información}
 Las técnicas de recolección de información será a través de la revisión de documentos y/o análisis de datos secundarios, teniendo como instrumento la historia clínica y resultados del topógrafo de PENTACAM.
@@ -417,9 +412,7 @@ Presentación y Revisión&&& &&&&&&&$X$\\ \hline
 \end{table}
 \end{center}
 
-\bibliographystyle{apalike}
-
-\bibliography{bibliografia}
+\printbibliography[heading=bibintoc,title={Bibliografía}]
 
 \begin{landscape}
 \section{ANEXOS}

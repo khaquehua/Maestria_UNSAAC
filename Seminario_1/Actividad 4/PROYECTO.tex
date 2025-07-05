@@ -16,10 +16,14 @@
 \usepackage{pdflscape}
 \usepackage{ragged2e}
 \usepackage{longtable}
-
-
+\usepackage{xpatch}
 %%----------------------------------, 
-%\usepackage[backend=biber, style=ieee]{biblatex}
+\usepackage[style=authoryear, backend=biber, natbib=true, uniquename=false]{biblatex}
+\addbibresource{bibliografia.bib}
+\xpatchbibmacro{textcite:parens}
+  {\printnames{labelname}\setunit{\printdelim{nameyeardelim}}}
+  {\printnames{labelname}\setunit{\addcomma\space}}
+  {}{}
 %\usepackage[T1]{fontenc}
 %\usepackage[light,math]{anttor}
 %%----------Normaliza el tamaño de texto en secciones----------------

@@ -35,12 +35,11 @@
 \contentsline {subsection}{\numberline {4.3}Unidad de análisis}{23}{subsection.4.3}%
 \contentsline {subsection}{\numberline {4.4}Población de estudio}{23}{subsection.4.4}%
 \contentsline {subsubsection}{\numberline {4.4.1}Criterios de inclusión}{23}{subsubsection.4.4.1}%
-\contentsline {subsection}{\numberline {4.5}Tamaño de muestra}{24}{subsection.4.5}%
-\contentsline {subsection}{\numberline {4.6}Técnicas de la selección de muestra}{24}{subsection.4.6}%
-\contentsline {subsection}{\numberline {4.7}Técnicas de recolección de información}{24}{subsection.4.7}%
-\contentsline {subsection}{\numberline {4.8}Técnicas de análisis e interpretación de la información}{24}{subsection.4.8}%
-\contentsline {subsection}{\numberline {4.9}Técnicas para demostrar la verdad o falsedad de las hipótesis planteadas}{24}{subsection.4.9}%
-\contentsline {section}{\numberline {5}Presupuesto}{25}{section.5}%
-\contentsline {section}{\numberline {6}Cronograma de la realización de la tesis}{25}{section.6}%
-\contentsline {section}{\numberline {7}ANEXOS}{29}{section.7}%
-\contentsline {subsection}{\numberline {7.1}Matriz de consistencia}{29}{subsection.7.1}%
+\contentsline {subsection}{\numberline {4.5}Técnicas de recolección de información}{24}{subsection.4.5}%
+\contentsline {subsection}{\numberline {4.6}Técnicas de análisis e interpretación de la información}{24}{subsection.4.6}%
+\contentsline {subsection}{\numberline {4.7}Técnicas para demostrar la verdad o falsedad de las hipótesis planteadas}{24}{subsection.4.7}%
+\contentsline {section}{\numberline {5}Presupuesto}{24}{section.5}%
+\contentsline {section}{\numberline {6}Cronograma de la realización de la tesis}{24}{section.6}%
+\contentsline {section}{Bibliografía}{25}{section*.2}%
+\contentsline {section}{\numberline {7}ANEXOS}{28}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Matriz de consistencia}{28}{subsection.7.1}%
