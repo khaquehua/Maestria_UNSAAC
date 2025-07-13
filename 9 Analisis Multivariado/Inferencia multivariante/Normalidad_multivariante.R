@@ -1,106 +1,40 @@
-A = matrix(c(2,1,1,-1), 2, 2) 
-A
-# determinante
-det(A)
-# inversa de la matriz
-G=solve(A)
-G
-# solucion 
-U= matrix(c(5,1),2,1)
-U
-G%*%U
+## Pruebas para verificar normalidad multivariante
+library(MVN)
+library(readxl)
+datos <- read_excel("9 Analisis Multivariado/Inferencia multivariante/Tasas.xlsx")
+datos <- datos[,-1]
+View(datos)
 
-A <- matrix(c(1,3,5,2,-1,-4,4,2,0,3,-2,-7),ncol=4)
-E3 <- matrix(c(3,0,0,0,1,0,0,0,1),ncol=3)
-E3%*%A
+# Verificando normalidad univariada
+shapiro.test(datos$Mort.Infan)
+# Se rechaza H0 por lo que los datos de mortalidad no siguen la dis normal
 
-E2 <- matrix(c(1,-1,0,0,1,0,0,0,1),ncol=3)
-E2%*%E3%*%A
+# NORMALIDAD MULTIVARIADA
+# H0: El vector sigue una distribución normal p variante
+# H1: El vector no sigue una distribución normal p variante
 
-E1 <- matrix(c(1/3,0,0,0,1,0,0,0,1),ncol=3)
-E1%*%E2%*%E3%*%A
+library(MVN)
+# Mardia
+Mardia <- mvn(datos, mvn_test = "mardia")
+Mardia$multivariate_normality
 
-P <- E1%*%E2%*%E3
-P
+# Para que un vector sea considerado normal p - variante
+# se requiere que tanto en asimetria como en kurtosis se cumpla la normalidad
+# se cumpla la normalidad.
+# Conclusión para nuestros datos, no se cumplen los supuestos de normalidad
 
-# FORMA CUADRATICA EQUIVALENTE
-A1 <- matrix(c(1,3,5,2,4,5,2,5,6,-1,2,4),3,4)
-A1
+# 2 Henze-Zikler
+HZ <- mvn(datos, mvn_test = "hz")
+HZ$multivariate_normality
 
-#columna 2 - 2 col1
-E1 <- matrix(c(2,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1),4,4)
-E1
-E2 <- matrix(c(1,0,0,0,-1,1,0,0,0,0,1,0,0,0,0,1),4,4)
-E2
-E3 <- matrix(c(1/2,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1),4,4)
-E3
+# 3 Royston
+Roy <- mvn(datos, mvn_test = "royston")
+Roy$multivariate_normality
 
-P <- E1 %*% E2 %*% E3
-P
+# 4 Shapiro Wilk multivariado
+library(mvnormtest)
+mshapiro.test(t(datos))
 
-A1 %*% P
-
-A1 %*% P %*% P
-
-P2 <- matrix(c(1,0,0,0,0,1,0,0,-2,0,1,0,0,0,0,1),4,4)
-P2
-
-A1 %*% P %*% P2
-
-P3 <- matrix(c(1,0,0,0,0,1,0,0,0,0,1,0,1,0,0,1),4,4)
-P3
-
-A1 %*% P %*% P2 %*% P3
-
-F1 <- matrix(c(1,-3,0,0,1,0,0,0,1),3,3)
-F1
-
-F1 %*% A1 %*% P %*% P2 %*% P3
-
-F2 <- matrix(c(1,0,-5,0,1,0,0,0,1),3,3)
-F2
-
-F2 %*% F1 %*% A1 %*% P %*% P2 %*% P3
-
-
-F3 <- matrix(c(1,0,0,0,-1/2,0,0,0,1),3,3)
-F3
-
-F3 %*% F2 %*% F1 %*% A1 %*% P %*% P2 %*% P3
-
-F4 <- matrix(c(1,0,0,0,1,5,0,0,1),3,3)
-F4
-F4 %*% F3 %*% F2 %*% F1 %*% A1 %*% P %*% P2 %*% P3
-
-F5 <- matrix(c(1,0,-2/3,0,1,0,0,0,1),3,3)
-F5
-F5 %*% F4 %*% F3 %*% F2 %*% F1 %*% A1 %*% P %*% P2 %*% P3
-
-
-#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-# Solución del ejercicio 3
-# A
-(mu <- matrix(c(27,10,18),3,1))
-(S <- matrix(c(9,2,1,2,1,-1,1,-1,4),3,3))
-(A <- matrix(c(145,303,175),1,3))
-
-muP <- A %*% mu # Valor esperado del portafolio
-SP <- A %*% S %*% t(A) # Varianza del portafolio
-
-muP
-SP
-
-# B
-pnorm(11000, mean = 10095, sd = sqrt(523974), lower.tail = F)
-
-
-
-
-
-
-
-
-
-
-
-
+# 5 DH
+DH <- mvn(datos, mvn_test = "doornik_hansen")
+DH$multivariate_normality
