@@ -1,40 +1,40 @@
 ## Pruebas para verificar normalidad multivariante
 library(MVN)
 library(readxl)
-datos <- read_excel("9 Analisis Multivariado/Inferencia multivariante/Tasas.xlsx")
+datos <- read_excel("9 Analisis Multivariado/Inferencia multivariante/PesoTalla.xlsx")
 datos <- datos[,-1]
 View(datos)
 
-# Verificando normalidad univariada
-shapiro.test(datos$Mort.Infan)
-# Se rechaza H0 por lo que los datos de mortalidad no siguen la dis normal
+# datos del ejercicio
+mu0 = matrix(c(70,170),2,1) ; mu0
+var = matrix(c(20,100,100,1000),2,2) ; var
+n=length(datos$X1) ; n
+p=dim(datos)[2]
+p
 
-# NORMALIDAD MULTIVARIADA
-# H0: El vector sigue una distribución normal p variante
-# H1: El vector no sigue una distribución normal p variante
+# datos de la muestra
+xbar=colMeans(datos)
+xbar
 
-library(MVN)
-# Mardia
-Mardia <- mvn(datos, mvn_test = "mardia")
-Mardia$multivariate_normality
+# estadistico de prueba
+chic= n*(t(xbar-mu0))%*%solve(var)%*%(xbar-mu0)
+chic
 
-# Para que un vector sea considerado normal p - variante
-# se requiere que tanto en asimetria como en kurtosis se cumpla la normalidad
-# se cumpla la normalidad.
-# Conclusión para nuestros datos, no se cumplen los supuestos de normalidad
+qchisq(0.95, df = 2)
 
-# 2 Henze-Zikler
-HZ <- mvn(datos, mvn_test = "hz")
-HZ$multivariate_normality
+# Datos del ejercicio 2
 
-# 3 Royston
-Roy <- mvn(datos, mvn_test = "royston")
-Roy$multivariate_normality
+mu0 <- 
 
-# 4 Shapiro Wilk multivariado
-library(mvnormtest)
-mshapiro.test(t(datos))
 
-# 5 DH
-DH <- mvn(datos, mvn_test = "doornik_hansen")
-DH$multivariate_normality
+
+
+
+
+
+
+
+
+
+
+
