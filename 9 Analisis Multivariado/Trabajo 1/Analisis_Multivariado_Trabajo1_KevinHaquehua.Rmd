@@ -1,0 +1,414 @@
+---
+title: "Análisis Multivariado"
+author: "Kevin Heberth Haquehua Apaza"
+date: "14 de julio del 2025"
+output:
+  word_document:
+    reference_docx: template.docx
+subtitle: 'Producto académico 01'
+---
+
+# Ejercicios Distribución Normal Multivariante e Inferencia
+
+## Ejercicio 1:
+
+Se tiene la matriz de datos
+
+### Solución
+
+```{r cars}
+library()
+```
+
+En mi caso tengo varios paquetes ya que estuve trabajando tiempo en R
+
+Para mi caso como tengo las ultimas versiones de R, me indica que ambos paquetes ya no los tiene para la versión de R, en el caso de `Survival`, igualmente hay que ver si se tienen los paquetes
+
+```{r, error=TRUE}
+library(MASS)
+library(Survival)
+```
+
+El caso de la librería `Survival` no se tiene disponible es en minúscula, así como lo indicaron mis compañeros en el grupo.
+
+```{r}
+library(survival)
+```
+
+Por último veamos la información acerca del paquete `Rcmdr`
+
+```{r}
+#??Rcmdr
+```
+
+Me envía a la parte de ayuda de R CMD command de los cuales manda como ejemplo lo siguiente
+
+```{r}
+#rcmd(
+#  cmd,
+#  cmdargs = character(),
+#  libpath = .libPaths(),
+#  repos = default_repos(),
+#  stdout = NULL,
+#  stderr = NULL,
+#  poll_connection = TRUE,
+#  echo = FALSE,
+#  show = FALSE,
+#  callback = NULL,
+#  block_callback = NULL,
+#  spinner = show && interactive(),
+#  system_profile = FALSE,
+#  user_profile = "project",
+#  env = rcmd_safe_env(),
+#  timeout = Inf,
+#  wd = ".",
+#  fail_on_status = FALSE
+#)
+```
+
+Código para hacer correr R Comander.
+
+
+## Ejercicio 3:
+
+A partir del conjunto de datos _anorexia_ del paquete `MASS`, que corresponden a los datos de cambio de peso de pacientes jóvenes con anorexia, mostrad los tipos de datos que contiene y comprobad si existen valores NA y NULL. Para la variable _Treat_, transformad los valores "CBT", "Cont" y "FT" en "Cogn Beh Tr", "Contr" y "Fam Tr", respectivamente
+
+### Solución
+
+Llamamos a la libreria
+
+```{r}
+library(MASS)
+```
+
+Ahora cargamos los datos de anorexia
+
+```{r}
+data("anorexia")
+```
+
+Veamos los primeros registros
+
+```{r}
+head(anorexia)
+```
+
+Para ver los tipos de datos usamos la función `str(anorexia)`
+
+```{r}
+str(anorexia)
+```
+
+Se tienen 72 observaciones en los cuales se dividen en tratamiento, wt previo y wt posterior. Ahora comprobemos cuantos valores na se tienen
+
+```{r}
+colSums(is.na(anorexia))
+```
+
+No se tiene ningún dato vacío, ahora veamos los null
+
+```{r}
+table(is.null(anorexia))
+```
+Solo se tiene un registro en nulo, por último transformemos la variable _Treat_ sus niveles en diferentes nombres
+
+```{r}
+anorexia$Treat <- factor(anorexia$Treat, levels = c("CBT","Cont","FT"), labels = c("Cogn Beh Tr","Contr","Fam Tr"))
+str(anorexia)
+```
+
+```{r}
+levels(anorexia$Treat)
+```
+
+## Ejercicio 5:
+
+En el siguiente ejemplo veremos cómo utilizar diferentes operadores sobre el conjunto de datos _birthwt_, así como también algunas funciones que nos permiten obtener más información de las variables:
+
+a) ¿Cuál es la edad máxima de las madres del conjunto de datos?
+b) ¿Cuál es la edad mínima de las madres del conjunto de datos?
+c) ¿Cuál es el rango de edad de las madres?
+d) ¿Fumaba la madre cuyo recién nacido era el de menor peso?
+e) ¿Cuánto pesó el recién nacido cuya madre tenía la edad máxima?
+f) ¿Listad los pesos de los recién nacidos, cuyas madres visitarán menos de dos veces al médico durante el primer trimestre?
+
+### Solución
+
+a) ¿Cuál es la edad máxima de las madres del conjunto de datos?
+
+```{r}
+data("birthwt") #Leer los datos
+```
+
+```{r}
+max(birthwt$age)
+```
+
+b) ¿Cuál es la edad mínima de las madres del conjunto de datos?
+
+```{r}
+min(birthwt$age)
+```
+
+c) ¿Cuál es el rango de edad de las madres?
+
+```{r}
+max(birthwt$age) - min(birthwt$age)
+```
+
+d) ¿Fumaba la madre cuyo recién nacido era el de menor peso?
+
+```{r}
+library(dplyr) #Usar la librería dplyr
+```
+
+
+```{r}
+birthwt %>% filter(bwt == min(bwt)) %>% select(smoke) #Si fumo
+```
+
+
+e) ¿Cuánto pesó el recién nacido cuya madre tenía la edad máxima?
+
+```{r}
+birthwt %>% filter(age == max(age)) %>% select(bwt)
+```
+
+
+f) ¿Listad los pesos de los recién nacidos, cuyas madres visitarán menos de dos veces al médico durante el primer trimestre?
+
+```{r}
+birthwt %>% filter(ftv <= 2) %>% select(bwt)
+```
+
+## Ejercicio 6:
+
+A partir del conjunto de datos _anorexia_ trabajado en apartados anteriores, cread una matriz que tenga como columnas los valores de Prewt y Postwt, y cada fila sean los valores correspondientes para cada posición.
+
+### Solución
+
+```{r}
+matrix(c(anorexia$Prewt, anorexia$Postwt), ncol = 2)
+```
+
+## Ejercicio 7:
+
+Copiad el código siguiente en tu consola para generar un data frame con veinticinco registros y seis variables, y responde a los siguientes apartados:
+
+```{r}
+Identificador <- c("I1","I2","I3","I4","I5","I6","I7","I8","I9","I10","I11","I12","I13","I14","I15","I16","I17","I18","I19","I20","I21","I22","I23","I24","I25")
+Edad <- c(23,24,21,22,23,25,26,24,21,22,23,25,26,24,22,21,25,26,24,21,25,27,26,22,29)
+Sexo <-c(1,2,1,1,1,2,2,2,1,2,1,2,2,2,1,1,1,2,2,2,1,2,1,1,2) #1 para mujeres y 2 para hombres
+Peso <- c(76.5,81.2,79.3,59.5,67.3,78.6,67.9,100.2,97.8,56.4,65.4,67.5,87.4,99.7,87.6,93.4,65.4,73.7,85.1,61.2,54.8,103.4,65.8,71.7,85.0)
+Alt <- c(165,154,178,165,164,175,182,165,178,165,158,183,184,164,189,167,182,179,165,158,183,184,189,166,175) #altura en cm
+Fuma <- c("SÍ","NO","SÍ","SÍ","NO","NO","NO","SÍ","SÍ","SÍ","NO","NO","SÍ","SÍ","SÍ","SÍ","NO","NO","SÍ","SÍ","SÍ","NO","SÍ","NO","SÍ")
+Trat_Pulmon <- data.frame(Identificador,Edad,Sexo,Peso,Alt,Fuma)
+head(Trat_Pulmon)
+```
+
+a) Seleccionad los registros con edad > 22.
+b) Seleccionad el elemento 3 de la columna 4 del conjunto de datos (contando el identificador)
+c) Usad el comando `subset()` para seleccionar todas las filas que tienen una edad menor que 27 años y sin incluir la columna **Alt**
+
+### Solución
+
+a) Seleccionad los registros con edad > 22.
+
+```{r}
+Trat_Pulmon %>% filter(Edad > 22)
+```
+
+b) Seleccionad el elemento 3 de la columna 4 del conjunto de datos (contando el identificador)
+
+```{r}
+Trat_Pulmon[3,4]
+```
+
+c) Usad el comando `subset()` para seleccionar todas las filas que tienen una edad menor que 27 años y sin incluir la columna **Alt**
+
+```{r}
+subset(Trat_Pulmon, Edad < 27, select = -c(Alt))
+```
+
+## Ejercicio 8:
+
+Incorporad el dataset **_ChickWeight_** que contienen información sobre el peso de 578 pollitos en gramos _(weight)_, el tiempo desde la medición al nacer _(Time)_, una variable identificadora de cada pollito _(Chick)_ a partir del rango de peso y una variable factor con el tipo de dieta experimental que cada pollito recibió _(Diet)_.
+
+a) Incorporad el conjunto de datos **_(ChickWeight)_** del paquete **datasets** a vuestro entorno de trabajo.
+b) Generad un gráfico de dispersión de la variable **_weight_**.
+c) Cread un diagrama de caja con la variable **_Time_**.
+
+Para más información sobre **_ChickWeight_**: <https://rdrr.io/r/datasets/ChickWeight.html> 
+
+### Solución
+
+a) Incorporad el conjunto de datos **_(ChickWeight)_** del paquete **datasets** a vuestro entorno de trabajo.
+
+```{r}
+library(datasets)
+data.frame(ChickWeight)
+head(ChickWeight)
+```
+
+b) Generad un gráfico de dispersión de la variable **_weight_**.
+
+```{r}
+plot(ChickWeight$weight, col=blues9, main="Gráfico de dispersión de weight")
+```
+
+c) Cread un diagrama de caja con la variable **_Time_**.
+
+```{r}
+boxplot(ChickWeight$Time, col="green", main="Diagrama de cajas de Time")
+```
+
+## Ejercicio 9:
+
+A partir del conjunto de datos _anorexia_ del paquete `MASS`, cread otro data frame que se llame **anorexia_treat_df** formado por Treat y por un vector nuevo calculado a partir de la diferencia _Prewt-Postwt_. De esta manera, nos quedará un dataframe que contenga el tipo de tratamiento y el valor del peso ganado o perdido después de haber realizado el tratamiento.
+
+Seleccionad aquellos individuos que han ganado peso después del tratamiento y cread un nuevo conjunto llamado **_anorexia_treat_C_df_** que contenga solo los datos de aquellos que han seguido el tratamiento "Cont" y que han ganado peso después del tratamiento.
+
+### Solución
+
+Cread la variable de la diferencia
+
+```{r}
+anorexia$dif <- anorexia$Prewt - anorexia$Postwt
+```
+
+Ahora seleccionar la variable Treat y la diferencia
+
+```{r}
+anorexia_treat_df <- anorexia %>% select(Treat, dif)
+head(anorexia_treat_df)
+```
+
+Seleccionad a los individuos que ganaron peso después del tratamiento  y cread el dataframe
+
+```{r}
+anorexia_treat_C_df <- anorexia %>% filter(Treat == "Contr")
+head(anorexia_treat_C_df)
+```
+
+## Ejercicio 10:
+
+Entrad en <https://rpubs.com/> y registraros. Crearos un perfil y subid un documento **R Markdown**. Los prerequisitos son tener instalados <https://www.r-project.org/> y <https://posit.co/>, y el paquete `knitr`.
+
+Pasos que tenéis que seguir para publicar vuestro documento:
+
+1) En **RStudio**, cread un documento **R Markdown**.
+2) Generad el documento con **_Knit_**.
+3) En la ventana de previsualización, clicad el botón de publicar.
+
+Como solución de vuestro ejercicio, copiad el enlace de vuestra página de prueba de **RPubs**
+
+### Solución
+
+Enlace de la publicación de este trabajo <https://rpubs.com/UOC72658015/1282283>
+
+## Caso práctico
+
+Resolved los siguientes apartados
+
+a) Cread un conjunto de datos inventado con R. Debe contener treinta observaciones (quince para hombres y quince para mujeres) para seis variables con estas características
+
+| Variable    | Nombre  | Características         |
+|-------------|---------|-------------------------|
+| Identificador| Id     | carácter                |
+| Edad         | Edad   | numérica                |
+| Genero       | Gene   | 2 valores 1 = mujer, 2 = hombre |
+| Tratamiento  | Trat   | Factor. Tres tipos de tratamiento (A, B y C) |
+| Peso         | Peso   | numérica (en kg)        |
+| Estatura     | Alt    | numérica (en cm)        |
+
+b) Buscad información de vuestro conjunto de datos y de vuestras variables.
+
+c) Cread una nueva variable a partir de alguna de las que tengamos. Por ejemplo, podéis calcular el IMC **(IMC) = peso (kg)/ [estatura (m)]**${}^2$ e incluid la nueva variable en el conjunto de datos.
+
+d) Cread dos data frames diferenciados para hombres y mujeres con dos nombres diferentes: **Df_Hombres** y **Df_Mujeres**.
+
+e) Combinad de nuevo los dos ficheros anteriores y cread el primero de nuevo con el comando `rbind()`.
+
+### Solución
+
+a) Cread un conjunto de datos inventado con R. Debe contener treinta observaciones (quince para hombres y quince para mujeres) para seis variables con estas características
+
+```{r}
+set.seed(2025) #Semilla para que los datos sean iguales
+```
+
+Creamos las variables
+
+```{r}
+Id <- c("ID1","ID2","ID3","ID4","ID5","ID6","ID7","ID8","ID9","ID10","ID11","ID12","ID13","ID14","ID15","ID16","ID17","ID18","ID19","ID20","ID21","ID22","ID23","ID24","ID25","ID26","ID27","ID28","ID29","ID30")
+Edad <- round(rnorm(n = 30, mean = 22, sd = 3),0)
+Genero <- rbinom(n = 30, size = 1, prob = 0.5)
+Tratamiento <- rbinom(n = 30, size = 2, prob = 0.5)
+Peso <- round(rnorm(n = 30, mean = 70, sd = 6),2)
+Estatura <- round(rnorm(n = 30, mean = 172, sd = 7),2)
+```
+
+```{r}
+data <- data.frame(Id, Edad, Genero, Tratamiento,
+                   Peso, Estatura)
+data$Genero <- ifelse(data$Genero == 0, 1,2)
+data$Tratamiento <- ifelse(data$Tratamiento == 0, "A",
+                           ifelse(data$Tratamiento == 1, "B","C"))
+```
+
+```{r}
+head(data)
+```
+
+b) Buscad información de vuestro conjunto de datos y de vuestras variables.
+
+```{r}
+data$Genero <- as.factor(data$Genero)
+data$Tratamiento <- as.factor(data$Tratamiento)
+```
+
+
+```{r}
+str(data)
+```
+
+```{r}
+summary(data)
+```
+
+c) Cread una nueva variable a partir de alguna de las que tengamos. Por ejemplo, podéis calcular el IMC **(IMC = peso (kg)/ [estatura (m)]**${}^2$ e incluid la nueva variable en el conjunto de datos.
+
+```{r}
+data$Estatura <- data$Estatura/100
+
+data$IMC <- (data$Peso) / (data$Estatura^2)
+```
+
+Veamos los registros
+
+```{r}
+data$IMC
+```
+
+d) Cread dos data frames diferenciados para hombres y mujeres con dos nombres diferentes: **Df_Hombres** y **Df_Mujeres**.
+
+```{r}
+Df_Hombres <- data %>% filter(Genero == 2)
+Df_Hombres
+```
+
+```{r}
+Df_Mujeres <- data %>% filter(Genero == 1)
+Df_Mujeres
+```
+
+e) Combinad de nuevo los dos ficheros anteriores y cread el primero de nuevo con el comando `rbind()`.
+
+```{r}
+data_bind <- rbind(Df_Hombres, Df_Mujeres)
+data_bind
+```
+
+
+
+
