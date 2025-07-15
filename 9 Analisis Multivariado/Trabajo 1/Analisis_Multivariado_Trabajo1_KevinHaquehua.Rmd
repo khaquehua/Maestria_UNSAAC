@@ -108,3 +108,5 @@ DatoHornos
 Aca va la solución
 
 ## Ejercicio 6
+En una planta automotriz, se monitorean tres características de una pieza crítica: longitud (mm), peso (g) y dureza (Rockwell). 
+
