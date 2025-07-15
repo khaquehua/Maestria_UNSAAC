@@ -2,7 +2,7 @@
 ## pruebas para verificar normalidad multivariante.
 library(MVN)
 library(readxl)
-datos <- read_excel("D:/0_POS GRADO UNSAAC/MULTIVARIANTE-JULIO 2025/Tasas.xlsx", 
+datos <- read_excel("9 Analisis Multivariado/1 Inferencia multivariante/Tasas.xlsx", 
                     range = "B1:D52")
 View(datos)
 
@@ -26,8 +26,8 @@ nortest::cvm.test(datos$Mort.Infan) # cramer vonn mises
 # Ha:El vector No siguen una distribucion normal p variante
 
 library(MVN)
-Mardia = mvn(datos, mvnTest = "mardia")
-Mardia$multivariateNormality
+Mardia = mvn(datos, mvn_test = "mardia")
+Mardia$multivariate_normality
 # para que un vector sea considerado normal p variante
 # se requiere que tanto en asimetria como en kurtosis 
 # se cumpla la normalidad.
@@ -35,19 +35,19 @@ Mardia$multivariateNormality
 # supuestos de normalidad
 
 # 2 Henze-Zirkler
-HZ =mvn(datos, mvnTest = "hz") 
-HZ$multivariateNormality
+HZ =mvn(datos, mvn_test = "hz") 
+HZ$multivariate_normality
 
 # 3 Royston
-Roy =mvn(datos, mvnTest = "royston") 
-Roy$multivariateNormality
+Roy =mvn(datos, mvn_test = "royston") 
+Roy$multivariate_normality
 
 # 4 shapiro wilk multivariante
 library(mvnormtest)
 mshapiro.test(t(datos))
 
 # 5 Doornik-Hansen's test 
-DH =mvn(datos, mvnTest = "dh") 
-DH$multivariateNormality
+DH =mvn(datos, mvn_test = "doornik_hansen") 
+DH$multivariate_normality
 
 
