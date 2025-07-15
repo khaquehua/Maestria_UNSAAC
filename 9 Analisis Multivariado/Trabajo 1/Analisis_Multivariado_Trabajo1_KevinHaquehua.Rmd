@@ -108,5 +108,64 @@ DatoHornos
 Aca va la solución
 
 ## Ejercicio 6
-En una planta automotriz, se monitorean tres características de una pieza crítica: longitud (mm), peso (g) y dureza (Rockwell). 
+En una planta automotriz, se monitorean tres características de una pieza crítica: longitud (mm), peso (g) y dureza (Rockwell). Estas características siguen una distribución normal trivariada con:
+
+```{r}
+E_X <- matrix(c(25, 200, 60),3,1) ; E_X
+V <- matrix(c(1.2, 3, 0.5, 3, 25, 2, 0.5, 2, 4),3,3) ; V
+```
+
+a) ¿Cuál es la probabilidad de que una pieza tenga dureza mayor a 65?
+b) ¿Cuál es la densidad condicional de la dureza dado que la longitud fue 24 mm y el peso 190 g?
+c) ¿Simule 100 observaciones y grafique las elipses de confianza bivariadas (longitud vs peso, peso vs dureza)?
+
+### Solución
+Aca va la solución
+
+## Ejercicio 7
+Se estudia la respuesta a un tratamiento en pacientes diabéticos midiendo: glucosa en sangre, presión arterial sistólica y frecuencia cardíaca. Se modelan como una variable aleatoria normal trivariada:
+
+```{r}
+E_X <- matrix(c(90, 130, 72),3,1) ; E_X
+SIGMA <- matrix(c(25, 10, 5, 10, 100, 8, 5, 8, 36),3,3) ; SIGMA
+```
+
+a) ¿Cuál es la distribución del promedio muestral si se toman 25 pacientes?
+b) Hallar el intervalo simultáneo de confianza del 95% para los tres parámetros
+
+### Solución
+Aca va la solución
+
+## Ejercicio 8
+A 60 estudiantes se les aplican tres pruebas: memoria verbal, razonamiento lógico y velocidad de procesamiento. Se asume una distribución normal trivariada:
+
+```{r}
+mu <- matrix(c(100, 105, 95)) ; mu
+Sigma <- matrix(c(15, 10, 5, 10, 20, 8, 5, 8, 10),3,3) ; Sigma
+```
+
+a) ¿Cuál es la distribución de la puntuación total combinada?
+b) Si se observa una velocidad de procesamiento de 100, ¿cuál es la distribución condicional del resto?
+
+### Solución
+Aca va la solución
+
+## Ejercicio 9
+Se recopilan datos semanales sobre temperatura $(°C)$, humedad relativa $(\%)$ y velocidad del viento $(km/h)$ en una ciudad. Se modela:
+
+```{r}
+E_X <- matrix(c(22, 60, 12),3,1) ; E_X
+Sigma <- matrix(c(4, -2, 0.5, -2, 9, 1.5, 0.5, 1.5, 1),3,3) ; Sigma
+```
+
+a) Hallar la distribución de una combinación lineal:
+$$
+\text{índice climático} = 0.5 \cdot \text{Temp} + 0.3 \cdot \text{Hum} - 0.2 \cdot \text{Viento}
+$$
+b) ¿Cuál es la probabilidad de que el índice climático sea > 27?
+
+### Solución
+Aca va la solución
+
+
 
