@@ -38,9 +38,13 @@ Para este caso se tiene una prueba de hipótesis del vector de medias $N_p (\mu,
 
 #### 2) Establecer el nivel de significancia
 $\alpha = 0.01$
+```{r}
+alpha <- 0.01 ; alpha
+```
+
 
 #### 3) Hallar el estadístico de prueba
-Con la varianza desconocida se utiliza la siguiente fórmula
+Con la varianza desconocida se utiliza la siguiente fórmula para rechazar $H_0$
 $$
 \frac{(n-p)d^{-1}S^{-1}d}{p} > F_{(p,n-p,\alpha)}
 $$
@@ -64,9 +68,24 @@ p=dim(X_1)[2] ; p
 
 ```{r}
 #Hallar el valor F calculado
-#fis_c <- (n - p) * solve(d)
+fis_c <- ((n - p) * t(d) %*% solve(S) %*% d )/p
+fis_c
 ```
 
+#### 4) Hallar el valor de la región crítica
+```{r}
+fis_q <- qf(1-alpha, df1 = p, df2 = n - p)
+fis_q
+```
+
+De la misma forma con el pvalor
+
+```{r}
+pf(fis_c, df1 = p, df2 = n-p, lower.tail = F)
+```
+
+#### 5) Conclusión
+Como $F_{c}^{2} < F_{t}^{2}$, no se rechaza $H_0$ por lo tanto, a un nivel de significancia $\alpha = 0.01$ el vector de medias muestrales es igual al vector $\mu_0 = (9,5)$
 
 
 
@@ -75,14 +94,76 @@ p=dim(X_1)[2] ; p
 Se tiene la matriz de datos `X_2`:
 
 ```{r}
-X_2 = matrix(c(2,8,6,8,12,9,9,10),4,2) ; X_2
+X_2 = data.frame(x1 = c(2, 8, 6, 8),
+                 x2 = c(12, 9, 9, 10)) ; X_2
 ```
 
 Pruebe si el vector de medias muestrales igual al vector $\mu_0 = (7, 11)$, usando el nivel de significancia $\alpha = 0.03$
 
 ### Solución
 
-Aca va la solución
+Para este caso se tiene una prueba de hipótesis del vector de medias $N_p (\mu, \Sigma)$ y con $\Sigma$ desconocido, nos planteamos las siguientes hipótesis:
+
+#### 1) Formular las hipótesis
+
+- $H_0: \mu = \begin{pmatrix}
+7 \\
+11
+\end{pmatrix}$ 
+- $H_a: \mu \neq \begin{pmatrix}
+7 \\
+11
+\end{pmatrix}$ 
+
+#### 2) Establecer el nivel de significancia
+$\alpha = 0.03$
+```{r}
+alpha <- 0.03 ; alpha
+```
+
+#### 3) Hallar el estadístico de prueba
+Con la varianza desconocida se utiliza la siguiente fórmula para rechazar $H_0$
+$$
+\frac{(n-p)d^{-1}S^{-1}d}{p} > F_{(p,n-p,\alpha)}
+$$
+
+Donde $d = \bar{x} - \mu_0$ y $S$ es la matriz de covarianza de la muestra, hallemos los resultados en R
+
+```{r}
+#Covarianza de la muestra
+S <- cov(X_2) ; S
+#Vector de medias muestrales
+xbar <- colMeans(X_2) ; xbar
+#Valor mu_0
+mu0 <- matrix(c(7,11),2,1) ; mu0
+#Vector de diferencia d
+d <- xbar - mu0 ; d
+#Cantidad de datos en la muestra
+n=length(X_2$x1) ; n
+#Cantidad de variables
+p=dim(X_2)[2] ; p
+```
+
+```{r}
+#Hallar el valor F calculado
+fis_c <- ((n - p) * t(d) %*% solve(S) %*% d )/p
+fis_c
+```
+
+#### 4) Hallar el valor de la región crítica
+```{r}
+fis_q <- qf(1-alpha, df1 = p, df2 = n - p)
+fis_q
+```
+
+De la misma forma con el pvalor
+
+```{r}
+pf(fis_c, df1 = p, df2 = n-p, lower.tail = F)
+```
+
+#### 5) Conclusión
+Como $F_{c}^{2} < F_{t}^{2}$, no se rechaza $H_0$ por lo tanto, a un nivel de significancia $\alpha = 0.03$ el vector de medias muestrales es igual al vector $\mu_0 = (7,11)$
 
 ## Ejercicio 3:
 
@@ -96,15 +177,13 @@ Se midieron tres componentes
 El cual el resultado es el siguiente
 
 ```{r}
-Individuo <- 1:20 
 x1 <- c(3.7, 5.7, 3.8, 3.2, 3.1, 4.6, 2.4, 7.2, 6.7, 5.4,
         3.9, 4.5, 3.5, 4.5, 1.5, 8.5, 4.5, 6.5, 4.1, 5.5)
 x2 <- c(48.5, 65.1, 47.2, 53.2, 55.5, 36.1, 24.8, 33.1, 47.4, 54.1,
         36.9, 58.8, 27.8, 40.2, 13.5, 56.4, 71.6, 52.8, 44.1, 40.9)
 x3 <- c(9.3, 8.0, 10.9, 12.0, 9.7, 7.9, 14.0, 7.6, 8.5, 11.3,
         12.7, 12.3, 9.8, 8.4, 10.1, 7.1, 8.2, 10.9, 11.2, 9.4)
-X3 <- data.frame(Individuo = Individuo,
-                 x1 = x1,
+X3 <- data.frame(x1 = x1,
                  x2 = x2,
                  x3 = x3)
 X3
@@ -114,7 +193,70 @@ Pruebe si el vector de medias muestrales igual al vector $\mu_0 = (4, 50, 10)$, 
 
 ### Solución
 
-Aca va la solución
+Para este caso se tiene una prueba de hipótesis del vector de medias $N_p (\mu, \Sigma)$ y con $\Sigma$ desconocido, nos planteamos las siguientes hipótesis:
+
+#### 1) Formular las hipótesis
+
+- $H_0: \mu = \begin{pmatrix}
+4 \\
+50 \\
+10
+\end{pmatrix}$ 
+- $H_a: \mu \neq \begin{pmatrix}
+4 \\
+50 \\
+10
+\end{pmatrix}$ 
+
+#### 2) Establecer el nivel de significancia
+$\alpha = 0.03$
+```{r}
+alpha <- 0.03 ; alpha
+```
+
+#### 3) Hallar el estadístico de prueba
+Con la varianza desconocida se utiliza la siguiente fórmula para rechazar $H_0$
+$$
+\frac{(n-p)d^{-1}S^{-1}d}{p} > F_{(p,n-p,\alpha)}
+$$
+
+Donde $d = \bar{x} - \mu_0$ y $S$ es la matriz de covarianza de la muestra, hallemos los resultados en R
+
+```{r}
+#Covarianza de la muestra
+S <- cov(X3) ; S
+#Vector de medias muestrales
+xbar <- colMeans(X3) ; xbar
+#Valor mu_0
+mu0 <- matrix(c(4,50,10),3,1) ; mu0
+#Vector de diferencia d
+d <- xbar - mu0 ; d
+#Cantidad de datos en la muestra
+n=length(X3$x1) ; n
+#Cantidad de variables
+p=dim(X3)[2] ; p
+```
+
+```{r}
+#Hallar el valor F calculado
+fis_c <- ((n - p) * t(d) %*% solve(S) %*% d )/p
+fis_c
+```
+
+#### 4) Hallar el valor de la región crítica
+```{r}
+fis_q <- qf(1-alpha, df1 = p, df2 = n - p)
+fis_q
+```
+
+De la misma forma con el pvalor
+
+```{r}
+pf(fis_c, df1 = p, df2 = n-p, lower.tail = F)
+```
+
+#### 5) Conclusión
+Como $F_{c}^{2} < F_{t}^{2}$, no se rechaza $H_0$ por lo tanto, a un nivel de significancia $\alpha = 0.03$ el vector de medias muestrales de la transpiración de las 20 mujeres saludables es igual al vector $\mu_0 = (4,50,10)$
 
 ## Ejercicio 4:
 Tenemos una muestra de 15 mujeres y 12 hombres. En la tabla siguiente se presenta la media de los valores de las diferentes variables medidas.
