@@ -1,5 +1,5 @@
 library(readxl)
-datos <- read_excel("D:/0_POS GRADO UNSAAC/MULTIVARIANTE-JULIO 2025/datospesotalla.xlsx", 
+datos <- read_excel("9 Analisis Multivariado/1 Inferencia multivariante/datospesotalla.xlsx", 
                     range = "B1:C21")
 # datos del  ejercicio
 mu0 = matrix(c(70,170),2,1) ; mu0
