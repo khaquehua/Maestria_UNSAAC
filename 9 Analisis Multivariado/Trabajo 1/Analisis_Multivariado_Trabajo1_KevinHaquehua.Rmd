@@ -15,14 +15,60 @@ subtitle: 'Producto académico 01'
 Se tiene la matriz de datos `X_1`:
 
 ```{r}
-X_1 = matrix(c(6,10,8,9,6,3),3,2) ; X_1
+X_1 = data.frame(x1 = c(6,10,8),
+                 x2 = c(9,6,3)) ; X_1
 ```
 
 Pruebe si el vector de medias muestrales igual al vector $\mu_0 = (9, 5)$, usando el nivel de significancia $\alpha = 0.01$
 
 ### Solución
 
-Aca se adjunta la solución
+Para este caso se tiene una prueba de hipótesis del vector de medias $N_p (\mu, \Sigma)$ y con $\Sigma$ desconocido, nos planteamos las siguientes hipótesis:
+
+#### 1) Formular las hipótesis
+
+- $H_0: \mu = \begin{pmatrix}
+9 \\
+5
+\end{pmatrix}$ 
+- $H_a: \mu \neq \begin{pmatrix}
+9 \\
+5
+\end{pmatrix}$ 
+
+#### 2) Establecer el nivel de significancia
+$\alpha = 0.01$
+
+#### 3) Hallar el estadístico de prueba
+Con la varianza desconocida se utiliza la siguiente fórmula
+$$
+\frac{(n-p)d^{-1}S^{-1}d}{p} > F_{(p,n-p,\alpha)}
+$$
+
+Donde $d = \bar{x} - \mu_0$ y $S$ es la matriz de covarianza de la muestra, hallemos los resultados en R
+
+```{r}
+#Covarianza de la muestra
+S <- cov(X_1) ; S
+#Vector de medias muestrales
+xbar <- colMeans(X_1) ; xbar
+#Valor mu_0
+mu0 <- matrix(c(9,5),2,1) ; mu0
+#Vector de diferencia d
+d <- xbar - mu0 ; d
+#Cantidad de datos en la muestra
+n=length(X_1$x1) ; n
+#Cantidad de variables
+p=dim(X_1)[2] ; p
+```
+
+```{r}
+#Hallar el valor F calculado
+#fis_c <- (n - p) * solve(d)
+```
+
+
+
 
 ## Ejercicio 2:
 
