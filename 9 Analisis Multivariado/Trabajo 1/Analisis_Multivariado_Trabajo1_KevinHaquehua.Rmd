@@ -5,6 +5,8 @@ date: "14 de julio del 2025"
 output:
   word_document:
     reference_docx: template.docx
+    toc: true
+    toc_depth: 3
 subtitle: 'Producto académico 01'
 ---
 
@@ -374,7 +376,397 @@ DatoHornos
 
 ### Solución
 
-Aca va la solución
+a) **Hacer un Q-Q-plot con los datos univariados y además testear su normalidad.**
+
+#### Para el horno abierto
+
+Realizar el gráfico qqplot
+
+```{r}
+qqnorm(DatoHornos$Abierto)
+qqline(DatoHornos$Abierto, col = "red")
+```
+
+Realizar las pruebas de normalidad
+
+```{r}
+#Libreria a utilizar
+library(nortest)
+```
+
+
+```{r}
+# Shapiro Wilk
+shapiro.test(DatoHornos$Abierto)
+# Anderson darling
+nortest::ad.test(DatoHornos$Abierto)
+# cramer vonn mises
+nortest::cvm.test(DatoHornos$Abierto)
+```
+
+En las tres hipótesis y por el gráfico QQPlot se observa que los datos no siguen una distribución normal.
+
+#### Para el horno cerrado
+
+Realizar el gráfico qqplot
+
+```{r}
+qqnorm(DatoHornos$Cerrado)
+qqline(DatoHornos$Cerrado, col = "red")
+```
+
+Realizar las pruebas de normalidad
+
+```{r}
+# Shapiro Wilk
+shapiro.test(DatoHornos$Cerrado)
+# Anderson darling
+nortest::ad.test(DatoHornos$Cerrado)
+# cramer vonn mises
+nortest::cvm.test(DatoHornos$Cerrado)
+```
+
+En las tres hipótesis y por el gráfico QQPlot se observa que los datos no siguen una distribución normal.
+
+b) **Una transformación de Box y Cox que mejora la normalidad de los datos para la puerta cerrada se obtiene $\lambda = 0.25$. Aplicar la transformación a ambas variables $y_{ij} = {x}_{ij}^{1/4}, j =1,2$ y comprobarlo a través de nuevos Q-Q-plots y pruebas de normalidad.**
+
+Realizar la transformación
+
+```{r}
+DatoHornos$AbiertoBoxCox <- DatoHornos$Abierto^(1/4)
+DatoHornos$CerradoBoxCox <- DatoHornos$Cerrado^(1/4)
+```
+
+Ver la normalidad en ambos grupos
+
+#### Para el horno abierto
+
+Realizar el gráfico qqplot
+
+```{r}
+qqnorm(DatoHornos$AbiertoBoxCox)
+qqline(DatoHornos$AbiertoBoxCox, col = "red")
+```
+
+Realizar las pruebas de normalidad
+
+```{r}
+# Shapiro Wilk
+shapiro.test(DatoHornos$AbiertoBoxCox)
+# Anderson darling
+nortest::ad.test(DatoHornos$AbiertoBoxCox)
+# cramer vonn mises
+nortest::cvm.test(DatoHornos$AbiertoBoxCox)
+```
+
+Se observa que solo en la prueba de Shapiro Wilk los datos del horno abierto transformado sigue una distribución normal. Se podría tomar como una distribución normal pero no de forma tan certera.
+
+#### Para el horno cerrado
+
+Realizar el gráfico qqplot
+
+```{r}
+qqnorm(DatoHornos$CerradoBoxCox)
+qqline(DatoHornos$CerradoBoxCox, col = "red")
+```
+
+Realizar las pruebas de normalidad
+
+```{r}
+# Shapiro Wilk
+shapiro.test(DatoHornos$CerradoBoxCox)
+# Anderson darling
+nortest::ad.test(DatoHornos$CerradoBoxCox)
+# cramer vonn mises
+nortest::cvm.test(DatoHornos$CerradoBoxCox)
+```
+
+En las tres hipótesis y por el gráfico QQPlot se observa que los datos siguen una distribución normal.
+
+c) **Hallar $\bar{y}, S, S^{-1}$ para los datos transformados.**
+
+Primeramente hallemos el vector de medias muestrales
+
+```{r}
+# Extraer los datos
+Y <- DatoHornos[,c(4,5)] ; Y
+# Hallar el vector de medias
+ybar <- colMeans(Y) ; ybar
+```
+Ahora hallar la matriz de varianza, covarianza muestral (S)
+
+```{r}
+S <- cov(Y) ; S
+```
+
+Y la matriz inversa de varianza covarianza $(S^{-1})$
+
+```{r}
+Sinv <- solve(S) ; Sinv
+```
+
+d) **Comprobar que los datos transformados efectivamente siguen una distribución $N_2 (\mu, \Sigma)$, hallar la elipse de confianza de nivel simultáneo 0.95 , dar sus direcciones principales, la longitud de sus ejes y hacer un gráfico aproximado.**
+
+Veamos si los datos siguen una distribución multivariada con los test de Mardia, Henze-Zirkler y Royston
+
+```{r}
+#Libreria a utilizar
+library(MVN)
+```
+
+```{r}
+Mardia = mvn(Y, mvn_test = "mardia")
+Mardia$multivariate_normality
+```
+
+La prueba de Mardia indica que se tiene una distribución normal bivariada, sigamos con el test de Henze-Zirkler
+
+```{r}
+HZ =mvn(Y, mvn_test = "hz") 
+HZ$multivariate_normality
+```
+
+El test de Henz también indica que es normal bivariada, ahora el test de Royston
+
+```{r}
+Roy =mvn(Y, mvn_test = "royston") 
+Roy$multivariate_normality
+```
+
+En los tres se indica que se tiene una distribución normal, por lo tanto los datos siguen una distribución normal bivariada. Ahora hallemos la elipse de nivel simultáneo al 95% de confianza
+
+_NOTA: Esta parte me hice ayudar de ChatGPT ya que todavía no se avanzó esa parte_
+
+```{r}
+#Libreria a utilizar
+library(ellipse)
+```
+
+
+```{r}
+# Valores propios y vectores propios
+eig <- eigen(S)
+eig$values      # Longitudes cuadradas de los ejes principales
+eig$vectors     # Direcciones principales
+
+# Longitudes de los semiejes (ajustados al nivel de confianza)
+# Para 2 variables, F quantile: qf(0.95, 2, n-2) * 2*(n-1)/(n*(n-2))
+n <- nrow(Y)
+f_quantile <- qf(0.95, 2, n - 2)
+radius <- sqrt(2 * (n - 1) * f_quantile / (n * (n - 2)))
+
+semiaxes <- sqrt(eig$values) * radius
+
+# Gráfico de elipse
+plot(Y, main = "Elipse de confianza 95%", xlim = c(0.3, 0.95), ylim = c(0.25, 0.85))
+lines(ellipse(S, centre = ybar, level = 0.95), col = "blue", lwd = 2)
+points(ybar[1], ybar[2], pch = 19, col = "red")
+```
+
+
+e) **Testear $H_0: \mu = (0.562, 0.589)$ versus $H_1: \mu \neq (0.562, 0.589)$ con nivel 0.05**
+
+Para este caso se tiene una prueba de hipótesis del vector de medias $N_p (\mu, \Sigma)$ y con $\Sigma$ desconocido, nos planteamos las siguientes hipótesis:
+
+#### 1) Formular las hipótesis
+
+- $H_0: \mu = \begin{pmatrix}
+0.562 \\
+0.589
+\end{pmatrix}$ 
+- $H_a: \mu \neq \begin{pmatrix}
+0.562 \\
+0.589
+\end{pmatrix}$ 
+
+#### 2) Establecer el nivel de significancia
+$\alpha = 0.05$
+```{r}
+alpha <- 0.05 ; alpha
+```
+
+#### 3) Hallar el estadístico de prueba
+Con la varianza desconocida se utiliza la siguiente fórmula para rechazar $H_0$
+$$
+\frac{(n-p)d^{-1}S^{-1}d}{p} > F_{(p,n-p,\alpha)}
+$$
+
+Donde $d = \bar{x} - \mu_0$ y $S$ es la matriz de covarianza de la muestra, hallemos los resultados en R
+
+```{r}
+#Valor mu_0
+mu0 <- matrix(c(0.562,0.589),2,1) ; mu0
+#Vector de diferencia d
+d <- ybar - mu0 ; d
+#Cantidad de variables
+p=dim(Y)[2] ; p
+```
+
+```{r}
+#Hallar el valor F calculado
+fis_c <- ((n - p) * t(d) %*% solve(S) %*% d )/p
+fis_c
+```
+
+#### 4) Hallar el valor de la región crítica
+```{r}
+fis_q <- qf(1-alpha, df1 = p, df2 = n - p)
+fis_q
+```
+
+De la misma forma con el pvalor
+
+```{r}
+pf(fis_c, df1 = p, df2 = n-p, lower.tail = F)
+```
+
+#### 5) Conclusión
+Como $F_{c}^{2} > F_{t}^{2}$, se rechaza $H_0$ por lo tanto, a un nivel de significancia $\alpha = 0.05$ el vector de medias muestrales de los hornos es diferente al vector $\mu_0 = (0.562,0.589)$
+
+f) **Testear $H_0: \mu = (0.55, 0.60)$ versus $H_1: \mu \neq (0.55, 0.60)$ con nivel 0.05**
+
+Para este caso se tiene una prueba de hipótesis del vector de medias $N_p (\mu, \Sigma)$ y con $\Sigma$ desconocido, nos planteamos las siguientes hipótesis:
+
+#### 1) Formular las hipótesis
+
+- $H_0: \mu = \begin{pmatrix}
+0.55 \\
+0.60
+\end{pmatrix}$ 
+- $H_a: \mu \neq \begin{pmatrix}
+0.55 \\
+0.60
+\end{pmatrix}$ 
+
+#### 2) Establecer el nivel de significancia
+$\alpha = 0.05$
+```{r}
+alpha <- 0.05 ; alpha
+```
+
+#### 3) Hallar el estadístico de prueba
+Con la varianza desconocida se utiliza la siguiente fórmula para rechazar $H_0$
+$$
+\frac{(n-p)d^{-1}S^{-1}d}{p} > F_{(p,n-p,\alpha)}
+$$
+
+Donde $d = \bar{x} - \mu_0$ y $S$ es la matriz de covarianza de la muestra, hallemos los resultados en R
+
+```{r}
+#Valor mu_0
+mu0 <- matrix(c(0.55,0.60),2,1) ; mu0
+#Vector de diferencia d
+d <- ybar - mu0 ; d
+#Cantidad de variables
+p=dim(Y)[2] ; p
+```
+
+```{r}
+#Hallar el valor F calculado
+fis_c <- ((n - p) * t(d) %*% solve(S) %*% d )/p
+fis_c
+```
+
+#### 4) Hallar el valor de la región crítica
+```{r}
+fis_q <- qf(1-alpha, df1 = p, df2 = n - p)
+fis_q
+```
+
+De la misma forma con el pvalor
+
+```{r}
+pf(fis_c, df1 = p, df2 = n-p, lower.tail = F)
+```
+
+#### 5) Conclusión
+Como $F_{c}^{2} > F_{t}^{2}$, se rechaza $H_0$ por lo tanto, a un nivel de significancia $\alpha = 0.05$ el vector de medias muestrales de los hornos es diferente al vector $\mu_0 = (0.55,0.60)$
+
+g) **Testear $H_0: \mu_1 = \mu_2$ versus $H_1: \mu_1 \neq \mu_2$ con nivel 0.05**
+
+En este caso se pide comparar si hay diferencia entre el horno abierto y el horno cerrado con los datos transformados, en el cual viendo que en ambos casos se tienen que siguen una distribución normal, se utilizaría una prueba t de comparaciones de medias, adicionalmente los registros son del mismo horno por lo que se tiene datos pareados. Realizemos la prueba de hipótesis
+
+#### 1) Formular las hipótesis
+
+- $H_0: \mu_{\text{Abierto}} = \mu_{\text{Cerrado}}$ 
+- $H_a: \mu_{\text{Abierto}} \neq \mu_{\text{Cerrado}}$ 
+
+#### 2) Establecer el nivel de significancia
+$\alpha = 0.05$
+```{r}
+alpha <- 0.05 ; alpha
+```
+
+#### 3) Hallar el estadístico de prueba
+
+Prueba T para datos pareados
+
+$$
+T_{exp} = \frac{\bar{d}-\mu_d}{\frac{{\hat{S}}_{d}}{\sqrt{n}}} \sim t_{n-1} = t_{16}
+$$
+
+Hallar las estimaciones insesgadas, primero hallemos el vector de diferencias
+
+```{r}
+Y$Diferencia <- Y$AbiertoBoxCox - Y$CerradoBoxCox ; Y$Diferencia
+```
+
+$$
+\bar{d} = \frac{0.12 + 0 + 0.09 + \cdots + (-0.07) + 0.12}{42}
+$$
+
+Hallemos el valor en R
+
+```{r}
+dbar <- mean(Y$Diferencia) ; dbar
+```
+
+Y veamos si esta diferencia sigue una distribución normal
+
+```{r}
+shapiro.test(Y$Diferencia)
+```
+
+El cual sigue una distribución normal
+
+De la misma forma ahora hallemos $\hat{S}_{d}$
+
+$$
+\hat{S}_{d} = \sqrt{\frac{{(0.12 - 0.0575)}^{2}+\cdots+{(0.12 - 0.0575)}^{2}}{42-1}}
+$$
+
+De la misma forma hallemos el resultado en R
+
+```{r}
+ddesv <- sd(Y$Diferencia) ; ddesv 
+```
+
+Y hallemos el valor calculado
+
+$$
+T_{exp} = \frac{0.0575 - 0}{\frac{0.1144}{\sqrt{42}}}
+$$
+
+De la misma forma hallemos el resultado en R
+
+```{r}
+tc <- (dbar - 0)/(ddesv/sqrt(n)) ; tc
+```
+
+#### 4) Hallar el valor de la región crítica
+```{r}
+tq <- qt(1-alpha, df = n-1)
+tq
+```
+
+De la misma forma con el pvalor
+
+```{r}
+pt(tc, df = n-1, lower.tail = F)
+```
+
+#### 5) Conclusión
+Como $t_{c} > t_{t}$, se rechaza $H_0$ por lo tanto, a un nivel de significancia $\alpha = 0.05$ hay diferencias en la radiación de las puertas del horno, si se encuentran abiertos o cerrados.
 
 ## Ejercicio 6
 En una planta automotriz, se monitorean tres características de una pieza crítica: longitud (mm), peso (g) y dureza (Rockwell). Estas características siguen una distribución normal trivariada con:
@@ -389,7 +781,115 @@ b) ¿Cuál es la densidad condicional de la dureza dado que la longitud fue 24 m
 c) ¿Simule 100 observaciones y grafique las elipses de confianza bivariadas (longitud vs peso, peso vs dureza)?
 
 ### Solución
-Aca va la solución
+
+a) **¿Cuál es la probabilidad de que una pieza tenga dureza mayor a 65?**
+
+Hallemos los casos para cada caso y resolver por la estandarización
+
+$\bar{x}_{dureza} = 65, \mu_{dureza}=60, \sigma_{dureza} = \sqrt{4} = 2$
+
+Reemplazemos el valor en la distribución normal estándar
+
+$$
+\begin{eqnarray}
+Z &=& \frac{\bar{x}_{dureza} - \mu_{dureza}}{\sigma_{dureza}} \nonumber \\
+Z &=& \frac{65 - 60}{2} \nonumber \\
+Z &=& 2.5 \nonumber
+\end{eqnarray}
+$$
+
+Ahora calcular la probabilidad de la dureza mayor a 65
+
+```{r}
+pnorm(2.5, lower.tail = FALSE)
+```
+
+El cual indica que la probabilidad de que una pieza tenga dureza mayor a 65 es aproximadamente del 0.62%
+
+b) **¿Cuál es la densidad condicional de la dureza dado que la longitud fue 24 mm y el peso 190 g?**
+
+Extraemos los datos de interes
+
+- $\mu_{3} = 60$
+- $\mu_{12} = \begin{pmatrix}
+25 \\
+200
+\end{pmatrix}$ 
+- $(\Sigma_{31} \quad \Sigma_{32}) = (0.5 \quad 2)$
+- $\begin{pmatrix}
+\Sigma_{11} & \Sigma_{12} \\
+\Sigma_{21} & \Sigma_{22}
+\end{pmatrix} = \begin{pmatrix}
+1.2 & 3 \\
+3 & 25
+\end{pmatrix}$
+- $\Sigma_{33} = 4$
+- El vector condicional $x_{12} = \begin{pmatrix}
+24 \\
+190
+\end{pmatrix}$
+
+Resolvamos en R
+
+```{r}
+Sigma_12_12 <- V[c(1,2),c(1,2)] ; Sigma_12_12
+Sigma_3_12 <- V[3,c(1,2), drop = FALSE] ; Sigma_3_12
+
+# Diferencia:
+x12_resta_mu12 <- matrix(c(24 - 25, 190 - 200), nrow=2) ; x12_resta_mu12
+
+# Producto:
+mean_cond <- 60 + Sigma_3_12 %*% solve(Sigma_12_12) %*% x12_resta_mu12 ; mean_cond
+
+# Varianza condicional:
+var_cond <- 4 - Sigma_3_12 %*% solve(Sigma_12_12) %*% t(Sigma_3_12) ; var_cond
+```
+
+El cual indica que la distribución condicional de la dureza sigue la siguiente distribución
+
+$$
+X_3 | X_1 = 24, X_2 = 190 \sim N(\mu = 59.26, {\sigma}^2 = 3.76)
+$$
+
+c) **¿Simule 100 observaciones y grafique las elipses de confianza bivariadas (longitud vs peso, peso vs dureza)?**
+
+```{r}
+# Librerias a utilizar
+library(MASS)
+library(car)
+```
+
+
+```{r}
+simular <- mvrnorm(n = 100, mu = as.vector(E_X), Sigma = V)
+colnames(simular) <- c("Longitud", "Peso", "Dureza")
+simular <- as.data.frame(simular) ; simular
+```
+
+
+#### Longitud vs Peso
+
+```{r}
+dataEllipse(simular$Longitud, simular$Peso, 
+            xlim = c(22,28.5), ylim = c(185,215),
+            xlab = "Longitud (mm)", ylab = "Peso (g)",
+            main = "Elipse de Confianza (Longitud vs Peso)",
+            levels = 0.95, 
+            col = "blue", 
+            lwd = 2)
+```
+
+#### Peso vs Dureza
+
+```{r}
+dataEllipse(simular$Peso, simular$Dureza, 
+            xlim = c(188,215), ylim = c(55,65),
+            xlab = "Longitud (mm)", ylab = "Peso (g)",
+            main = "Elipse de Confianza (Longitud vs Peso)",
+            levels = 0.95, 
+            col = "blue", 
+            lwd = 2)
+```
 
 ## Ejercicio 7
 Se estudia la respuesta a un tratamiento en pacientes diabéticos midiendo: glucosa en sangre, presión arterial sistólica y frecuencia cardíaca. Se modelan como una variable aleatoria normal trivariada:
@@ -403,7 +903,54 @@ a) ¿Cuál es la distribución del promedio muestral si se toman 25 pacientes?
 b) Hallar el intervalo simultáneo de confianza del 95% para los tres parámetros
 
 ### Solución
-Aca va la solución
+
+a) **¿Cuál es la distribución del promedio muestral si se toman 25 pacientes?**
+
+La distribución de la muestra de los 25 pacientes tiene la siguiente distribución
+
+$$
+\bar{X} \sim N(\mu = \begin{pmatrix}
+90 \\
+130 \\
+72
+\end{pmatrix}, \frac{\Sigma}{25} = \begin{pmatrix}
+1 & 0.4 & 0.2 \\
+0.4 & 4 & 0.32 \\
+0.2 & 0.32 & 1.44
+\end{pmatrix}
+)
+$$
+
+b) **Hallar el intervalo simultáneo de confianza del 95% para los tres parámetros**
+
+Tomemos el tamaño de muestra de los 25 pacientes y un nivel de significancia $\alpha = 0.05$
+
+```{r}
+n <- 25
+alpha <- 0.05
+p <- dim(SIGMA)[2]
+
+# Método Bonferroni
+alpha_bonf <- alpha / (2 * p)
+t_bonf <- qt(1 - alpha_bonf, df = n - 1)
+
+#sd error
+error_estandar <- sqrt(diag(SIGMA) / n)
+
+# Límites de los intervalos
+limite_inferior <- E_X - t_bonf * error_estandar
+limite_superior <- E_X + t_bonf * error_estandar
+
+# Mostrar intervalos
+intervalos <- data.frame(
+  Variable = c("Glucosa", "Presion", "Frecuencia"),
+  Inferior = round(limite_inferior, 2),
+  Superior = round(limite_superior, 2)
+)
+
+print(intervalos)
+```
+
 
 ## Ejercicio 8
 A 60 estudiantes se les aplican tres pruebas: memoria verbal, razonamiento lógico y velocidad de procesamiento. Se asume una distribución normal trivariada:
