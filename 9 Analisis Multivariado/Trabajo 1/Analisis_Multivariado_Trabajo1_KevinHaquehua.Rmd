@@ -784,7 +784,7 @@ c) ¿Simule 100 observaciones y grafique las elipses de confianza bivariadas (lo
 
 a) **¿Cuál es la probabilidad de que una pieza tenga dureza mayor a 65?**
 
-Hallemos los casos para cada caso y resolver por la estandarización
+Hallemos los valores y resolvamos por la estandarización
 
 $\bar{x}_{dureza} = 65, \mu_{dureza}=60, \sigma_{dureza} = \sqrt{4} = 2$
 
@@ -884,7 +884,7 @@ dataEllipse(simular$Longitud, simular$Peso,
 ```{r}
 dataEllipse(simular$Peso, simular$Dureza, 
             xlim = c(188,215), ylim = c(55,65),
-            xlab = "Longitud (mm)", ylab = "Peso (g)",
+            xlab = "Peso (g)", ylab = "Dureza (Rockwell)",
             main = "Elipse de Confianza (Longitud vs Peso)",
             levels = 0.95, 
             col = "blue", 
@@ -934,12 +934,12 @@ p <- dim(SIGMA)[2]
 alpha_bonf <- alpha / (2 * p)
 t_bonf <- qt(1 - alpha_bonf, df = n - 1)
 
-#sd error
-error_estandar <- sqrt(diag(SIGMA) / n)
+#error estandar
+sde <- sqrt(diag(SIGMA) / n)
 
 # Límites de los intervalos
-limite_inferior <- E_X - t_bonf * error_estandar
-limite_superior <- E_X + t_bonf * error_estandar
+limite_inferior <- E_X - t_bonf * sde
+limite_superior <- E_X + t_bonf * sde
 
 # Mostrar intervalos
 intervalos <- data.frame(
@@ -950,7 +950,6 @@ intervalos <- data.frame(
 
 print(intervalos)
 ```
-
 
 ## Ejercicio 8
 A 60 estudiantes se les aplican tres pruebas: memoria verbal, razonamiento lógico y velocidad de procesamiento. Se asume una distribución normal trivariada:
@@ -964,7 +963,110 @@ a) ¿Cuál es la distribución de la puntuación total combinada?
 b) Si se observa una velocidad de procesamiento de 100, ¿cuál es la distribución condicional del resto?
 
 ### Solución
-Aca va la solución
+
+a) **¿Cuál es la distribución de la puntuación total combinada?**
+
+Se tiene que
+
+$$
+\bar{X} = (X_1,X_2,X_3) \sim N(\mu = \begin{pmatrix}
+100 \\
+105 \\
+95
+\end{pmatrix}, \Sigma = \begin{pmatrix}
+15 & 10 & 5 \\
+10 & 20 & 8 \\
+5 & 8 & 10
+\end{pmatrix}
+)
+$$
+
+La puntuación total combinada estaría dado por
+
+$$
+T = X_1 + X_2 + X_3  \sim N({\mu}_T,{\sigma}_{T}^{2})
+$$
+
+Donde
+
+- $\mu_T = 100 + 105 + 95 = 300$
+- ${\sigma}_{T}^{2} = \sum Var(X_i) + 2 Cov(X_i,X_j)$
+
+Hallando los cálculos en R
+
+```{r}
+# Media total
+mu_T <- sum(mu) ; mu_T
+# Varianza total combinada
+sigma_T2 <- sum(Sigma) ; sigma_T2
+```
+
+En el cual se tiene que la distribución de la puntuación total combinada se distribuye de la siguiente manera
+
+$$
+T \sim N(300,91)
+$$
+
+b) **Si se observa una velocidad de procesamiento de 100, ¿cuál es la distribución condicional del resto?**
+
+Se pide hallar
+
+$$
+(X_1, X_2) | X_3 = 100
+$$
+
+Extraemos los datos de interes
+
+- $(\mu_{1},\mu_{2}) = (100, 105)$
+- $\mu_{2} = 95$ 
+- $(\Sigma_{31} \quad \Sigma_{32}) = (0.5 \quad 2)$
+- $\begin{pmatrix}
+\Sigma_{11} & \Sigma_{12} \\
+\Sigma_{21} & \Sigma_{22}
+\end{pmatrix} = \begin{pmatrix}
+15 & 10 \\
+10 & 20
+\end{pmatrix}$
+- $\begin{pmatrix}
+\Sigma_{13} \\
+\Sigma_{23}
+\end{pmatrix} = \begin{pmatrix}
+5 \\
+8
+\end{pmatrix}$
+- $\Sigma_{33} = 10$
+- El vector condicional $x_{3} = 100$
+
+Resolvamos en R
+
+```{r}
+x3 <- 100
+
+mu_12 <- mu[1:2, , drop = FALSE] ; mu_12
+mu_3 <- mu[3] ; mu_3
+
+Sigma_12_12 <- Sigma[c(1,2),c(1,2)] ; Sigma_12_12
+Sigma_12_3 <- Sigma[c(1,2),3, drop = FALSE] ; Sigma_12_3
+Sigma_33 <- Sigma[3,3, drop = FALSE] ; Sigma_33
+
+# Media condicional
+mucond <- mu_12 + Sigma_12_3 %*% solve(Sigma_33) %*% (x3 - mu_3) ; mucond
+# Covarianza condicional
+Sigmacond <- Sigma_12_12 - Sigma_12_3 %*% solve(Sigma_33) %*% t(Sigma_12_3) ; Sigmacond
+```
+
+El cual indica que la distribución condicional de la memoria verba y razonamiento lógico dado la velocidad del procesamiento de 100 sigue la siguiente distribución
+
+$$
+(X_1,X_2) | X_3 = 100 \sim N(\mu = \begin{pmatrix}
+102.5 \\
+109
+\end{pmatrix}, \Sigma = \begin{pmatrix}
+12.5 & 6 \\
+6 & 13.6
+\end{pmatrix})
+$$
+
 
 ## Ejercicio 9
 Se recopilan datos semanales sobre temperatura $(°C)$, humedad relativa $(\%)$ y velocidad del viento $(km/h)$ en una ciudad. Se modela:
@@ -978,10 +1080,95 @@ a) Hallar la distribución de una combinación lineal:
 $$
 \text{índice climático} = 0.5 \cdot \text{Temp} + 0.3 \cdot \text{Hum} - 0.2 \cdot \text{Viento}
 $$
+
 b) ¿Cuál es la probabilidad de que el índice climático sea > 27?
 
 ### Solución
-Aca va la solución
+
+a) **Hallar la distribución de una combinación lineal:**
+
+Sea $X_1 = Temperatura, X_2 = Humedad \quad y \quad X_3 = Viento$ y el índice climático como $Y$ se tiene la siguiente expresión
+
+$$
+Y = 0.5X_1 + 0.3X_2 - 0.2 X_3 = (0.5 \quad 0.3 \quad -0.2) \begin{pmatrix}
+X_1 \\
+X_2 \\
+X_3
+\end{pmatrix} = AX
+$$
+
+Además
+
+$$
+Si \quad X \sim N_{3} \longrightarrow Y = AX \sim N_3 (\mu_Y = A\mu_X, \Sigma_Y = A \Sigma A^t)
+$$
+
+Donde
+
+- $\mu_Y = \begin{pmatrix}
+0.5 & 0.3 & -0.2
+\end{pmatrix} \begin{pmatrix}
+22 \\
+60 \\
+12
+\end{pmatrix}$
+- $\Sigma_Y = \begin{pmatrix}
+0.5 & 0.3 & -0.2
+\end{pmatrix} \begin{pmatrix}
+4 & -2 & 0.5 \\
+-2 & 9 & 1.5 \\
+0.5 & 1.5 & 1
+\end{pmatrix} \begin{pmatrix}
+0.5 \\
+0.3 \\
+-0.2
+\end{pmatrix}$
+
+Hallemos los resultados en R
+
+```{r}
+(A = matrix(c(0.5,0.3,-0.2),1,3))
+```
 
 
+```{r}
+muY = A %*% E_X ; muY
+SY = A %*% Sigma %*% t(A) ; SY
+sdY = sqrt(SY) ; sdY
+```
 
+En el que se tiene que el índice climático $(Y)$ sigue una distribución normal expresado de la siguiente forma
+
+$$
+Y \sim N(\mu = 26.6, {\sigma}^2 = 0.97)
+$$
+
+b) **¿Cuál es la probabilidad de que el índice climático sea > 27?**
+
+Hallemos los valores y resolvamos por la estandarización
+
+$\bar{y} = 27, \mu=26.6, \sigma = \sqrt{0.97} = 0.98$
+
+Reemplazemos el valor en la distribución normal estándar
+
+$$
+\begin{eqnarray}
+Z &=& \frac{\bar{y} - \mu}{\sigma} \nonumber \\
+Z &=& \frac{27 - 26.6}{0.98} \nonumber
+\end{eqnarray}
+$$
+
+Hallemos el valor en R
+
+```{r}
+Z = (27 - muY)/sdY ; Z
+```
+
+
+Ahora calcular la probabilidad de la dureza mayor a 27
+
+```{r}
+pnorm(Z, lower.tail = FALSE)
+```
+
+El cual indica que la probabilidad de que el índice climático sea mayor a 27 es aproximadamente del 34.23%
