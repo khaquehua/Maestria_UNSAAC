@@ -1,0 +1,288 @@
+---
+title: "Análisis exploratorio de datos"
+author: "Arturo Zuñiga"
+date: "2025-07-19"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Analisis exploratorio de datos
+
+## 1. Instalación de paquetes 
+
+```{r}
+library(scatterplot3d)
+library(rgl)
+library(car)
+library(FactoMineR)
+library(factoextra)
+library(tidyverse)
+library(skimr)
+library(GGally)
+library(VIM)
+```
+
+## 2. Descripción del caso
+**“Efectos ambientales y morfométricos sobre la variabilidad fenotípica en una especie de planta silvestre”** 
+
+Una especie de planta nativa, Plantago major, ha sido objeto de muestreo en tres zonas ecológicas distintas de una región andina. Se busca entender cómo factores ambientales y morfométricos influyen en la variabilidad fenotípica observada.
+
+A continuación se presenta la descripción de las variables contenidas en el conjunto de datos `PlantagoData.csv`.
+
+| Variable            | Tipo                     | Descripción                             |
+|---------------------|--------------------------|------------------------------------------|
+| `ID`                | Cualitativa (nominal)    | Código único de planta                  |
+| `Zona`              | Cualitativa (nominal)    | Zona ecológica (Páramo, Quechua, Yunga) |
+| `Altitud`           | Cuantitativa (continua)  | Metros sobre el nivel del mar           |
+| `pH_Suelo`          | Cuantitativa (continua)  | pH del suelo donde crece la planta      |
+| `Materia_Orgánica`  | Cuantitativa (continua)  | % de materia orgánica en el suelo       |
+| `Humedad_Relativa`  | Cuantitativa (continua)  | % de humedad relativa                   |
+| `Largo_Hoja`        | Cuantitativa (continua)  | Largo promedio de hoja (cm)             |
+| `Ancho_Hoja`        | Cuantitativa (continua)  | Ancho promedio de hoja (cm)             |
+| `Biomasa_Seca`      | Cuantitativa (continua)  | Peso seco total (g)                     |
+| `Color_Hoja`        | Cualitativa (ordinal)    | Verde claro, verde medio, verde oscuro  |
+| `Presencia_Manchas` | Cualitativa (dicotómica) | Sí/No (signo de enfermedad fúngica)     |
+
+
+## 3. Lectura de datos 
+
+```{r}
+datos.intro <-read.csv("PlantagoData.csv",sep = ";")
+```
+
+```{r}
+str(datos.intro)  # str structura de la data
+row.names(datos.intro) <- datos.intro$ID  # dar nombres a las filas
+datos.intro$ID <- NULL  # Anula la columna con el nombre de empresa
+str(datos.intro) 
+
+datos.intro$Altitud
+```
+
+## 4. Análisis descriptivo
+```{r}
+attach(datos.intro)  # hace que el R reconozca la cabecera de los datos
+Altitud
+pH_Suelo
+mean(Altitud) # media
+sd(Largo_Hoja,na.rm = TRUE)  # desviacion estandar
+summary(datos.intro)
+```
+
+### Análisis descriptivo univariado con funModeling
+```{r}
+library(funModeling)
+describe(datos.intro)
+profiling_num(datos.intro)
+plot_num(datos.intro)
+```
+### Análisis descriptivo univariado con funModeling
+```{r}
+library(psych)
+psych::describe(datos.intro)
+```
+
+
+```{r}
+summary(Biomasa_Seca)
+plot(Biomasa_Seca)
+```
+```{r}
+plot(Biomasa_Seca, 
+     xlab="planta",
+     ylab="Biomasa seca",
+     main = "Biomasa seca",
+     col= "orange",
+     pch=19)
+#text(Biomasa_Seca, labels=row.names(datos.intro),cex=0.8)
+```
+
+# Otra forma
+```{r}
+stripchart(Biomasa_Seca,method="jitter",pch=20,
+           main="Grafica de puntos",xlab="Biomasa_seca")
+# text(Biomasa_Seca, 1.1, labels=row.names(datos.intro))
+```
+
+## 5. Otras formas de hacer analisis descriptivo
+```{r}
+# Vista general del dataset
+glimpse(datos.intro)
+```
+
+```{r}
+skim(datos.intro)
+```
+### Análisis univariado: variables numéricas
+```{r}
+datos.intro %>%
+  select(where(is.numeric)) %>%
+  pivot_longer(everything(), names_to = "variable", values_to = "valor") %>%
+  ggplot(aes(x = valor)) +
+  facet_wrap(~variable, scales = "free", ncol = 3) +
+  geom_histogram(bins = 30, fill = "steelblue", color = "white") +
+  theme_minimal()
+```
+### Análisis de valores perdidos
+```{r}
+aggr(datos.intro, col = c("navyblue", "red"), numbers = TRUE, sortVars = TRUE, 
+     labels = names(datos.intro), cex.axis = .7, gap = 3, 
+     ylab = c("Distribución de datos faltantes", "Patrón"))
+```
+Con la idea de continuar con la descripción de los datos se imputara con valores centrales.
+### Imputacion de datos con medidas centrales
+```{r}
+library(VIM)
+datos2<-initialise(datos.intro,method="median")
+summary(datos2)
+```
+
+
+### Boxplots para detectar atípicos
+```{r}
+# Reestructurar datos a formato largo
+df_long <- datos2 %>%
+  select(where(is.numeric)) %>%
+  pivot_longer(cols = everything(), names_to = "Variable", values_to = "Valor")
+
+# Crear boxplots con facet_wrap
+ggplot(df_long, aes(x = "", y = Valor)) +
+  geom_boxplot(fill = "lightgreen", outlier.color = "red") +
+  facet_wrap(~ Variable, scales = "free_y") +
+  labs(title = "Boxplots por variable cuantitativa (escalas libres)",
+       x = NULL, y = NULL) +
+  theme_minimal() +
+  theme(strip.text = element_text(face = "bold"))
+```
+
+## Análisis descriptivo bivariado
+```{r}
+detach(datos.intro)
+attach(datos2)
+summary(pH_Suelo)
+summary(Biomasa_Seca)
+
+plot(pH_Suelo, 
+     Biomasa_Seca, 
+     xlab="pH_suelo", 
+     ylab="Biomasa_Seca", 
+     pch=20,
+     col="blue")
+#text(pH_Suelo, Biomasa_Seca, labels=row.names(datos2),cex=0.8) # se sugiere con pocos datos
+
+```
+
+
+
+```{r}
+cor(datos2[,-c(1,9,10)])
+```
+### Correlacion entre dos variables y prueba de hipotesis
+```{r}
+cor(pH_Suelo, Biomasa_Seca) # correlacion 
+cor.test(pH_Suelo, Biomasa_Seca)
+```
+
+Ho: No existe correlacion significativa entre las variables  
+Ha: si existe correlacion significativa entre las variables  
+t = 0.75528, df = 6, p-value = 0.4787  
+Se concluye que no existe correlacion significativa entre   
+las variables debido a que pvalor>0.05.   
+
+**pregunta** sabes que las pruebas de hipotesis sobre correlacion 
+pueden ser de cola a la derecha, izquierda y de dos colas
+
+**TAREA 01**
+asi mismo se te invita a plantear a usar tus conocimientos de estadistica inferencial 
+propon almenos 5 pruebas de hipotesis (una media, una proporción, dos medias, dos proporciones, razon de varianzas, anova, regresion lineal simple) con respecto a las variables y data que estamos utilizando, de preferencia que la solución sea en el R
+
+
+## 5.- Analisis descriptivo con 3 dimensiones
+```{r}
+summary(datos2)
+library(scatterplot3d)
+s3d <- scatterplot3d(x=pH_Suelo,
+              y=Largo_Hoja,
+              z=Biomasa_Seca,
+              xlab="pH del suelo",
+              ylab="Largo de las hojas",
+              zlab="Biomasa seca",
+              angle=40,
+              color="steelblue",
+              pch=20)
+text(s3d$xyz.convert(pH_Suelo, Largo_Hoja,Biomasa_Seca), 
+     labels=row.names(datos2),
+     cex=0.8)
+
+```
+
+# Otra forma
+```{r}
+library(rgl)
+plot3d(pH_Suelo,Largo_Hoja,Biomasa_Seca)
+with(datos2,text3d(pH_Suelo,Largo_Hoja,Biomasa_Seca,row.names(datos2)))
+```
+
+
+```{r}
+library(car)
+scatter3d(pH_Suelo,Largo_Hoja,Biomasa_Seca)
+```
+
+
+
+## 6. Graficos Multivariados 
+
+```{r}
+boxplot(mtcars)
+pairs(mtcars)
+```
+
+
+
+### Gráfico de estrellas
+```{r}
+stars(datos2,key.loc=c(-4,14),lwd=1)  # muestra diagrama de estrellas para todo 
+#los carros y variables
+```
+
+```{r}
+stars(datos2[c(1:20),c(2:8)],key.loc=c(-2,8),lwd=1)  # muestra digrama de estrellas
+# para algunas variables y solo algunas plantas
+```
+
+### CARAS DE CHERNOFF
+```{r}
+library(aplpack)
+library(tcltk)
+library(tkrplot)
+faces(datos2[c(1:30),c(2:8)],face.type=1)
+
+```
+
+```{r}
+faces(datos2[c(1:30),c(2:8)],face.type=2)
+
+```
+
+```{r}
+faces(datos2[c(1:30),c(2:8)],face.type=3)
+
+```
+
+### CURVAS ANDREWS
+```{r}
+library(andrews)
+andrews(datos2)
+
+```
+
+```{r}
+andrews(datos2[c(1:10),c(2:9)],type=4,clr=5,ymax=3)
+```
+
