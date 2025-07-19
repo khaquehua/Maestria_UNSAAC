@@ -1,9 +1,8 @@
 ---
 title: "Análisis exploratorio de datos"
-author: "Arturo Zuñiga"
+author: "Kevin Heberth Haquehua Apaza"
 date: "2025-07-19"
 output:
-  pdf_document: default
   html_document: default
 ---
 
