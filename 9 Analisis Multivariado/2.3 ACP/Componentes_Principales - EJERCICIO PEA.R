@@ -28,7 +28,7 @@ library(GGally)
 ####################
 
 library(foreign)
-datos <-read.spss("PEA.sav",
+datos <-read.spss("9 Analisis Multivariado/2.3 ACP/PEA.sav",
                   use.value.labels=TRUE, 
                   to.data.frame=TRUE)
 head(datos)
@@ -247,3 +247,4 @@ paran(datos.acp,iterations=5000,graph=TRUE,color=2)
 library(nFactors)
 nBartlett(cor(datos.acp),N=541,alpha=0.01,cor=TRUE,details=TRUE)
 #con este test se recomienda retener 7 u 8 CP.
+
