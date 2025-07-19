@@ -1,0 +1,77 @@
+---
+title: "Datos outliers"
+author: "Arturo Zuñiga"
+date: "23/11/2021"
+output:
+  word_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# ¿Como encontrar datos outliers?
+
+En el presente documento tiene como objetivo, dar a conocer a los estudiantes las distintas tecnicas para reconcer datos outliers.   
+$$\bar{X}=\displaystyle\frac{\sum_{i=1}^n x}{n}$$
+```{r}
+# lectura de datos
+library(readxl) # tidyverse
+Tasas=read_xlsx("outliers.xlsx")
+Tasas = as.data.frame(Tasas)
+head(Tasas)
+```
+# Análisis Univariado 
+
+```{r}
+boxplot(Tasas[,-1])
+```
+  Se puede observar que la fertilidad tiene un posible dato atipico.  
+
+# Análisis bivariado
+El diagrama de bolsas permite visualizar la ubicación, la dispersión, la asimetría y los valores atípicos de un conjunto de datos.  
+```{r}
+library(mvoutlier)
+library(aplpack)
+Bi=bagplot(cbind(Tasas[,2],Tasas[,3]),pch=16,cex=2)
+Bi$pxy.outlier
+```
+Se puede observar del grafico que, existen dos puntos que posiblemente son atipicos, los cuales no se pudieron identificar de manera univariada.
+### Distancia de mahalanobis Robusta basada en dos dimensiones
+```{r}
+#Distancia de mahalanobis Robusta basada en dos dimensiones
+Biv <- color.plot(Tasas[,2:3], quan=1/2, alpha=0.025)
+as.numeric(Biv$outliers)
+```
+Con la distancia de mahalanobis, se volvio a corroborar la presencia de dos datos atipicos bivariados.
+
+# Análisis Multivariado
+
+### Distancia clasica de mahalanobis (mcd estimador)
+
+```{r}
+# Distancia clasica de mahalanobis (mcd estimador)
+distances <- dd.plot(Tasas[,-1], quan=1/2, alpha=0.025)
+# quan= cantidad de observaciones que se utilizan para estimaciones
+# mcd. tiene que estar entre 0.5 y 1, por defecto es 0.5
+out1=data.frame(Tasas,pred=as.numeric(distances$outliers))
+subset(out1,pred==1)
+```
+
+### Distancias de mahalanobis robustas, contrastadas con el cuantil del chicuadrada
+
+```{r}
+outliers <- aq.plot(Tasas[,-1], delta=qchisq(0.975, df = ncol(Tasas[,-1])),
+                    quan = 1/2, alpha = 0.05)
+out2=data.frame(Tasas,pred=as.numeric(outliers$outliers))
+subset(out2,pred==1)
+```
+
+
+
+
+
+
+
+
