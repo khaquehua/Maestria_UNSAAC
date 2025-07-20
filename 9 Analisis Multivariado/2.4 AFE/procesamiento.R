@@ -1,7 +1,7 @@
 # procesamiento de la tesis de calidad de enseñanza
 
 library(foreign)
-datos=read.spss("dataTesis.sav", use.value.labels = T, to.data.frame = T)
+datos=read.spss("9 Analisis Multivariado/2.4 AFE/dataTesis.sav", use.value.labels = T, to.data.frame = T)
 View(datos)
 #str(datos)
 
@@ -35,6 +35,7 @@ KMO(datos1)
 
 # An?lisis Factorial con rotacion con funci?n principal
 library(psych)
+facto=principal(r=datos1,nfactors=8,rotate="none")
 facto=principal(r=datos1,nfactors=8,rotate="varimax")
 facto
 facto$loadings
@@ -55,6 +56,7 @@ library(psych)
 facto=principal(r=datos1,nfactors=5,rotate="varimax")
 facto
 facto$loadings
+# Tambien te da el grado de importancia, primero RC1, luego RC5, RC3, RC2 y RC4
 
 write.csv(facto$loadings,"datafinal.csv")
 
@@ -85,7 +87,7 @@ summary(scores)
 
 # entonces vamos hacer una transformacion manteniendo sus caracteristicas
 Zscores<-scale(scores)
-transScore <- Zscores*100+500
+transScore <- Zscores*100+500 # Proceso de baremación de PISA
 transScore <- data.frame(transScore)
 hist(transScore$RC1)
 
@@ -110,3 +112,4 @@ probabilidad=prop.table(table(transScore$RNC1))*100
 cbind(fi,probabilidad)
 barplot(prop.table(table(transScore$RNC1)), col = "darkBlue", xlab = "Factor1")
 
+RCtotal <- 16.503 * scores$RC1 + 13.948 * scores$RC5
