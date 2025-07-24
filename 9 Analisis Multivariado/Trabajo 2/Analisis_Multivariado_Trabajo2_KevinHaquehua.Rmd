@@ -175,8 +175,261 @@ c) Realice el análisis factorial exploratorio vía componentes principales e in
 
 Leamos la data
 
-```{r}
-library(readxl)
-pregunta3 <- read_excel("C:/Users/Kev/Desktop/Trabajo_Kevin/Maestria_UNSAAC/9 Analisis Multivariado/Trabajo 2/pregunta3.xlsx")
+```{r, warning=FALSE, echo=FALSE, include=FALSE}
+library(here)
 ```
 
+
+```{r}
+library(readxl)
+pregunta3 <- read_excel(here("pregunta3.xlsx"))
+```
+
+a) **Sobre el conjunto de datos halle si se cumple o no la normalidad multivariada.**
+
+Veamos si los datos siguen una distribución multivariada con los test de Mardia, Henze-Zirkler y Royston
+
+```{r}
+#Libreria a utilizar
+library(MVN)
+```
+
+
+```{r}
+Y <- pregunta3[,-1]
+```
+
+
+```{r}
+Mardia = mvn(Y, mvn_test = "mardia")
+Mardia$multivariate_normality
+```
+
+La prueba de Mardia indica que no se tiene una distribución normal, sigamos con el test de Henze-Zirkler
+
+```{r}
+HZ =mvn(Y, mvn_test = "hz") 
+HZ$multivariate_normality
+```
+
+El test de Henz indica que es normal, ahora el test de Royston
+
+```{r}
+Roy =mvn(Y, mvn_test = "royston") 
+Roy$multivariate_normality
+```
+
+En dos se indican que no se tiene una distribución normal y en uno al momento se indico que sigue una distribución normal. Veamos con los otros test
+
+```{r}
+HW =mvn(Y, mvn_test = "hw") 
+HW$multivariate_normality
+```
+
+```{r}
+HW =mvn(Y, mvn_test = "doornik_hansen") 
+HW$multivariate_normality
+```
+
+```{r}
+HW =mvn(Y, mvn_test = "energy") 
+HW$multivariate_normality
+```
+
+La mayor parte de los test indicaron que no se sigue una distribución normal multivariada, por lo tanto los datos no siguen una distribución normal multivariada. No se cumple la normalidad multivariada.
+
+b) **Verifique si existe presencia de valores outliers para la data.**
+
+Veamos primeramente a nivel univariado
+
+```{r}
+boxplot(pregunta3[,-1])
+```
+
+Parece que distancia y EF tienen valores outliers a nivel univariado.
+
+Ahora veamos a nivel multivariado a través de la distancia clásica de Mahalanobich
+
+```{r}
+# Librerias a utilizar
+library(mvoutlier)
+library(aplpack)
+```
+
+```{r}
+distances <- dd.plot(pregunta3[,-1], quan=1/2, alpha=0.025)
+out1=data.frame(pregunta3,pred=as.numeric(distances$outliers))
+subset(out1,pred==1)
+```
+
+Se muestran los individuos los cuales son outliers multivariados, ahora con la distancia de Mahalanobich robusta
+
+```{r}
+outliers <- aq.plot(pregunta3[,-1], delta=qchisq(0.975, df = ncol(pregunta3[,-1])), quan = 1/2, alpha = 0.05)
+out2=data.frame(pregunta3,pred=as.numeric(outliers$outliers))
+subset(out2,pred==1)
+```
+
+Se tienen los mismo individuos (2, 7, 12, 18, 19 y 20) como outliers multivariados.
+
+c) **Realice el análisis factorial exploratorio vía componentes principales e interprete y justifique sus conclusiones.**
+
+Ver si existen datos NA
+
+```{r}
+colSums(is.na(pregunta3))
+```
+
+No se tienen datos perdidos, empecemos realizando la prueba de esfericidad de Bartlet
+
+```{r}
+library(psych)
+cortest.bartlett(cor(Y), n=nrow(Y))
+```
+
+El valor es significativo, justifica el uso de reducción de datos, veamos el test KMO
+
+```{r}
+KMO(Y)
+```
+
+Los valores son menores a 0.5 a excepción de Distancia [km] por lo que se puede extraer para que se considere aceptable la aplicación del análisis factorial al conjunto de datos
+
+```{r}
+data_AFE <- Y[,-1] 
+```
+
+Veamos el test de bartlet y KMO
+
+```{r}
+cortest.bartlett(cor(data_AFE), n=nrow(data_AFE))
+```
+
+Significativo, ahora veamos el KMO
+
+```{r}
+KMO(data_AFE)
+```
+
+Ahora si es justificable el uso de un análisis factorial exploratorio, realizemos con la rotación principal
+
+```{r}
+facto=principal(r=data_AFE,nfactors=4,rotate="none")
+facto=principal(r=data_AFE,nfactors=4,rotate="varimax")
+facto
+facto$loadings
+
+```
+
+Por la mayor explicación de la varianza, se recomienda usar 3 factores
+
+```{r}
+facto=principal(r=data_AFE,nfactors=3,rotate="varimax")
+facto
+facto$loadings
+```
+
+Se tienen los siguientes factores
+
+RC1 = IQ y NEM (Academico)
+RC2 = IMC (Caracteristicas del Individuo)
+RC3 = EF (Nivel de actividad fisica)
+
+```{r}
+biplot(prcomp(data_AFE, scale = FALSE))
+abline(h = 0, v = 0, lty = 2, col = 8)
+```
+
+
+Saquemos ahora los scores
+
+```{r}
+scores <- as.matrix(data_AFE) %*% as.matrix(facto$loadings)
+scores <- data.frame(scores) ; scores
+```
+
+Realizemos una transformación manteniendo sus características
+
+```{r}
+Zscores<-scale(scores)
+transScore <- Zscores*100+500 # Proceso de baremación de PISA
+transScore <- data.frame(transScore)
+hist(transScore$RC1)
+```
+
+Recodifiquemos para la interpretación
+
+#### RC1 (Academico)
+
+```{r}
+transScore$RNC1[transScore$RC1<350] <-1
+transScore$RNC1[transScore$RC1>=350 & transScore$RC1<450] <-2
+transScore$RNC1[transScore$RC1>=450 & transScore$RC1<550] <-3
+transScore$RNC1[transScore$RC1>=550 & transScore$RC1<650] <-4
+transScore$RNC1[transScore$RC1>=650] <-5
+
+
+# Etiquetar
+transScore$RNC1 <- factor(transScore$RNC1, 
+                             labels = c("Pesima", "Mala", "Regular",
+                                        "Buena", "Excelente"))
+
+
+fi=table(transScore$RNC1)
+probabilidad=prop.table(table(transScore$RNC1))*100
+cbind(fi,probabilidad)
+barplot(prop.table(table(transScore$RNC1)), col = "darkBlue", xlab = "Académico")
+
+```
+
+Se observa que la mayor parte se encuentra en un nivel malo y regular con respecto a la parte académica
+
+#### RC2 (Características del individuo)
+
+```{r}
+transScore$RNC2[transScore$RC2<350] <-1
+transScore$RNC2[transScore$RC2>=350 & transScore$RC2<450] <-2
+transScore$RNC2[transScore$RC2>=450 & transScore$RC2<550] <-3
+transScore$RNC2[transScore$RC2>=550 & transScore$RC2<650] <-4
+transScore$RNC2[transScore$RC2>=650] <-5
+
+
+# Etiquetar
+transScore$RNC2 <- factor(transScore$RNC2, 
+                             labels = c("Pesima", "Mala", "Regular",
+                                        "Buena", "Excelente"))
+
+
+fi=table(transScore$RNC2)
+probabilidad=prop.table(table(transScore$RNC2))*100
+cbind(fi,probabilidad)
+barplot(prop.table(table(transScore$RNC2)), col = "darkBlue", xlab = "Características")
+
+```
+
+Se observa que la mayor parte se encuentra en un nivel malo y regular con respecto a las características de los individuos
+
+#### RC3 (Nivel de actividad fisica)
+
+```{r}
+transScore$RNC3[transScore$RC3<350] <-1
+transScore$RNC3[transScore$RC3>=350 & transScore$RC3<450] <-2
+transScore$RNC3[transScore$RC3>=450 & transScore$RC3<550] <-3
+transScore$RNC3[transScore$RC3>=550 & transScore$RC3<650] <-4
+transScore$RNC3[transScore$RC3>=650] <-5
+
+
+# Etiquetar
+transScore$RNC3 <- factor(transScore$RNC3, 
+                             labels = c("Pesima", "Mala", "Regular",
+                                        "Buena", "Excelente"))
+
+
+fi=table(transScore$RNC3)
+probabilidad=prop.table(table(transScore$RNC3))*100
+cbind(fi,probabilidad)
+barplot(prop.table(table(transScore$RNC3)), col = "darkBlue", xlab = "Factor1")
+
+```
+
+Se observa que la mayor parte se encuentra en un nivel regular, bueno y malo, más balanceado con respecto a la parte del nivel de actividad física
