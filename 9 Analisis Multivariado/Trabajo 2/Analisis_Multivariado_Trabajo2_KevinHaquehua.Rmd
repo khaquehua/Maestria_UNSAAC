@@ -177,6 +177,6 @@ Leamos la data
 
 ```{r}
 library(readxl)
-pregunta3 <- read_excel("9 Analisis Multivariado/Trabajo 2/pregunta3.xlsx")
+pregunta3 <- read_excel("C:/Users/Kev/Desktop/Trabajo_Kevin/Maestria_UNSAAC/9 Analisis Multivariado/Trabajo 2/pregunta3.xlsx")
 ```
 
