@@ -1,0 +1,34 @@
+# Simulamos datos simples
+set.seed(42)
+x <- matrix(rnorm(100), ncol = 2)  # 50 observaciones de 2 variables
+
+# Parámetros
+k <- 3
+n_iter <- 100
+n <- nrow(x)
+centros <- x[sample(1:n, k), ]  # Inicialización aleatoria
+
+# Iniciar variables
+clusters <- rep(0, n)
+
+# Algoritmo principal
+for (iter in 1:n_iter) {
+  # Paso 1: Asignar clusters
+  distancias <- as.matrix(dist(rbind(centros, x)))[1:k, (k+1):(k+n)]
+  clusters <- apply(distancias, 2, which.min)
+  
+  # Paso 2: Actualizar centroides
+  nuevos_centros <- matrix(NA, nrow = k, ncol = ncol(x))
+  for (j in 1:k) {
+    puntos <- x[clusters == j, ]
+    nuevos_centros[j, ] <- colMeans(puntos)
+  }
+  
+  # Criterio de paro (si no hay cambios)
+  if (all(centros == nuevos_centros)) break
+  centros <- nuevos_centros
+}
+
+# Resultado
+plot(x, col = clusters, pch = 19, main = "K-means desde cero")
+points(centros, col = 1:k, pch = 4, cex = 2, lwd = 2)
