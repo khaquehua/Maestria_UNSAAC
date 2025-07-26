@@ -8,7 +8,7 @@
 #######################
 
 library(foreign)
-datosd=read.spss("datos_AD_Simple.sav",
+datosd=read.spss("9 Analisis Multivariado/3.3 Analisis Discriminante/datos_AD_Simple.sav",
                  to.data.frame = TRUE,
                  use.value.labels = TRUE)
 head(datosd) # es necesario que datosd sea un data frame
