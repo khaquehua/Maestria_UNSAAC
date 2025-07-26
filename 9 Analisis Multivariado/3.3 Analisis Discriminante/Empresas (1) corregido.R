@@ -26,7 +26,7 @@ library(gmodels)
 
 # Lectura de datos con 5 variables
 library(foreign)
-datosd <-read.spss("Empresas.sav",
+datosd <-read.spss("9 Analisis Multivariado/3.3 Analisis Discriminante/Empresas.sav",
                   use.value.labels=TRUE, 
                   to.data.frame=TRUE)
 str(datosd)
