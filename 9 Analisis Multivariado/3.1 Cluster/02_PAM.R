@@ -15,7 +15,7 @@ library(kernlab)
 # Ejemplo distritos                                     #
 #-------------------------------------------------------#
 library(foreign)
-distritos=read.spss("distritos.sav",
+distritos=read.spss("9 Analisis Multivariado/3.1 Cluster/distritos.sav",
                     #distritos=read.spss(file.choose(),
                     use.value.labels=TRUE, 
                     max.value.labels=Inf, 
@@ -31,6 +31,7 @@ head(distritos)
 #########################################################
 #  PAM                                                  #
 #########################################################
+# Para ver la funcion (pam)
 
 res=pam(scale(distritos),3)  # normalizacion Z 
 res
