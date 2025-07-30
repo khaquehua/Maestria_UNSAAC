@@ -20,6 +20,17 @@ Las notas de los siguientes cursos son Razonamiento verbal, Razonamiento matemá
 
 Archivo a utilizar **postulantes.sav**
 
+```{r, warning=FALSE, echo=FALSE, include=FALSE}
+library(here)
+```
+
+```{r}
+library(foreign)
+postulantes <- read.spss(here("9 Analisis Multivariado/Trabajo 3/Postulantes.sav"),
+                 to.data.frame = TRUE,
+                 use.value.labels = TRUE)
+```
+
 a) Realizar análisis factorial exploratorio
 b) Decida cuantos factores retener explique el por qué.
 c) Decida el método de rotación y explique el por qué.
@@ -28,9 +39,206 @@ d) Explicar los resultados y de sus conclusiones del ejercicio.
 ### Solución
 
 a) **Realizar análisis factorial exploratorio**
+
+Veamos un resumen de los datos
+
+```{r}
+summary(postulantes)
+```
+
+No se tienen datos vacíos por lo cual no es necesario realizar una técnica de imputación, por lo que empezemos omitiendo la primera columna que representa a los códigos de los postulantes
+
+```{r}
+postulantes <- postulantes[,-1]
+```
+
+#### Prueba de esfericidad de Bartlet
+
+```{r}
+library(psych)
+cortest.bartlett(cor(postulantes), n=nrow(postulantes))
+```
+
+Se nos muestra un p valor menor a 0.05, justifica el uso de reducción de datos.
+
+#### Indicador Kaiser-Meyer-Olkinn KMO y MSA
+
+```{r}
+KMO(postulantes)
+```
+
+Los valores son menores a 0.5 a excepción de PSI (Psicología) por lo que se puede extraer para que se considere aceptable la aplicación del análisis factorial al conjunto de datos
+
+```{r}
+data_AFE <- postulantes[,-4] 
+```
+
+Veamos nuevamente el test de bartlet y KMO
+
+```{r}
+cortest.bartlett(cor(data_AFE), n=nrow(data_AFE))
+```
+
+Significativo, ahora veamos el KMO
+
+```{r}
+KMO(data_AFE)
+```
+
+Ahora si es justificable el uso de un análisis factorial exploratorio
+
 b) **Decida cuantos factores retener explique el por qué.**
+
+Empezemos realizando la primera seleccionando tomando en cuenta todos los factores
+
+```{r}
+facto=principal(r=data_AFE,nfactors=8,rotate="none")
+facto
+facto$loadings
+```
+
+Por la mayor explicación de la varianza, se recomienda usar 3 o 4 factores. Decidamos el uso de 4 factores
+
 c) **Decida el método de rotación y explique el por qué.**
+
+Teniendo en cuenta que se tendrán 4 factores veamos las cargas factoriales
+
+```{r}
+facto=principal(r=data_AFE,nfactors=4,rotate="none")
+facto
+facto$loadings
+```
+
+Vemos que las cargas aportan a cada factor siendo posible su distinción entre factores teniendo los siguientes resultados
+
+- PC1: **RM (confuso)**, MAT, FIS, BIO **HIS (confuso)** y QUI
+- PC2: RV, **HIS (confuso)**
+- PC3: LOG
+- PC4: **RM (confuso)** y BIO
+
+Siendo casos en donde no se observan las diferencias de una variable hacia el factor, por lo que es necesario explicar la máxima varianza, veamos con varimax
+
+```{r}
+facto=principal(r=data_AFE,nfactors=4,rotate="varimax")
+facto
+facto$loadings
+```
+
+Veamos ahora los factores, asimismo como su importancia
+
+- RC1: FIS, BIO y QUI
+- RC2: RV e HIS
+- RC4: RM, MAT
+- RC3: LOG
+
+```{r}
+biplot(prcomp(data_AFE, scale = FALSE))
+abline(h = 0, v = 0, lty = 2, col = 8)
+```
+
+Como se observa hay mejor distinción de las variables con respecto a sus factores asimismo podemos explicar cada factor de la siguiente manera
+
+- **RC1 (Ciencias naturales):** Conformada por Física, biología y química
+- **RC2 (Comprensión información):** Conformada por razonamiento verbal e historia
+- **RC4 (Ciencias matemáticas):** Conformada por razonamiento matemático y matemáticas
+- **RC4 (Lógica):** Conformada por lógica
+
+Concluyendo que la rotación varimax permite una mejor distinción entre factores a través de la explicación de su varianza máxima asimismo como los componentes creados tienen lógica con el contexto del ejercicio.
+
 d) **Explicar los resultados y de sus conclusiones del ejercicio.**
+
+Saquemos ahora los scores
+
+```{r}
+scores <- as.matrix(data_AFE) %*% as.matrix(facto$loadings)
+scores <- data.frame(scores) ; scores
+```
+
+Realizemos una transformación manteniendo sus características
+
+```{r}
+Zscores<-scale(scores)
+transScore <- Zscores*100+500 # Proceso de baremación de PISA
+transScore <- data.frame(transScore)
+```
+
+Recodifiquemos para la interpretación
+
+#### RC1 (Ciencias naturales)
+
+```{r}
+transScore$RNC1[transScore$RC1<350] <-1
+transScore$RNC1[transScore$RC1>=350 & transScore$RC1<450] <-2
+transScore$RNC1[transScore$RC1>=450 & transScore$RC1<550] <-3
+transScore$RNC1[transScore$RC1>=550 & transScore$RC1<650] <-4
+transScore$RNC1[transScore$RC1>=650] <-5
+
+
+# Etiquetar
+transScore$RNC1 <- factor(transScore$RNC1, 
+                             labels = c("Pesima", "Mala", "Regular",
+                                        "Buena", "Excelente"))
+
+
+fi=table(transScore$RNC1)
+probabilidad=prop.table(table(transScore$RNC1))*100
+cbind(fi,probabilidad)
+barplot(prop.table(table(transScore$RNC1)), col = "darkBlue", xlab = "Ciencias naturales")
+
+```
+
+Se observa que la mayor parte se encuentra en un nivel regular y bueno en la parte de ciencias naturales, seguido de malos y pésimos y por último una pequeña parte tiene notas excelentes en las ciencias naturales.
+
+#### RC2 (Comprensión de la información)
+
+```{r}
+transScore$RNC2[transScore$RC2<350] <-1
+transScore$RNC2[transScore$RC2>=350 & transScore$RC2<450] <-2
+transScore$RNC2[transScore$RC2>=450 & transScore$RC2<550] <-3
+transScore$RNC2[transScore$RC2>=550 & transScore$RC2<650] <-4
+transScore$RNC2[transScore$RC2>=650] <-5
+
+
+# Etiquetar
+transScore$RNC2 <- factor(transScore$RNC2, 
+                             labels = c("Pesima", "Mala", "Regular",
+                                        "Buena", "Excelente"))
+
+
+fi=table(transScore$RNC2)
+probabilidad=prop.table(table(transScore$RNC2))*100
+cbind(fi,probabilidad)
+barplot(prop.table(table(transScore$RNC2)), col = "darkBlue", xlab = "Comprension de la informacion")
+
+```
+
+Se observa que la mayor parte se encuentra en un nivel regular, seguido de bueno, mala, pésima y una pequeña parte en el nivel excelente.
+
+#### RC3 (Nivel de actividad fisica)
+
+```{r}
+transScore$RNC3[transScore$RC3<350] <-1
+transScore$RNC3[transScore$RC3>=350 & transScore$RC3<450] <-2
+transScore$RNC3[transScore$RC3>=450 & transScore$RC3<550] <-3
+transScore$RNC3[transScore$RC3>=550 & transScore$RC3<650] <-4
+transScore$RNC3[transScore$RC3>=650] <-5
+
+
+# Etiquetar
+transScore$RNC3 <- factor(transScore$RNC3, 
+                             labels = c("Pesima", "Mala", "Regular",
+                                        "Buena", "Excelente"))
+
+
+fi=table(transScore$RNC3)
+probabilidad=prop.table(table(transScore$RNC3))*100
+cbind(fi,probabilidad)
+barplot(prop.table(table(transScore$RNC3)), col = "darkBlue", xlab = "Factor1")
+
+```
+
+Se observa que la mayor parte se encuentra en un nivel regular, bueno y malo, más balanceado con respecto a la parte del nivel de actividad física
+
 
 ## CASO 2: Agrupando clientes mayoristas (7 puntos):
 
@@ -52,6 +260,11 @@ Se nos solicita realizar un análisis clúster que nos permita agrupar a nuestro
 | `Delicatessen`      | Gasto anual en productos preparados (snacks y licor).                      |
 
 Los datos se encuentran en el archivo "clientes.csv".
+
+```{r}
+clientes <- read.csv(here("9 Analisis Multivariado/Trabajo 3/clientes.csv"))
+```
+
 
 Luego de cargar el conjunto de datos en R, realizar las 2 opciones que se presenta:
 
