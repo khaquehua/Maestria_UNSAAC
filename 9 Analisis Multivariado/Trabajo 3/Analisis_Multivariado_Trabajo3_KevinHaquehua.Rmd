@@ -141,7 +141,7 @@ Como se observa hay mejor distinción de las variables con respecto a sus factor
 - **RC1 (Ciencias naturales):** Conformada por Física, biología y química
 - **RC2 (Comprensión información):** Conformada por razonamiento verbal e historia
 - **RC4 (Ciencias matemáticas):** Conformada por razonamiento matemático y matemáticas
-- **RC4 (Lógica):** Conformada por lógica
+- **RC3 (Lógica):** Conformada por lógica
 
 Concluyendo que la rotación varimax permite una mejor distinción entre factores a través de la explicación de su varianza máxima asimismo como los componentes creados tienen lógica con el contexto del ejercicio.
 
@@ -151,7 +151,7 @@ Saquemos ahora los scores
 
 ```{r}
 scores <- as.matrix(data_AFE) %*% as.matrix(facto$loadings)
-scores <- data.frame(scores) ; scores
+scores <- data.frame(scores) ; head(scores)
 ```
 
 Realizemos una transformación manteniendo sus características
@@ -212,9 +212,34 @@ barplot(prop.table(table(transScore$RNC2)), col = "darkBlue", xlab = "Comprensio
 
 ```
 
-Se observa que la mayor parte se encuentra en un nivel regular, seguido de bueno, mala, pésima y una pequeña parte en el nivel excelente.
+Se observa que respecto a comprension de la información la mayor parte se encuentra en un nivel regular, seguido de bueno, mala, pésima y una pequeña parte en el nivel excelente.
 
-#### RC3 (Nivel de actividad fisica)
+#### RC4 (Ciencias matemáticas)
+
+```{r}
+transScore$RNC4[transScore$RC4<350] <-1
+transScore$RNC4[transScore$RC4>=350 & transScore$RC4<450] <-2
+transScore$RNC4[transScore$RC4>=450 & transScore$RC4<550] <-3
+transScore$RNC4[transScore$RC4>=550 & transScore$RC4<650] <-4
+transScore$RNC4[transScore$RC4>=650] <-5
+
+
+# Etiquetar
+transScore$RNC4 <- factor(transScore$RNC4, 
+                             labels = c("Pesima", "Mala", "Regular",
+                                        "Buena", "Excelente"))
+
+
+fi=table(transScore$RNC4)
+probabilidad=prop.table(table(transScore$RNC4))*100
+cbind(fi,probabilidad)
+barplot(prop.table(table(transScore$RNC4)), col = "darkBlue", xlab = "Ciencias matemáticas")
+
+```
+
+Se observa que la mayor parte se encuentra en un nivel regular y bueno, seguido de malo y pésimo, y una pequeña parte tiene un término excelente con respecto a los resultados enfocados a las ciencias matemáticas.
+
+#### RC3 (Lógica)
 
 ```{r}
 transScore$RNC3[transScore$RC3<350] <-1
@@ -233,12 +258,11 @@ transScore$RNC3 <- factor(transScore$RNC3,
 fi=table(transScore$RNC3)
 probabilidad=prop.table(table(transScore$RNC3))*100
 cbind(fi,probabilidad)
-barplot(prop.table(table(transScore$RNC3)), col = "darkBlue", xlab = "Factor1")
+barplot(prop.table(table(transScore$RNC3)), col = "darkBlue", xlab = "Lógica")
 
 ```
 
-Se observa que la mayor parte se encuentra en un nivel regular, bueno y malo, más balanceado con respecto a la parte del nivel de actividad física
-
+Se observa que respecto a lógica la mayor parte se encuentra en un nivel regular, seguido de bueno, mala, pésima y una pequeña parte en el nivel excelente.
 
 ## CASO 2: Agrupando clientes mayoristas (7 puntos):
 
