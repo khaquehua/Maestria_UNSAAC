@@ -313,18 +313,156 @@ Luego de cargar el conjunto de datos en R, realizar las 2 opciones que se presen
 **Opción 1**:
 
 1. **Generar un nuevo dataset solo con las variables numéricas y estandarizarlas.**
+
+Carguemos las librerias a utilizar
+
+```{r}
+library(cluster)
+library(factoextra)
+library(fpc)
+```
+
+Veamos un resumen de los datos
+
+```{r}
+summary(clientes)
+```
+
+Por la descripción mostrada, las variables Channel y region son variables cualitativas, por lo que se deben quitar estas variables para realizar el análisis
+
+```{r}
+clientes_num <- clientes[,c(-1,-2)]
+```
+
+Ahora estandarizemos
+
+```{r}
+clientes_num_estan <- scale(clientes_num)
+head(clientes_num_estan)
+```
+
 2. **Generar el agrupamiento por particiones utilizando el método kmeans con k=4.**
+
+```{r}
+res<-kmeans(clientes_num_estan,4)
+res
+```
+
 3. **Añadir el dataset original la columna cluster, que identificará a los grupos que obtuvimos mediante esta metodología.**
+
+```{r}
+clientes.new<-cbind(clientes,res$cluster)
+colnames(clientes.new)<-c(colnames(clientes.new[,-length(clientes.new)]), "cluster.km")
+```
+
 4. **Graficar y perfilar a nuestros clientes según su agrupación.**
+
+```{r}
+plotcluster(clientes,res$cluster)
+
+clusplot(clientes,res$cluster, color = TRUE,
+         shade = TRUE, labels =5,lines=0,
+         main ="Gráfico de Conglomerados")
+```
+
+```{r}
+# Tabla de medias
+med <- aggregate(x = clientes.new[,3:8],by = list(clientes.new$cluster.km),FUN = mean)
+med
+
+# Describir variables
+par(mfrow=c(2,3))
+for (i in 3:8) {
+  boxplot(clientes.new[,i]~clientes.new$cluster.km, main=names(clientes.new[i]), type="l")
+}
+```
+
+Mediante los resultados del cluster y el diagrama de cajas podemos extraer las siguientes conclusiones
+
+- **Cluster 1:** Conformado por los clientes que piden mayormente productos comestibles, detergentes y productos de papel. Por lo que puede ser como restaurantes o abarrotes, la mejor estrategia es organizar las ofertas de estos clientes y ofrecerlos descuentos en base a sus preferencias.
+- **Cluster 2:** Se diría que este es el dato atípico del análisis ya que viene a ser un único cliente con preferencias en productos lácteos, congelados y preparados de snacks y licor (Da un poco de temor al extraer conclusiones a priori) sería verificar la información de este cliente.
+- **Cluster 3:** Conformado por los clientes que no sobresalen en la adquisición de productos ya que en todos se mantienen sus valores en niveles bajos, por lo que podrían ser casos de clientes sin preferencias.
+- **Cluster 4:** Conformado por los clientes que piden mayormente productos frescos y congelados. Dando idea a que puedan ser características de clientes relacionados a temas de almacen o distribución. De la misma forma que el cluster 1 sería organizar las ofertas de estos clientes y ofrecerles descuentos en base a sus preferencias.
 
 **Opción 2**:
 
 1. **Generar un nuevo dataset solo con las variables numéricas y estandarizarlas.**
+
+Usemos el mismo dataset generado en el anterior apartado
+
+```{r}
+head(clientes_num_estan)
+```
+
 2. **Encuentre ahora los clusters de forma jerárquica, calculando la matriz de distancias euclidianas y seleccionando en enlace que creas mejor se ajuste a los datos.**
+
+Empezemos calculando la matriz de distancias
+
+```{r}
+distancias <- dist(clientes_num_estan, method = "euclidean") ; head(distancias)
+```
+
+Realizemos el cluster de forma jerarquica aglomerativa usando el enlace de Ward
+
+```{r}
+res.hc=hclust(distancias,method="ward.D")
+plot(res.hc)
+```
+
 3. **Comparar los métodos de enlace y determinar cuál es el adecuado.**
+
+```{r}
+# Usando el enlace simple
+res.hc=hclust(distancias,method="ward.D")
+plot(res.hc)
+
+res.hc=hclust(distancias,method="single")
+plot(res.hc)
+
+res.hc=hclust(distancias,method="complete")
+plot(res.hc)
+
+res.hc=hclust(distancias,method="average")
+plot(res.hc)
+
+res.hc=hclust(distancias,method="centroid")
+plot(res.hc)
+```
+
+El que mas distingue a los cluster es por el enlace de Ward
+
 4. **Generar el nuevo agrupamiento jerárquico con el enlace seleccionado.**
+
+```{r}
+res.hc=hclust(distancias,method="ward.D")
+```
+
+
 5. **Graficar el dendograma respectivo y determinar el número de clusters.**
+
+Usemos el índice de Silueta
+
+```{r, fig.width=13, fig.height=13}
+par(mfrow=c(1,3))
+for(h in 2:6){
+  conglomerados=cutree(res.hc,k=h)
+  plot(silhouette(conglomerados,distancias))
+}
+par(mfrow=c(1,1))
+```
+
+Por el indice de silueta indica que es mejor tener dos cluster
+
 6. **Graficar y perfilar a nuestros clientes según su agrupación jerárquica.**
+
+Realizemos el corte y grafiquemos
+
+```{r}
+res.hc2=cutree(res.hc, k=2)
+fviz_dend(res.hc, cex = 0.6, k = 2, palette = "jco")
+```
+
+Se observa que en la primera parte se encuentra una pequeña parte de clientes, especialmente a aquellos que se deben obviar del primer grupo
 
 ## CASO 3: (7 puntos)
 
@@ -332,4 +470,8 @@ Investigar y realizar un informe monográfico sobre el **_análisis de correspon
 
 ### Solución
 
-Aca va la solución
+
+
+
+
+
