@@ -8,6 +8,28 @@ output:
     toc: true
     toc_depth: 3
 subtitle: 'Producto académico 03'
+references:
+  - id: adrian2021
+    type: book
+    title: "Estadística aplicada con R: visualización y validación de datos poblacionales pragmáticos y fonéticos"
+    author:
+      - family: Cabedo Nebot
+        given: Adrián
+    issued:
+      year: 2021
+    publisher: Universitat de Valéncia
+    publisher-place: España
+  - id: fernandez2024
+    type: book
+    title: "Fundamentos de Ciencia de Datos con R"
+    author:
+      - family: Fernández Avilés
+        given: Gema
+      - family: Montero
+        given: José María
+    issued:
+      year: 2024
+    publisher: McGraw-Hill
 ---
 
 # Ejercicios AFE, Cluster y análisis de correspondencia múltiple
@@ -470,8 +492,110 @@ Investigar y realizar un informe monográfico sobre el **_análisis de correspon
 
 ### Solución
 
+El trabajo es extraido del trabajo de [@adrian2021] y [@fernandez2024] en el que se considero las partes esenciales para el desarrollo de la presente monografía
+
+#### Resumen
+
+El análisis múltiple de correspondencia (AMC) es una técnica exploratoria utilizada para visualizar la relación entre más de dos variables categóricas, el caso de solo dos variables es el análisis de correspondencias o análisis de correspondencia simple. Para usar en R se necesita la librería `FactoMineR`. El AMC es útil para identificar coocurrencias entre categorías sin necesidad de tener una variable independiente y puede complementarse con el análisis de clúster para agrupar elementos derivados del análisis.
+
+#### Metodología
+
+Generalmente parte de una tabla de contingencia que se muestra a continuación
+
+```{r, echo=FALSE, out.width="100%"}
+knitr::include_graphics("img1.png")
+```
+
+Dada una tabla de contingencia, a partir de las frecuencias observadas $n_{ij}$, se definen las distancias entre perfiles
+
+- Para los perfiles fila, $d_{ii^{'}}=\sum_{j=1}^C \frac{1}{n_{.j}} {\left(\frac{n_{ij}}{n_{i.}} - \frac{n_{i^{'}j}}{n_{i^{'}.}} \right)}^2$
+- Para los perfiles columna, $d_{jj^{'}}=\sum_{i=1}^R \frac{1}{n_{i.}} {\left(\frac{n_{ij}}{n_{.j}} - \frac{n_{ij^{'}}}{n_{.j^{'}}} \right)}^2$
+
+Cuanto más se diferencien unos perfiles de otros, más grandes serás las diferencias anteriores. El análisis de correspondencias busca construir **dimensiones** (habitualmente, de dos) y obtener las coordenadas de los niveles de ambos factores en dichas dimensiones:
+
+$$
+\mathbf{A}=({\mathbf{a}}_{1} \quad {\mathbf{a}}_{2} \quad \cdots \quad {\mathbf{a}}_{R})
+$$
+
+Con ${\mathbf{a}}_{i} = \begin{pmatrix}
+{a}_{i1} \\
+{a}_{i2}
+\end{pmatrix}$ y
+
+$$
+\mathbf{B}=({\mathbf{b}}_{1} \quad {\mathbf{b}}_{2} \quad \cdots \quad {\mathbf{b}}_{C})
+$$
+
+Con ${\mathbf{a}}_{j} = \begin{pmatrix}
+{b}_{j1} \\
+{b}_{j2}
+\end{pmatrix}$
+
+siendo ${\mathbf{a}}_{i}$ las coordenadas del nivel fila ${\mathbf{A}}_{i}$ y ${\mathbf{b}}_{j}$ las del nivel columna ${\mathbf{B}}_{j}$ en el plano, de forma que reproduzcan las distancias entre perfiles y columna y los residuos estandarizados (asociaciones):
+
+$$
+d({\mathbf{a}}_{i},{\mathbf{a}}_{i^{'}}) = \sqrt{{({a}_{i1}-{a}_{i^{'}1})}^{2}+{({a}_{i2}-{a}_{i^{'}2})}^{2}} \approx {d}_{ii^{'}},
+$$
+$$
+d({\mathbf{b}}_{j},{\mathbf{b}}_{j^{'}}) = \sqrt{{({b}_{j1}-{b}_{j^{'}1})}^{2}+{({b}_{j2}-{b}_{j^{'}2})}^{2}} \approx {d}_{jj^{'}},
+$$
+
+$$
+\mathbf{a}_{i}^{'} \mathbf{b}_{j} \approx r_{ij}
+$$
+
+Una vez en disposición de las coordenadas contenidas en las matrices $\mathbf{A}$ y $\mathbf{B}$ es posible "visualizar" la posición relativa de cada factor en las nuevas dimensiones. Esta estructura permite ver tanto las "distancias" que hay entre los niveles de cada factor (mediante la distancia de representación en el plano) como las "asociaciones" entre niveles de ambos factores (ya que mientras más asociación haya, más cerca se representarán en el plano).
+
+Para resolver el problema de la estimación de las matrices $\mathbf{A}$ y $\mathbf{B}$ se lleva a cabo una descomposición de la matriz $\mathbf{R} = ( r_{ij} )$ en valores singulares.
+
+Según la importancia que se dé al ajuste de uno de los perfiles o a la matriz de residuos, se tienen diferentes métodos de selección, llamados **normalizaciones**.
+
+**Proyecciones fila, columna y simétrica**
+
+El punto de partida es la matriz de frecuencias relativas $\mathbf{F}$, cuyas entradas son $f_{ij}=n_{ij}/N$, también llamada matriz de correspondencias. Definiendo el vector de unos, $\mathbf{1}$, con la dimensión adecuada, las masas, o frecuencias marginales, de filas y columnas, $r_{i} = f_{i} = \sum_{j=1}^C f_{ij}$ y $c_{.j}=f_{.j}=\sum_{i=1}^R f_{ij}$, respectivamente, se pueden expresar matricialmente como $\mathbf{r}=\mathbf{F1}$ y $\mathbf{c}=\mathbf{F^{'}1}$ o, en forma de matrices diagonales, como:
+
+$$
+\mathbf{D}_{R} = diag(r) \equiv diag(r_1 , \cdots,r_{R}) \text{ y } \mathbf{D}_{C} = diag(c) \equiv diag(c_1 , \cdots,c_{C})
+$$
+
+Se calcula la **_matriz de residuos estandarizados_** como:
+
+$$
+\mathbf{R}_{est} = {\mathbf{D}}_{R}^{-\frac{1}{2}} (\mathbf{F} - \mathbf{rc^{'}}) {\mathbf{D}}_{C}^{-\frac{1}{2}}
+$$
+
+La matriz $\mathbf{R}_{est}$ se descompone en valores singulares, calculando las matrices $\mathbf{U}$, $\mathbf{D}$ y $\mathbf{V}$ tales que:
+
+$$
+\mathbf{R} = \mathbf{UDV^{'}},
+$$
+$$
+\mathbf{UU^{'}} = \mathbf{V^{'}V}=\mathbf{I}, \quad {\mathbf{U}}_{(RxK)}, \quad {\mathbf{V}}_{(CxK)}
+$$
+$$
+K = min(R-1, C-1)
+$$
+$$
+\mathbf{D} = diag({\mu}_{1}, \cdots, {\mu}_{K}),
+$$
+
+Donde los ${\mu}_{i}$ son los **_valores singulares_** (autovectores), estando ordenados de forma decreciente ${\mu}_{1} \geq {\mu}_{2} \geq \cdots \geq {\mu}_{K}$. A partir de la descomposición se pueden obtener:
+
+- Las coordenadas estándar de las filas, $\Phi={\mathbf{D}}_{R}^{-\frac{1}{2}} \mathbf{U}$ y sus coordenadas principales, $\mathbf{H} = \Phi \mathbf{D}$.
+- Las coordenadas estándar de las columnas, $\Gamma={\mathbf{D}}_{C}^{-\frac{1}{2}} \mathbf{V}$ y sus coordenadas principales, $\mathbf{G} = \Gamma \mathbf{D}$.
+- Las inercias principales, ${\lambda}_{i} = {\mu}_{i}^{2}$.
+
+Las coordenadas estándar permiten representar los perfiles en un plano, pero no permiten una comparación fácil entre perfiles fila columna. Para evitar este efecto, se escalan, dando lugar a las coordenadas principales, utilizadas para definir las proyecciones fila y proyecciones columna, que representan los correspondientes perfiles, formando los llamados mapas asimétricos. Las inercias principales indican el grado de variabilidad entre los perfiles fila o columna y los respectivos vectores de medias, por lo que tienen una interpretación equivalente a la variabilidad explicada por cada componente principal en el análisis de componentes principales.
+
+Por último, las matrices $\mathbf{A} = \mathbf{D}_{R}^{-\frac{1}{2}}\mathbf{UD}$ y $\mathbf{B} = \mathbf{D}_{C}^{-\frac{1}{2}}\mathbf{VD}$ representan las coordenadas de ambos perfiles en un espacio común, llamado mapa simétrico.
 
 
+#### Ejemplo de aplicación con R
 
+Se usará la base de datos **_Fonocortesía_**
+
+_Base de datos recogida para el proyecto Fonocortesía, dirigida por el catedrático Antonio Hidalgo Navarro en el marco del proyecto de investigación Fonocortesía, subvencionado por Ministerio de Ciencia, Innovación y Universidades (FFI2009-07034)._
+
+# Referencias
 
 
