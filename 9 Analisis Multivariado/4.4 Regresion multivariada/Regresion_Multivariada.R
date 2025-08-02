@@ -5,7 +5,7 @@
 # Lectura de datos SPSS
 
 library(foreign)
-datos <-read.spss("estudio_pina.sav",
+datos <-read.spss("9 Analisis Multivariado/4.4 Regresion multivariada/estudio_pina.sav",
                   use.value.labels=TRUE, 
                   to.data.frame=TRUE)
 str(datos)
@@ -23,7 +23,7 @@ mshapiro.test(t(datos1))
 # Prueba de esfericidad de Bartlett
 
 library(psych)
-library(rela)
+#library(rela)
 options(scipen=0)
 cortest.bartlett(cor(datos1),n=dim(datos1))
 # 
