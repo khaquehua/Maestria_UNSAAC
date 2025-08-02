@@ -10,7 +10,7 @@ rm(list = ls())
 # Lectura de datos SPSS
 
 library(foreign)
-datos <-read.spss("Maiz.sav",
+datos <-read.spss("9 Analisis Multivariado/4.3 MANOVA/Maiz.sav",
                   use.value.labels=TRUE, 
                   to.data.frame=TRUE)
 str(datos)
@@ -68,8 +68,8 @@ head(datosc)
 
 boxM(cbind(Y1,Y2,Y3,Y4,Y5)~Tratamientos,data=datosc)
 
-# Ho: V1=V2=V3=V4=V5=V6
-# Ha: alguna es diferente
+# Ho: V1=V2=V3=V4=V5=V6 (Se cumple el supuesto de normalidad)
+# Ha: alguna es diferente (No se cumple el supuesto de normalidad)
 
 # Box's M-test for Homogeneity of Covariance Matrices
 # 
@@ -109,12 +109,12 @@ W=Matrices$Residuals
 
 #Variabilidad explicada por el factor (Tratamientos). 
 # Matriz suma de cuadrados y productos cruzados
-# del factor (SCOCF)
+# del factor (entre tratamientos) (SCOCF)
 F
 
 #Variabilidad residual. Matriz suma de cuadrados y productos
 # cruzados
-# del residual (SCOCR)
+# del residual (SCOCR)  
 W
 
 #Variabilidad Total. Matriz suma de cuadrados y productos cruzados total (SCOCT)
