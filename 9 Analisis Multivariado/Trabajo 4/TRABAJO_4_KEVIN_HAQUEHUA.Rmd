@@ -1,8 +1,8 @@
 ---
-title: "MASTER EN BIOINFORMÁTICA Y BIOESTADÍSTICA"
-subtitle: "SOFTWARE PARA EL ANÁLISIS DE DATOS (SAD): Prueba de Evaluación Continua 3 (PEC3)"
+title: "MAESTRÍA EN ESTADÍSTICA"
+subtitle: "ANÁLISIS MULTIVARIADO"
 author: "Kevin Heberth Haquehua Apaza"
-date: '16 de mayo del 2025'
+date: '02 de agosto del 2025'
 output: 
   html_document:
     toc_float: true
@@ -19,28 +19,28 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{css, echo=FALSE}
 .columns {display: flex;}
 
-/* Código para modificar los encabezados del color de la UOC */
+/* Código para modificar los encabezados del color de la UNSAAC */
 h1, h2, h3 {
-  color: #000078;
+  color: #7b1523;
   font-family: sans-serif;
   font-weight: bold;
 }
 
 /* Código para modificar los titulos, subtitulos, autores y fechas */
 .title, .subtitle, .author, .date {
-  background-color: #73EDFF; 
+  background-color: #7b1523; 
   padding: 10px;
   text-align: center;
   font-family: sans-serif;
   font-weight: bold;
-  color: #000078;
+  color: white;
   display: block;
   margin: 0;
 }
 
 /* Código para modificar el texto del cuerpo del documento */
 body {
-  color: #000078;
+  color: #7b1523;
   font-family: sans-serif;
   font-weight: normal;
   margin: 0 !important;
@@ -52,12 +52,12 @@ body {
 
 /* Código para que el fondo de los codigos cambie de color */
 pre, code {
-  background-color: #D5FAFF !important;
+  background-color: #F2DFDC !important;
 }
 
 /* Modificación del índice */
 .tocify .tocify-item:hover {
-  background-color: #D5FAFF !important;
+  background-color: #F2DFDC !important;
 }
 
 /* Ocupe todo el documento */
@@ -71,1267 +71,386 @@ pre, code {
 knitr::include_graphics("encabezado.png")
 ```
 
-# Contenidos y orientaciones
-
-Para realizar la PAC3, es necesario haber trabajado los siguientes laboratorios y recursos asociados:
-
-- **LAB5: Paquetes de R para la Bioinformática**
-- **LAB6: Introducción al Machine Learning con R**
-
-**Nota:** Se pueden incluir conceptos o funciones trabajadas en los contenidos de los Laboratorios anteriores,
-
-La PEC2 consta de varios ejercicios organizados en secciones que corresponden a cada uno de los contenidos de los distintos laboratorios.
-
-# Formato de entrega
-
-Es obligatorio que la solución de la PAC3 se desarrolle en _**RMarkdown**_
-
-Se entregará una carpeta comprimida _**apellido1_apellido2_nombre_PAD_PAC3.zip**_ que contendrá:
-
-- El documento de solución en .pdf u otro en formato resultante de **RMarkdown**, por ejemplo: .html
-
-# Fecha límite de entrega
-
-La fecha límite de entrega de la PAC3 es el **miércoles 21 de mayo a las 23:59 h**
-
-# Sección 1. Regresión Lineal (3.5 puntos)
-
-## Ejercicio 1 [2.5 puntos]
-
-A partir del conjunto de datos **Pima.tr** (del paquete MASS) sobre mujeres indígenas Pima y su riesgo de diabetes, se destacan las siguientes variables:
-
-Variables relevantes:
-
-- **glu:** concentración de glucosa en sangre
-- **age:** edad de la persona
-- **bmi:** índice de masa corporal (BMI)
-- **diabetes:** diagnóstico de diabetes (Sí/No)
-
-Información del Dataset: [https://rdrr.io/cran/MASS/man/Pima.tr.html](https://rdrr.io/cran/MASS/man/Pima.tr.html)
-
-**Tareas a realizar en este ejercicio:**
-
-a) Carga y explora el conjunto de datos.
-b) Realiza un gráfico de dispersión entre el índice de masa corporal **(bmi)** y la concentración de glucosa **(glu)**
-c) Ajusta un modelo de regresión lineal con **(glu)** como variable dependiente y **(bmi)** como variable independiente.
-d) Interpreta el coeficiente de regresión y el valor de $R^2$ del modelo.
-e) Analiza los residuos del modelo para validar los supuestos de regresión.
-
-### Solución
-
-Primeramente se tiene en el enlace que los datos provienen de una población de al menos 21 años, de ascendencia indígena pima y residentes cerca de Phoenix, Arizona, se les realizó la prueba diabetes según los criterios de la Organización Mundial de la Salud. Los datos fueron recopilados por el Instituto Nacional de Diabetes y Enfermedades Digestivas y Renales de EE. UU. Se utilizarón los 532 registros completos tras descartar los datos (principalmente faltantes) sobre la insulina sérica.
-
-a) **Carga y explora el conjunto de datos**
-
-```{r}
-library(MASS)
-data("Pima.tr")
-```
-
-Según el enunciado se tiene otro dataset que tiene la misma estructura con las observaciones restantes
-
-```{r}
-data("Pima.te")
-```
-
-Por lo que para trabajar con todos los datos procederemos a unir ambos datasets
-
-```{r}
-Pima.tr <- rbind(Pima.tr, Pima.te)
-```
-
-Del cual el dataset tiene la siguiente estructura
-
-```{r}
-str(Pima.tr)
-```
-
-De los cuales según el enlace se tienen las siguientes descripciones de las variables
-
-- `npreg`: Número de embarazos.
-- `glu`: Concentración de glucosa plasmática en una prueba de tolerancia a la glucosa oral.
-- `bp`: Presión arterial diastólica (mm Hg).
-- `skin`: Espesor del pliegue cutáneo del tríceps (mm).
-- `bmi`: Índice de masa corporal (peso en kg/(altura en m)^2).
-- `ped`: Función del pedigrí de la diabetes
-- `age`: Edad en años.
-- `type`: Yes o No. Para diabéticos según criterios de la OMS.
-
-Inicamos la exploración de datos con el número de embarazos tomada como una variable cuantitativa politómica de tipo discreta, veamos la cantidad de datos y de forma gráfica
-
-```{r}
-table(Pima.tr$npreg)
-```
-
-```{r}
-#Cargamos la libreria para realizar agrupaciones
-library(dplyr)
-```
-
-```{r}
-npreg_table <- Pima.tr %>% group_by(npreg) %>% 
-  summarise(Cantidad = n()) %>%
-  mutate(Proporcion = prop.table(Cantidad))
-```
-
-Mostramos la tabla
-
-```{r}
-npreg_table
-```
-
-Veamos de forma gráfica los resultados en base al porcentaje
-
-```{r}
-library(ggplot2) #Para gráficos
-library(cowplot) #Para temas en ggplot
-library(RColorBrewer) #Para usar más paletas de colores
-```
-
-
-```{r}
-ggplot(npreg_table, aes(x = npreg, y = Proporcion)) +
-  geom_segment(aes(xend = npreg, yend = 0), color = "blue", size = 1.2) +
-  geom_point(color = "blue", size = 3) +
-  theme_minimal_vgrid() +
-  labs(title = "Distribución del número de embarazos de la población", 
-       subtitle = "Universidad Oberta de Catalunya (UOC)",
-       x="Número de embarazos",
-       y="Proporción") +
-  theme(plot.background=element_rect(fill="#73EDFF"), 
-        legend.position="none",
-        plot.title = element_text(hjust = 0.5, size = 14, face = "bold",color = "#000078"),
-        plot.subtitle = element_text(hjust = 0.5, size = 12, face = "bold",color = "#000078"),
-        axis.title.y = element_text(face = "bold",color = "#000078"),
-        axis.title.x = element_text(face = "bold",color = "#000078"),
-        axis.text.x = element_text(face = "bold", size = 10,color = "#000078"),
-        axis.text.y = element_text(face = "bold", size = 10,color = "#000078")) +
-  scale_x_continuous(breaks = 0:17)
-```
-
-En donde se observa que la mayor parte de los embarazos de la población de mujeres indígenas Pima se encuentran entre 1, 2, 3 o ningún embarazo. Aunque también se encontraron casos que superan los 4 embarazos, de tal forma que se encontraron hasta 17 embarazos aunque esto no es muy frecuente.
-
-Seguidamente veamos la variable concentración de glucosa plasmática `glu` donde los datos tienen el siguiente resumen y la siguiente distribución
-
-```{r}
-summary(Pima.tr$glu)
-```
-```{r}
-ggplot(Pima.tr, aes(x = glu, y = after_stat(density))) +
-  geom_histogram(binwidth = 10, boundary = 0.5,, color = "#000078", fill = "#D5FAFF", size = 1) +
-  geom_density(color = "#000078", linewidth = 1.5) +
-  scale_x_continuous(breaks = seq(50, 200, by = 10), labels = seq(50, 200, by = 10)) +
-  labs(x = "Concentración glucosa plasmática", y = "", title = "Histograma Concentración de glucosa plasmática", subtitle = "Universidad Oberta de Catalunya (UOC)") +
-  theme_minimal_vgrid() +
-  theme(plot.background=element_rect(fill="#73EDFF"), 
-        legend.position="none",
-        plot.title = element_text(hjust = 0.5, size = 14, face = "bold",color = "#000078"),
-        plot.subtitle = element_text(hjust = 0.5, size = 12, face = "bold",color = "#000078"),
-        axis.title.y = element_blank(),
-        axis.title.x = element_text(face = "bold",color = "#000078"),
-        axis.text.x = element_text(face = "bold", size = 10,color = "#000078"),
-        axis.text.y = element_blank())
-```
-
-Donde se observa un comportamiento asimétrico en la distribución de los datos, esto quiere decir que la mayor parte de la concentración de glucosa se encuentra entre 90 a 130 (media = 121.03, mediana = 115), aunque también hay casos donde se tuvo una concentración de glucosa menor entre niveles de 50 a 80 (menor = 56). De igual forma se observan casos en donde el nivel de concentración de la glucosa son mayores de 130 llegando hasta aproximadamente los 200 (mayor = 199).
-
-Continuemos con la variable presión arterial diastólica `bp`, donde los datos tienen el siguiente resumen y la siguiente distribución
-
-```{r}
-summary(Pima.tr$bp)
-```
-
-```{r}
-ggplot(Pima.tr, aes(x = bp, y = after_stat(density))) +
-  geom_histogram(binwidth = 10, boundary = 0.5,, color = "#000078", fill = "#D5FAFF", size = 1) +
-  geom_density(color = "#000078", linewidth = 1.5) +
-  scale_x_continuous(breaks = seq(20, 110, by = 10), labels = seq(20, 110, by = 10)) +
-  labs(x = "Presión arterial diastólica (mm Hg)", y = "", title = "Histograma Presión arterial diastólica", subtitle = "Universidad Oberta de Catalunya (UOC)") +
-  theme_minimal_vgrid() +
-  theme(plot.background=element_rect(fill="#73EDFF"), 
-        legend.position="none",
-        plot.title = element_text(hjust = 0.5, size = 14, face = "bold",color = "#000078"),
-        plot.subtitle = element_text(hjust = 0.5, size = 12, face = "bold",color = "#000078"),
-        axis.title.y = element_blank(),
-        axis.title.x = element_text(face = "bold",color = "#000078"),
-        axis.text.x = element_text(face = "bold", size = 10,color = "#000078"),
-        axis.text.y = element_blank())
-```
-
-Se observa que la mayor parte tiene una presión arterial diastólica entre 60 a 80 mm Hg(media = 71.51, mediana = 72). Se observa una distribución simétrica, de la misma forma hay la presencia de casos en donde se tuvo una presión menor a 60 (menor = 24) y mayor a 90 (máximo = 110).
-
-Siguiendo con la variable espesor del pliegue cutáneo del tríceps (mm) `skin` se tiene el siguiente resumen y distribución.
-
-```{r}
-summary(Pima.tr$skin)
-```
-
-```{r}
-ggplot(Pima.tr, aes(x = skin, y = after_stat(density))) +
-  geom_histogram(binwidth = 10, boundary = 0.5,, color = "#000078", fill = "#D5FAFF", size = 1) +
-  geom_density(color = "#000078", linewidth = 1.5) +
-  scale_x_continuous(breaks = seq(0, 100, by = 10), labels = seq(0, 100, by = 10)) +
-  labs(x = "Espesor pliegue del tríceps (mm)", y = "", title = "Histograma Pliegue cutáneo del tríceps", subtitle = "Universidad Oberta de Catalunya (UOC)") +
-  theme_minimal_vgrid() +
-  theme(plot.background=element_rect(fill="#73EDFF"), 
-        legend.position="none",
-        plot.title = element_text(hjust = 0.5, size = 14, face = "bold",color = "#000078"),
-        plot.subtitle = element_text(hjust = 0.5, size = 12, face = "bold",color = "#000078"),
-        axis.title.y = element_blank(),
-        axis.title.x = element_text(face = "bold",color = "#000078"),
-        axis.text.x = element_text(face = "bold", size = 10,color = "#000078"),
-        axis.text.y = element_blank())
-```
-
-Se observa que la mayor parte tiene un espesor de pliegue entre 20 a 40 mm(media = 29.18, mediana = 29). Se observa una distribución asimétrica, ya que hay presencia de casos en donde se tuvo un espesor de pligue del tríceps menor a 20 (menor = 7) y mayor a 40 (máximo = 99).
-
-Continuemos con la variable del indice de masa corporal `bmi` se tiene el siguiente resumen y distribución.
-
-```{r}
-summary(Pima.tr$bmi)
-```
-
-```{r}
-ggplot(Pima.tr, aes(x = bmi, y = after_stat(density))) +
-  geom_histogram(binwidth = 5, boundary = 0.5,, color = "#000078", fill = "#D5FAFF", size = 1) +
-  geom_density(color = "#000078", linewidth = 1.5) +
-  scale_x_continuous(breaks = seq(15, 70, by = 5), labels = seq(15, 70, by = 5)) +
-  labs(x = "Índice de masa corporal (kg/m^2)", y = "", title = "Histograma Índice de masa corporal", subtitle = "Universidad Oberta de Catalunya (UOC)") +
-  theme_minimal_vgrid() +
-  theme(plot.background=element_rect(fill="#73EDFF"), 
-        legend.position="none",
-        plot.title = element_text(hjust = 0.5, size = 14, face = "bold",color = "#000078"),
-        plot.subtitle = element_text(hjust = 0.5, size = 12, face = "bold",color = "#000078"),
-        axis.title.y = element_blank(),
-        axis.title.x = element_text(face = "bold",color = "#000078"),
-        axis.text.x = element_text(face = "bold", size = 10,color = "#000078"),
-        axis.text.y = element_blank())
-```
-
-Se observa que la mayor parte tiene un índice de masa corporal entre 25 a 40 $kg/m^2$(media = 32.89, mediana = 32.80). Se observa una distribución asimétrica, ya que hay presencia de casos en donde se tuvo un índice de masa corporal menor a 25 (menor = 18.2) y mayor a 40 (máximo = 67.10).
-
-Siguiendo con la variable función del pedigrí de la diabetes `ped` se tiene el siguiente resumen y distribución.
-
-```{r}
-summary(Pima.tr$ped)
-```
-
-```{r}
-ggplot(Pima.tr, aes(x = ped, y = after_stat(density))) +
-  geom_histogram(binwidth = 0.25, boundary = 0.5,, color = "#000078", fill = "#D5FAFF", size = 1) +
-  geom_density(color = "#000078", linewidth = 1.5) +
-  scale_x_continuous(breaks = seq(0, 2.5, by = 0.25), labels = seq(0, 2.5, by = 0.25)) +
-  labs(x = "Función del pedigrí de diabétes", y = "", title = "Histograma Función del pedigrí de la diabétes", subtitle = "Universidad Oberta de Catalunya (UOC)") +
-  theme_minimal_vgrid() +
-  theme(plot.background=element_rect(fill="#73EDFF"), 
-        legend.position="none",
-        plot.title = element_text(hjust = 0.5, size = 14, face = "bold",color = "#000078"),
-        plot.subtitle = element_text(hjust = 0.5, size = 12, face = "bold",color = "#000078"),
-        axis.title.y = element_blank(),
-        axis.title.x = element_text(face = "bold",color = "#000078"),
-        axis.text.x = element_text(face = "bold", size = 10,color = "#000078"),
-        axis.text.y = element_blank())
-```
-
-Se observa que la mayor parte tiene una función del pedigrí de diabétes entre 0 a 0.75 $kg/m^2$(media = 0.50, mediana = 0.42). Se observa una distribución asimétrica, ya que hay presencia de casos en donde se tuvo una función de pedigrí de diabétes mayor a 0.75 (máximo = 2.42).
-
-Continuando con la variable edad en años `age`.  se tiene el siguiente resumen y distribución.
-
-```{r}
-summary(Pima.tr$age)
-```
-
-```{r}
-ggplot(Pima.tr, aes(x = age, y = after_stat(density))) +
-  geom_histogram(binwidth = 5, boundary = 0.5,, color = "#000078", fill = "#D5FAFF", size = 1) +
-  geom_density(color = "#000078", linewidth = 1.5) +
-  scale_x_continuous(breaks = seq(20, 85, by = 5), labels = seq(20, 85, by = 5)) +
-  labs(x = "Edad (años)", y = "", title = "Histograma Edad", subtitle = "Universidad Oberta de Catalunya (UOC)") +
-  theme_minimal_vgrid() +
-  theme(plot.background=element_rect(fill="#73EDFF"), 
-        legend.position="none",
-        plot.title = element_text(hjust = 0.5, size = 14, face = "bold",color = "#000078"),
-        plot.subtitle = element_text(hjust = 0.5, size = 12, face = "bold",color = "#000078"),
-        axis.title.y = element_blank(),
-        axis.title.x = element_text(face = "bold",color = "#000078"),
-        axis.text.x = element_text(face = "bold", size = 10,color = "#000078"),
-        axis.text.y = element_blank())
-```
-
-Se observa que la mayor parte de la edad de la población se encuentra entre 20 a 25 años (media = 31.61, mediana = 28) con una distribución asimétrica, de igual forma se observa que hay casos donde se tuvo mujeres con edades mayores a los 30 años (máximo de 81 años).
-
-Por último observemos la distribución de la variable `type` Yes o No. Para diabéticos según criterios de la OMS.
-
-```{r}
-type_count <- Pima.tr %>% group_by(type) %>% 
-  summarise(Cantidad = n()) %>%
-  mutate(Proporción = prop.table(Cantidad))
-```
-
-Veamos la distribución en un gráfico de barras
-
-```{r}
-ggplot(data = type_count,aes(x=type, y=Proporción, fill=type)) + 
-  geom_bar(stat="identity") + theme_minimal_vgrid() +
-  labs(title = "Población de mujeres indígenas Pima diagnosticada con diabétes", 
-       subtitle = "Universidad Oberta de Catalunya (UOC)",
-       x="¿Fue diagnosticada con diabétes?",
-       y="Tiempo de vida (años)") +
-  theme(plot.background=element_rect(fill="#73EDFF"), 
-        legend.position="none",
-        plot.title = element_text(hjust = 0.5, size = 14, face = "bold",color = "#000078"),
-        plot.subtitle = element_text(hjust = 0.5, size = 12, face = "bold",color = "#000078"),
-        axis.title.y = element_blank(),
-        axis.title.x = element_text(face = "bold",color = "#000078"),
-        axis.text.x = element_text(face = "bold", size = 10,color = "#000078"),
-        axis.text.y = element_text(face = "bold", size = 10,color = "#000078")) + #Theme para modificar los ejes y títulos  
-  geom_label(aes(label=paste0("n=",Cantidad,"\n",round(Proporción*100,2),"%")), colour = "#000078", fontface = "italic", hjust=0.5)+
-  scale_y_continuous(limits = c(0,0.75), breaks = seq(0,0.75,0.05))
-```
-
-Se observa que la mayor parte de las mujeres no fueron diagnosticadas como diabéticas (66.73%), en la cual solo el 33.27% de la población fue diagnosticada como diabética.
-
-b) **Realiza un gráfico de dispersión entre el índice de masa corporal** `bmi` **y la concentración de glucosa **`glu`
-
-```{r}
-ggplot(Pima.tr, aes(x = bmi, y = glu)) +
- geom_point(colour = "#000078", size = 2) + theme_minimal_vgrid() +
-  labs(title = "Diagrama de dispersión bmi vs glu", 
-       subtitle = "Universidad Oberta de Catalunya (UOC)",
-       x="Índice de Masa Corporal (bmi)",
-       y="Concentración de glucosa (glu)") +
-  theme(plot.background=element_rect(fill="#73EDFF"), 
-        legend.position="none",
-        plot.title = element_text(hjust = 0.5, size = 14, face = "bold",color = "#000078"),
-        plot.subtitle = element_text(hjust = 0.5, size = 12, face = "bold",color = "#000078"),
-        axis.title.y = element_text(face = "bold",color = "#000078"),
-        axis.title.x = element_text(face = "bold",color = "#000078"),
-        axis.text.x = element_text(face = "bold", size = 10,color = "#000078"),
-        axis.text.y = element_text(face = "bold", size = 10,color = "#000078"))
-```
-
-**Interpretación:** Se observa una gran dispersión de los datos aunque se observa una relación positiva o tendencia creciente aunque no tan fuerte, veamos mediante el test de correlación
-
-<<<<<<< HEAD
-c) **Ajusta un modelo de regresión lineal con** (glu) **como variable dependiente y** (bmi) **como variable independiente.**
-
-
-
-d) **Interpreta el coeficiente de regresión y el valor de $R^2$ del modelo.**
-e) **Analiza los residuos del modelo para validar los supuestos de regresión.**
-=======
-```{r}
-cor(Pima.tr$bmi, Pima.tr$glu)
-```
-
-Se tiene una relación positiva débil por lo que no se observa una gran relación entre el índice de masa corporal `bmi` y la concentración de glucosa `glu`
-
-c) **Ajusta un modelo de regresión lineal con** `glu` **como variable dependiente y** `bmi` **como variable independiente.**
-
-Ajustemos la recta de regresión en el gráfico con la función `geom_smooth` de ggplot
-
-```{r}
-ggplot(Pima.tr, aes(x = bmi, y = glu)) +
- geom_point(colour = "#000078", size = 2) + theme_minimal_vgrid() +
-  geom_smooth(method = "lm", se = FALSE, color = "red") +
-  labs(title = "Diagrama de dispersión bmi vs glu", 
-       subtitle = "Universidad Oberta de Catalunya (UOC)",
-       x="Índice de Masa Corporal (bmi)",
-       y="Concentración de glucosa (glu)") +
-  theme(plot.background=element_rect(fill="#73EDFF"), 
-        legend.position="none",
-        plot.title = element_text(hjust = 0.5, size = 14, face = "bold",color = "#000078"),
-        plot.subtitle = element_text(hjust = 0.5, size = 12, face = "bold",color = "#000078"),
-        axis.title.y = element_text(face = "bold",color = "#000078"),
-        axis.title.x = element_text(face = "bold",color = "#000078"),
-        axis.text.x = element_text(face = "bold", size = 10,color = "#000078"),
-        axis.text.y = element_text(face = "bold", size = 10,color = "#000078"))
-```
-
-Se observa que la recta ajustada tiene un comportamiento creciente, aunque los datos no se ajustan exactamente a la recta.
-
-d) **Interpreta el coeficiente de regresión y el valor de** $R^2$ **del modelo.**
-
-Ejecutemos el modelo de regresión
-
-```{r}
-Modelo_Reg <- lm(glu~bmi, data=Pima.tr)
-summary(Modelo_Reg)
-```
-
-No se detecta una correlación la concetración de glucosa y el índice de masa corporal, el valor estimado da lugar a la siguiente recta de regresión estimada por mínimos cuadrados
-
-$$\hat{glu}=84.42 + 1.11 \text{bmi}$$
-
-Donde el coeficiente de regresión del índice de masa corporal (1.11) indica que por cada nivel aumente el índice de masa corporal, la concentración de glucosa aumentará en 1.11 unidades. Por otro lado el coeficiente de determinación $R^2 = 0.06$ indica que la bonda de ajuste de la recta ajustada con los datos solo es del 0.06 siendo muy bajo y no tan significativo a pesar de que la prueba estadística indique que explica a los valores.
-
-e) **Analiza los residuos del modelo para validar los supuestos de regresión.**
-
-Se observa que los residuos del modelo
-
-```{r}
-summary(Modelo_Reg$residuals)
-hist(Modelo_Reg$residuals)
-```
-
-Que a pesar de que los residuos del modelo tienen un comportamiento asimétrico sesgado hacia la derecha, y mediante el resumen se observa que su media no es cero y los datos varían desde -64 a 83 teniendo una gran dispersión entre ellos. A primera vista no se observa que cumpla el supuestos de normalidad de los residuos.
->>>>>>> fc2c3cf8609f9bbd58ddb225404e505f5b1e294c
-
-## Ejercicio 2 [1 punto]
-
-Busca un paquete de R o genera unos datos inventados que tengan un coeficiente de regresión alto y aplica los pasos que se explican en la solución del Caso práctico 2 del LAB 5 _(Corrección del LAB 6 mencionado)_ [Pregunta abierta]
-
-### Solución
-
-En el caso práctico 2 del LAB 5 se pidió realizar un estudio de regresión lineal, regresión múltiple, test ANOVA y test clustering sobre el conjunto de datos.
-
-Para nuestro estudio utilicemos los datos de `flchain`
-
-```{r}
-library(survival)
-data("flchain")
-```
-
-```{r}
-head(flchain)
-```
-
-veamos un resumen de los datos
-
-```{r}
-str(flchain)
-```
-
-El cual representa el estudio del Dr. Robert Kyle para determinar la prevalencia de la gammpatía monoclonal de significado incierto (GMSI) en el condado de Olmsted, Minnesota, en el cual la Dra. Angela Dispenzieri analizaron los niveles de CLL en las muestras originales y realizaron pruebas adicionales, teniendo una muestra aleatoria estratificada de 7874 sujetos de los 15759 originales, las variables se describen a continuación
-
-- `age`: Edad en años.
-- `sex`: Femenino = F, Masculino = M.
-- `sample.yr`: Edad en la que la muestra de sangre fue obtenida.
-- `kappa`: Cadena ligera libre sérica, porción kappa.
-- `lambda`: Cadena ligera libre sérica, porción lambda.
-- `flc.grp``: El grupo FLC usado en el análisis original.
-- `creatinine`: Creatinina sérica.
-- `mgus`: 1 si el sujeto fue diagnosticado con gammapatía monoclonal (MGUS).
-- `futime`: Días desde la descripción hasta el fallecimiento, hay tres sujetos de los cuales su muestra se obtuvo en su fecha de fallecimiento.
-- `death`: 0 = Vivo al último contacto, 1 = muerto.
-- `chapter`: Para los que fallecieron, una agrupación de su causa principal de muerte según los títulos de los capítulos del Código Internacional de Enfermedades CIE-9.
-
-Realizemos un breve resumen estadístico
-
-```{r}
-summary(flchain)
-```
-
-```{r}
-#Evaluación respecto a (MGUS) ya que lo toma como numérico
-table(flchain$mgus)
-```
-
-```{r}
-#Evaluación respecto a si se encuentra vivo o muesrto ya que lo toma como numérico
-table(flchain$death)
-```
-
-```{r}
-#Evaluación respecto al grupo flc ya que lo toma como numérico
-table(flchain$flc.grp)
-```
-
-Se observa que de los 7874 individuos se tienen 4350 mujeres (55.25%) y 3524 varones (44.75%) entre edades desde los 50 hasta los 101 años, en promedio tienen 64.29 años, la porción kappa va desde 0.01 hasta 20.50 con una media de 1.43, en la porción lambda va desde 0.04 hasta 26.600 con una media de 1.70.
-
-Con respecto a la muestra obtenida se tienen que provienen en forma similar del mismo grupo `flc.grp`, así como los diagnosticados con MGUS son 115 (1.46%), mientras que los que murieron fueron 2169 (27.55%) individuos.
-
-La creatinina sérica varía desde 0.4 hasta 10.800 con una media de 1.09 (se tienen 1350 valores nulos). De las causas de muerte de los 2169 la mayor parte fue circulatorio y neoplasmas. Quitemos los valores nulos de la variable creatinine (en chapter no se realiza porque los NA indica los que estan vivos)
-
-```{r}
-#Eliminamos los valores NA
-data_flchain= flchain %>% filter(!is.na(creatinine)) %>% select(-chapter, -sample.yr, -futime)
-```
-
-Coloquemos como factor las variables de interés
-
-```{r}
-data_flchain$sex <- as.factor(data_flchain$sex)
-data_flchain$flc.grp <- as.factor(data_flchain$flc.grp)
-data_flchain$mgus <- as.factor(data_flchain$mgus)
-data_flchain$death <- as.factor(data_flchain$death)
-```
-
-
-Ahora veamos si hay una correlación entre las variables numéricas (`age`, `kappa`, `lambda`, `creatinine`)
-
-```{r}
-#Extraer las variables numéricas
-num <- data_flchain[, c("age","kappa","lambda","creatinine")]
-```
-
-```{r}
-cor(x=num,method="pearson")
-```
-
-Se observa que las relaciones son positivas, aunque estas relaciones se observan más en las porciones kappa y lambda, representemos la relación entre las variables
-
-```{r}
-pairs(num)
-```
-
-Se observa que hay una relación entre las variables numéricas, de la misma forma revisando los coeficientes de Pearson la relación más fuerte es entre la porción kappa y lambda en las cuales podemos calcula el modelo de regresión lineal.
-
-```{r}
-#Realizamos el modelo de regresión lineal
-flchain_rl=lm(formula=lambda ~ kappa,data=data_flchain)
-#Mostramos el resultado
-summary(flchain_rl)
-```
-
-```{r}
-#Representamos el diagrama de puntos
-plot(data_flchain$kappa,data_flchain$lambda,xlab="kappa",ylab="lambda")
-abline(flchain_rl)
-```
-
-El modelo de regresión muestra un _R-squared_ de 0.6864, indicando un buen ajuste del modelo. A continuación, realizaremos el modelo de regresión múltiple evaluando cuáles son los posibles predictores para la variable `lambda`.
-
-```{r}
-#Modelo de regresión múltiple
-flchain_rm<-lm(data_flchain$lambda~data_flchain$age + data_flchain$sex + data_flchain$kappa + 
-                 data_flchain$flc.grp + data_flchain$creatinine + data_flchain$mgus, 
-               data=data_flchain)
-summary(flchain_rm)
-```
-
-Viendo todos los coeficientes de los predictores, evaluemos cuáles son los mejores predictores
-
-```{r}
-#Analizamos los mejores predictores
-step(object=flchain_rm,direction="both",trace=1)
-```
-
-En el resultado aprecia los mejores predictores. Calculemos de nuevo el modelo de regresión sobre estos predictores:
-
-```{r}
-flchain_rl_p <- lm(formula = data_flchain$lambda ~ data_flchain$age + data_flchain$sex + 
-    data_flchain$kappa + data_flchain$flc.grp + data_flchain$creatinine + 
-    data_flchain$mgus, data = data_flchain)
-summary(flchain_rl_p)
-```
-
-No muestra diferencia al modelo planteado ya que todas las variables son significativas con un _R-squared_ (0.7199). Realicemos ahora el test ANOVA para la variable `sex` con respecto a la creatinina sérica.
-
-```{r}
-#definimos los vectores de las variables sex y creatinine
-sex_flchain<-c(data_flchain$sex)
-creatinine_flchain<-c(data_flchain$creatinine)
-#definimos el data frame que guarde estos dos vectores
-df_flchain<-data.frame(creatinine_flchain,sex_flchain)
-#mostramos los primeros registros
-head(df_flchain)
-```
-
-```{r}
-#mostramos el número de observaciones por cada grupo (sexo)
-table(df_flchain$sex_flchain)
-```
-
-Se observa un número desigual en cada grupo, Veamos la media de la creatinina sérica en función del sexo
-
-```{r}
-#Calculamos la media del tiempo de supervivencia en función del ph.ecog
-aggregate(creatinine_flchain~sex_flchain,data=df_flchain,FUN=mean)
-```
-
-```{r}
-#Calculamos el diagrama de cajas
-boxplot(creatinine_flchain~sex_flchain,data=df_flchain,id.method="y")
-```
-
-Para determinar la normalidad aplicamos el test de Kolmogorov-Smirnov, ya que disponemos de más de 50 observaciones
-
-```{r}
-require(nortest)
-by(data=df_flchain,INDICES =
-df_flchain$sex_flchain,FUN=function(x){lillie.test(x$creatinine_flchain)})
-```
-
-Se puede observar que en ambos grupos se tiene un p-value inferior a 0.05, con lo cual se determina que ningún grupo cumple con las condiciones de normalidad por lo que no tiene sentido realizar el test de ANOVA. Por último, realizaremos un _test de clustering_ y, para ello, comenzamos con un agrupamiento jerárquico aglomerativo.
-
-```{r}
-library(MASS)
-library(cluster)
-d_agl_flchain<-dist(data_flchain,method="euclidean") ##especificamos los valores de distancia
-hc_agl_flchain<-hclust(d_agl_flchain,method="complete") ##calculamos el clúster jerárquico
-plot(hc_agl_flchain,cex=0.6,hang=-1, main ="Dendrograma de cluster")
-```
-
-
-# Sección 2: ANOVA (4 puntos)
-
-## Ejercicio 3 (2 puntos)
-
-A partir del conjunto de datos: **_PlantGrowth_** (incluido en R en la librería Plotly).
-
-**Variables:**
-
-**weight:** peso de las plantas
-
-**group:** tratamiento aplicado (control o dos tipos de suplemento)
-
-**Tareas a realizar**
-
-a) Haz un box plot para comparar el peso según el tratamiento.
-b) Ajusta un modelo ANOVA para ver si existen diferencias significativas entre grupos .
-c) Interpreta los resultados y comprueba si es necesario añadir interacciones.
-d) Válida el modelo con el análisis de residuos.
-
-### Solución
-
-Empezemos llamando al dataset
-
-```{r}
-library(plotly)
-```
-
-```{r}
-data(PlantGrowth)
-```
-
-Veamos su estructura
-
-```{r}
-str(PlantGrowth)
-```
-
-Se observa que muestra el peso en base de tres factores: Grupo control, tratamiento 1 y tratamiento 2
-
-a) **Haz un box plot para comparar el peso según el tratamiento.**
-
-```{r}
-ggplot(PlantGrowth, aes(x = group, y = weight, color=group, fill=group)) +
- geom_boxplot() + theme_minimal_vgrid() +
- scale_fill_manual(values=c("#fadede", "#5882FA","#c3dfc5")) + 
-  scale_color_manual(values=c("#db0000", "#5858FA","#034b08")) +
-  labs(title = "Diagrama de cajas del peso en base al grupo", 
-       subtitle = "Universidad Oberta de Catalunya (UOC)",
-       x="Grupo",
-       y="Peso") +
-  theme(plot.background=element_rect(fill="#73EDFF"), 
-        legend.position="none",
-        plot.title = element_text(hjust = 0.5, size = 14, face = "bold",color = "#000078"),
-        plot.subtitle = element_text(hjust = 0.5, size = 12, face = "bold",color = "#000078"),
-        axis.title.y = element_text(face = "bold",color = "#000078"),
-        axis.title.x = element_text(face = "bold",color = "#000078"),
-        axis.text.x = element_text(face = "bold", size = 10,color = "#000078"),
-        axis.text.y = element_text(face = "bold", size = 10,color = "#000078"))
-```
-
-Se observa que las plantas que tienen el menor peso se encuentra las que tienen el tratamiento 1, seguido del grupo control, por último se observa que las plantas que obtuvieron un aumento en su peso se encuentra en el grupo del tratamiento 2.
-
-b) **Ajusta un modelo ANOVA para ver si existen diferencias significativas entre grupos.**
-
-Previamente se deberá realizar el test de normalidad aunque esto puede variar ya que se tiene una muestra pequeña y en cada uno se tienen 10 observaciones
-
-```{r}
-table(PlantGrowth$group)
-```
-
-```{r}
-##Test Kolmogorov-Smirnov
-by(data=PlantGrowth,INDICES=PlantGrowth$group,FUN=function(x){lillie.test(x$weight)})
-```
-
-Se observa que los valores son mayores a 0.05 por lo que se cumple el supuesto de normalidad, posteriormente veamos de varianza constante o de homocedasticidad
-
-```{r}
-##Test Fligner-Killen diagnosis homocedasticidad
-fligner.test(PlantGrowth$weight~PlantGrowth$group,PlantGrowth)
-```
-
-No se detecta falta de homocedasticidad, apliquemos el estudio ANOVA
-
-```{r}
-##Estudio anova
-anova_plant<-aov(PlantGrowth$weight~PlantGrowth$group,data=PlantGrowth)
-summary(anova_plant)
-```
-
-```{r}
-plot(anova_plant)
-```
-
-
-Se observa diferencia significativas entre los grupos de tratamiento con respecto al peso de la planta.
-
-c) **Interpreta los resultados y comprueba si es necesario añadir interacciones.**
-
-Se observan diferencias significativas entre los grupos evaluados, por lo que evaluemos en que grupos se encuentran estas diferencias mediante Correción de Holm.
-
-```{r}
-pairwise.t.test(x=PlantGrowth$weight,g=PlantGrowth$group,
-                p.adjust.method="holm",pool.sd=TRUE,paired=FALSE,alternative="two.sided")
-```
-
-Se observa que la diferencia significativa se encuentra entre el grupo del tratamiento 1 con el tratamiento 2, mientras que con el grupo control no se encuentran diferencias significativas entre ambos grupos.
-
-d) **Válida el modelo con el análisis de residuos.**
-
-Apliquemos el análisis de residuos evaluando que los residuos sigan una distribución normal
-
-```{r}
-lillie.test(resid(anova_plant))
-```
-
-Se observa que los residuos siguen una distribución normal, veamos el comportamiento con un histograma
-
-```{r}
-hist(resid(anova_plant))
-```
-
-Los residuos tienen una media de 0 con varianza 1 aproximadamente, cumpliendo con la normalidad de los residuos.
-
-## Ejercicio 4 (2 puntos)
-
-Durante un estudio de campo, unos investigadores midieron la humedad del suelo (en porcentaje) bajo diferentes tipos de cobertura vegetal en una zona protegida. Se consideraron cuatro tipos de cubiertas: hierba baja (H1), arbustos (H2), arbolado aclarado (H3) y bosque denso (H4).
-
-Para cada tipo de cobertura, se realizaron 6 muestras en puntos diferentes. Los siguientes datos son los valores de la humedad del suelo registrados:
-
-**H1: 28, 33, 30, 27, 31, 29**
-
-**H2: 35, 37, 36, 38, 34, 33**
-
-**H3: 40, 39, 41, 42, 40, 43**
-
-**H4: 48, 46, 47, 45, 44, 49**
-
-Tareas a realizar:
-
-1. Reformad los datos para que haya una columna con la humedad (variable numérica) y otra con el tipo de cobertura (variable factor).
-2. Cread un gráfico ggplot2 que muestre la humedad del suelo por grupo. Interpretarlo: ¿cree que existen diferencias entre los tipos de cobertura?
-3. Ajustad un modelo ANOVA y comentad las conclusiones. Si existen diferencias significativas, indica de qué grupos parecen más diferentes,
-4. Valide los supuestos del modelo ANOVA mediante gráficos de residuos. Comente los resultados.
-
-### Solución
-
-1. **Reformad los datos para que haya una columna con la humedad (variable numérica) y otra con el tipo de cobertura (variable factor).**
-
-Empezemos a crear los dataframes con los diferentes tipos de humedad y cobertura
-
-```{r}
-#Crear los dataframes de las diferentes coberturas
-H1 <- data.frame(Cobertura = "H1", Humedad = c(28, 33, 30, 27, 31, 29))
-H2 <- data.frame(Cobertura = "H2", Humedad = c(35, 37, 36, 38, 34, 33))
-H3 <- data.frame(Cobertura = "H3", Humedad = c(40, 39, 41, 42, 40, 43))
-H4 <- data.frame(Cobertura = "H4", Humedad = c(48, 46, 47, 45, 44, 49))
-
-#Unir los dataframes
-DataHumedad <- rbind(H1, H2)
-DataHumedad <- rbind(DataHumedad, H3)
-DataHumedad <- rbind(DataHumedad, H4)
-```
-
-Ahora veamos la estructura del dato
-
-```{r}
-str(DataHumedad)
-```
-
-Ahora pongamos la variable Cobertura como factor para aplicar el ANOVA
-
-```{r}
-DataHumedad$Cobertura <- as.factor(DataHumedad$Cobertura)
-str(DataHumedad) #Ahora cambia el valor de cobertura como un factor
-```
-2. **Cread un gráfico ggplot2 que muestre la humedad del suelo por grupo. Interpretarlo: ¿cree que existen diferencias entre los tipos de cobertura?**
-
-El gráfico que mejor puede representar esto es el diagrama de caja o boxplot, representemoslo e interpretemos el gráfico obtenido
-
-```{r}
-ggplot(DataHumedad, aes(x = Cobertura, y = Humedad, color=Cobertura, fill=Cobertura)) +
- geom_boxplot() + theme_minimal_vgrid() +
- scale_fill_manual(values=c("#fadede", "#5882FA","#c3dfc5","#ffd374")) + 
-  scale_color_manual(values=c("#db0000", "#5858FA","#034b08","#fe8300")) +
-  labs(title = "Diagrama de cajas Humedad del suelo respecto a la Cobertura", 
-       subtitle = "Universidad Oberta de Catalunya (UOC)",
-       x="Cobertura",
-       y="Humedad") +
-  theme(plot.background=element_rect(fill="#73EDFF"), 
-        legend.position="none",
-        plot.title = element_text(hjust = 0.5, size = 14, face = "bold",color = "#000078"),
-        plot.subtitle = element_text(hjust = 0.5, size = 12, face = "bold",color = "#000078"),
-        axis.title.y = element_text(face = "bold",color = "#000078"),
-        axis.title.x = element_text(face = "bold",color = "#000078"),
-        axis.text.x = element_text(face = "bold", size = 10,color = "#000078"),
-        axis.text.y = element_text(face = "bold", size = 10,color = "#000078"))
-```
-
-**Interpretación:** Se observa que hay una variación con respecto al nivel de humedad por cobertura, donde se observa que la humedad es más baja en la cobertura de hierba baja (H1), seguido de arbustos (H2), arbolado aclarado (H3) y el que tienen mayor humedad de suelo es en la cobertura de bosque denso (H4)
-
-3. **Ajustad un modelo ANOVA y comentad las conclusiones. Si existen diferencias significativas, indica de qué grupos parecen más diferentes,**
-
-Previamente se deberá realizar el test de normalidad aunque esto puede variar ya que se tiene una muestra pequeña y en cada uno se tienen 6 observaciones
-
-```{r}
-table(DataHumedad$Cobertura)
-```
-
-```{r}
-##Test Kolmogorov-Smirnov
-by(data=DataHumedad,INDICES=DataHumedad$Cobertura,FUN=function(x){lillie.test(x$Humedad)})
-```
-
-Se observa que los valores son mayores a 0.05 por lo que se cumple el supuesto de normalidad, posteriormente veamos de varianza constante o de homocedasticidad
-
-```{r}
-##Test Fligner-Killen diagnosis homocedasticidad
-fligner.test(DataHumedad$Humedad~DataHumedad$Cobertura,DataHumedad)
-```
-
-No se detecta falta de homocedasticidad, apliquemos el estudio ANOVA
-
-```{r}
-##Estudio anova
-anova_humedad<-aov(DataHumedad$Humedad~DataHumedad$Cobertura,data=DataHumedad)
-summary(anova_humedad)
-```
-
-```{r}
-plot(anova_humedad)
-```
-
-
-Se observa diferencia significativas entre los grupos de tratamiento con respecto a la humedad del suelo con respecto a las coberturas vegetales.
-
-Se observan diferencias significativas entre los grupos evaluados, por lo que evaluemos en que grupos se encuentran estas diferencias mediante Correción de Holm.
-
-```{r}
-pairwise.t.test(x=DataHumedad$Humedad,g=DataHumedad$Cobertura,
-                p.adjust.method="holm",pool.sd=TRUE,paired=FALSE,alternative="two.sided")
-```
-
-Se observa que la diferencia significativa se encuentra entre todos los grupos, es decir que ningún grupo de cobertura vegetal no tiene diferencia con respecto a la humedad del suelo
-
-4. **Valide los supuestos del modelo ANOVA mediante gráficos de residuos. Comente los resultados.**
-
-Apliquemos el análisis de residuos evaluando que los residuos sigan una distribución normal
-
-```{r}
-lillie.test(resid(anova_humedad))
-```
-
-Se observa que los residuos siguen una distribución normal, veamos el comportamiento con un histograma
-
-```{r}
-hist(resid(anova_humedad))
-```
-
-Los residuos tienen una media de 0 con varianza 1 aproximadamente, cumpliendo con la normalidad de los residuos.
-
-# Sección 3: Aplicaciones de R (2.5 puntos)
-## Ejercicio 5 (2.5 puntos)
-
-Diseñar una aplicación interactiva con Shiny que permita: Cargar el archivo .csv con información sobre hábitos de salud (alimentación, ejercicio, horas de sueño, ...) que se genera con el siguiente código
-
-```{r}
-set.seed(123)
-n <- 200 # Número de registros
-df <- data.frame(
-Edad = sample(18:80, n, replace = TRUE),
-Género = sample(c("Hombre", "Mujer"), n, replace = TRUE),
-Frutos_por_día = rpois(n, lambda = 2),
-Ejercicio_semanal = round(runif(n, 0, 10), 1),
-Fuma = sample(c("Sí", "No"), n, replace = TRUE, prob = c(0.3, 0.7)),
-Dorm_media_horas = round(rnorm(n, mean = 7, sd = 1.2), 1)
-)
-# Escribe el archivo CSV
-write.csv(df, "habitos_saludables.csv", row.names = FALSE)
-```
-
-**Tareas a realizar**
-
-Mostrar un resumen estadístico del conjunto de datos. Visualizar diferentes gráficos:
-
-Un histograma de una variable cuantitativa seleccionada (p. ej.: horas de sueño).
-Un gráfico de barras para una variable categórica (p. ej.: frecuencia de actividad física).
-Un gráfico de dispersión seleccionando dos variables cuantitativas (p. ej.: horas de sueño vs IMC)
-
-**Funcionalidades mínimas que debe tener la aplicación:**
-
-Uso de `fileInput()` para cargar el archivo.
-Selección de variables mediante `selectInput()`.
-Visualización con `plotOutput()` y `renderPlot()`.
-Mostrar el resumen con `verbatimTextOutput()` y `renderPrint()`.
-
-Nota: Puede realizar capturas de pantalla para explicar los pasos que vaya desarrollando para crear la aplicación.
-
-### Solución
-
-Para esta parte se colocará el código realizado sin necesidad de hacer que funcione en el RMarkdown colocando en el chunk `eval = FALSE`
-
-Empezemos cargando las librerias de interés
-
-```{r, eval=FALSE}
-library(shiny)
-library(ggplot2)
-library(dplyr)
-library(cowplot)
-library(RColorBrewer)
-```
-
-Ahora procedemos a crear la parte de la interfaz del usuario (UI)
-
-```{r, eval=FALSE}
-ui <- fluidPage(
-  titlePanel("Explorador de conjunto de datos"),
-  sidebarLayout(
-    sidebarPanel(
-      fileInput("file", "Selecciona un archivo CSV"),
-      selectInput("x", "Selecciona la variable X:", choices = ""),
-      selectInput("y", "Selecciona la variable Y:", choices = "")
-    ),
-    mainPanel(
-      plotOutput("plot"),
-      verbatimTextOutput("summary_text")
-    )
-  )
-)
-```
-
-Posteriormente creamos el servidor, la modificación que realice es que en lugar de crear un botón que muestre el resumen, lo haga de forma automática, asimismo en lugar el tipo de gráfico a desear, decidi manejar la condicional de tal forma que si la variable seleccionada a evaluar fuera de tipo cualitativo y cuantitavio sea un histograma o diagrama de barras. Asimismo agregue en la parte del `updateSelectInput(session, "y", choices = c("Solo X", vars))` para que solo haga un análisis univariado y después si combina con los otros realize los otros tipos de gráficos según a su estructura de forma automática.
-
-Por último utilice la libreria `ggplot()` para usar la estética y formato de los gráficos que estuve realizando anteriormente, pero previamente antes de realizar el gráfico se evalúa la condicional para ver que tipo de gráfico es el adecuado.
-
-```{r, eval=FALSE}
-server <- function(input, output, session) {
-  #Leer el archivo
-  data <- reactive({
-    req(input$file)
-    if (!endsWith(input$file$name, ".csv")) return(NULL)
-    read.csv(input$file$datapath)
-  })
+# Sección 1. Contexto y objetivo del estudio. Datos.
+## Exploración de datasets
+La importación de un conjunto de datos externo, en concreto uno contenido en el repositorio publico de [**Kaggle**](https://www.kaggle.com/datasets).  
+Esto nos va a permitir, entre otras cosas, practicar con otras técnicas de carga de datos, más allá de la utilización de datasets contenidos en paquetes predefinidos en R.  
+
+## Elección y Descripción del dataset
+En concreto, el dataset utilizado es [**CpG Values of Smoking and Non Smoking Patients**](https://www.kaggle.com/datasets/thomaskonstantin/cpg-values-of-smoking-and-non-smoking-patients), creado por [*Thomas Konstantin*](https://www.kaggle.com/thomaskonstantin), investigador en la *Universidad de Bar-Ilan de Tel Aviv*.  
+
+### Contexto biológico
+En la página del dataset se proporciona un breve contexto acerca del contenido del mismo y el origen biológico de la información. En concreto, el dataset contiene información sobre los **niveles de metilación** en 20 **CG islands** para **671 muestras** únicas, junto con la *edad*, *género* y *código* de la muestra.
+En relación a las **CG islands**, o *islas CpG*, el autor ofrece una breve explicación que tratamos de sintetizar.  
+En el ADN se pueden localizar lo que se denominan *sitios CpG*, o *CpG sites*, que no son otra cosa que *di-nucleótidos* en los que una *citosina* es seguida por una *guanina*. Y a su vez, las *islas CpG* son regiones en las que hay una alta concentración de *sitios CpG*.  
+Estos *dinucleótidos* pueden aparecer *metilados*, lo que significa que la *citosina* correspondiente recibe un grupo metilo (-CH3) para acabar formando una *5-metilcitosina*. Esto es importante porque las metilaciones que ocurren en un gen pueden influir en su expresión.  
+El estudio de las metilaciones, y su influencia en la expresión genética, forma parte de un campo aún mayor que se denomina *epigenética*.
+El autor del dataset menciona que podría ser interesante estudiar la relación entre los datos que se proporcionan de los pacientes (género, edad y condición de fumador o no fumador), y los niveles de metilación en las diferentes *CpG islands*.  
+Este tipo de relaciones son precisamente las que la técnicas de análisis multivariado pueden ayudar a desentrañar. Sería interesante descubrir si se pudiese influir en el nivel de metilación de ciertas regiones del ADN, y con ello en la expresión de ciertos genes. Proporcionar este tipo de evidencias podría resultar de aplicación directa en el ámbito de la salud.  
+
+### Cuestiones y Objetivos de Análisis
+Se desconoce si las *CpG islands* de este dataset forman parte de genes o promotores de genes concretos, pero una vez localizados aquellas regiones con niveles de metilación diferenciada para diferentes condiciones, podría procederse a la identificación de las características genéticas relacionadas.  
+Esa podría ser una de las preguntas que nos planteásemos: **¿existe algún CpG island cuyo nivel de metilación se vea influenciado por la condición de el género**.  
+Otra cuestión podría tener que ver con la correlación entre los diferentes CpG islands. Algo del tipo: **¿están relacionados los niveles de metilación de los diferentes CpG islands?**. Esta segunda pregunta, en principio, no implicaría la búsqueda de conexión con las condiciones mencionadas anteriormente, pero podría servir para detectar relaciones ocultas en la expresión de diferentes genes y que pueden ser solucionados con la reducción de dimensionalidad como PCA o AFE.
+En definitiva, las cuestiones planteadas parecen relevantes desde el punto de vista de la Bioestadística.
+
+## Sobre del dataset
+Este conjuto de datos pertenece al repositorio público de **Kaggle**, y en su descripción no se menciona ningún tipo de restricción sobre su uso. En la descripción del campo correspondiente al identificador de la muestra se indica que se corresponde con el *GSM* (*GEO accession*) de la muestra en el *NCBI*  (<https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM1051525>). Vemos por tanto que la información es pública y que no se define ninguna restricción de uso.  
+Como curiosidad, se destaca que las referencias del *NCBI* incluyen información acerca de si se trata de un paciente con artritis reumatoide, lo que sugiere que también podríamos plantearnos cuestiones acerca de esta condición.  
+En cuanto al formato, el dataset se encuentra en formato *csv*, pero el fichero de la descarga viene comprimido en formato *zip*, por lo que tendremos que descomprimirlo antes de cargarlo en un dataframe.  
+Además, para evitar descargarlo cada vez que *"rendericemos"* el documento, comprobaremos si el fichero ya existe en la carpeta actual.
+
+```{r}
+# Carga de la librería para la lectura del csv
+library(readr)
+
+# URL del archivo en formato ZIP
+url <- "https://www.kaggle.com/api/v1/datasets/download/thomaskonstantin/cpg-values-of-smoking-and-non-smoking-patients"
+
+# Nombre del fichero de destino de la descarga
+zip_file <- "datos.zip"
+
+# Nombre del fichero csv
+csv_file <- "Smoker_Epigenetic_df.csv"
+
+# Comprobamos si ya se ha descargado el fichero
+if (!file.exists(csv_file)) {
+  message("El fichero aún no ha sido descargado. Descargando...")
   
-  #PArte donde se mostraran los datos
-  observe({
-    req(data())
-    vars <- colnames(data())
-    updateSelectInput(session, "x", choices = vars)
-    updateSelectInput(session, "y", choices = c("Solo X", vars)) #Aca agregar para ver si solo se quiere un analisis individual o bivariado
-  })
+  # Descarga del fichero
+  download.file(url, destfile = zip_file, mode = "wb")
   
-  #Codigo para generar el grafico
-  output$plot <- renderPlot({
-    req(data(), input$x, input$y) #Llamar a los datos asi como las columnas seleccionadas
-    df <- data() #Al dataframe lo llamare df
-    x_var <- input$x #Al resultado del primer selecInput lo llamo x_var
-    y_var <- input$y #Al resultado del primer selecInput lo llamo y_var
+  # Comprobamos si la descarga fue exitosa
+  if (file.exists(zip_file)) {
+    # Descomprimimos el fichero zip
+    csv_file <- unzip(zip_file)
     
-    #Esta parte devuelve la clase en la que es el dataframe escodigo
-    #Puser ser numeric, factor o character
-    x_class <- class(df[[x_var]])
-    if (y_var != "Solo X") {
-      y_class <- class(df[[y_var]])
-    }
-    
-    # Solo X seleccionado
-    if (y_var == "Solo X") {
-      #Condicional para hacer un diagrama de barras
-      if (x_class %in% c("factor", "character")) {
-        colourCount = length(unique(df[[x_var]])) #Para que cada valor tenga un único color
-        ggplot(df, aes_string(x = x_var, fill = x_var)) + 
-          geom_bar() +
-          geom_label(stat = "count", aes(label = ..count..), colour = "#000078", fontface = "italic", hjust=0.2) +
-          theme_minimal() +
-          scale_fill_manual(values = colorRampPalette(RColorBrewer::brewer.pal(11, "Paired"))(colourCount)) +
-          labs(title = "Diagrama de barras individual",subtitle = "Universidad Oberta de Catalunya (UOC)") +
-          theme(
-            plot.background = element_rect(fill = "#73EDFF"), 
-            legend.position = "none",
-            plot.title = element_text(hjust = 0.5, size = 14, face = "bold", color = "#000078"),
-            plot.subtitle = element_text(hjust = 0.5, size = 12, face = "bold", color = "#000078"),
-            axis.title.y = element_text(face = "bold", color = "#000078"),
-            axis.title.x = element_text(face = "bold", color = "#000078"),
-            axis.text.x = element_text(face = "bold", size = 10, color = "#000078"),
-            axis.text.y = element_text(face = "bold", size = 10, color = "#000078")
-          )
-      } else {
-        #Condicional para hacer un histograma
-        ggplot(df, aes_string(x = x_var)) +
-          geom_histogram(bins = 30, color = "#000078", fill = "#D5FAFF", size = 1) +
-          labs(title = "Histograma individual",subtitle = "Universidad Oberta de Catalunya (UOC)") +
-          theme_minimal_vgrid() +
-          theme(plot.background=element_rect(fill="#73EDFF"),
-                plot.title = element_text(hjust = 0.5, size = 14, face = "bold",color = "#000078"),
-                plot.subtitle = element_text(hjust = 0.5, size = 12, face = "bold",color = "#000078"),
-                axis.text.y = element_text(face = "bold"),
-                axis.text.x = element_text(face = "bold"),
-                axis.title.x = element_text(face = "bold"))
-      }
-    } else {
-      # Ambos X e Y seleccionados
-      if (x_class %in% c("factor", "character") & y_class %in% c("factor", "character")) {
-        #Condicional para hacer un diagrama de barras con leyenda en ambos casos combinando
-        ggplot(df, aes_string(x = x_var, fill = y_var)) +
-          geom_bar(position = "dodge") +
-          geom_label(stat = "count", aes(label = ..count..), colour = "#000078", fontface = "italic", position = position_dodge(width = 0.9)) +
-          scale_fill_manual(
-            values = colorRampPalette(RColorBrewer::brewer.pal(11, "Paired"))(length(unique(df[[y_var]])))
-          ) +
-          labs(title = "Diagrama de barras",subtitle = "Universidad Oberta de Catalunya (UOC)") +
-          theme_minimal_vgrid() +
-          theme(
-            legend.position = "top",
-            plot.background = element_rect(fill = "#73EDFF"),
-            plot.title = element_text(hjust = 0.5, size = 14, face = "bold", color = "#000078"),
-            plot.subtitle = element_text(hjust = 0.5, size = 12, face = "bold", color = "#000078"),
-            axis.title.x = element_text(face = "bold", color = "#000078"),
-            axis.text.x = element_text(face = "bold", size = 10, color = "#000078"),
-            axis.text.y = element_text(face = "bold", size = 10, color = "#000078")
-          )
-        
-      } else if ((x_class %in% c("factor", "character") & y_class %in% c("numeric", "integer"))) {
-        #Condicional para hacer un diagrama de cajas
-        ggplot(df, aes_string(x = x_var, y = y_var, fill = x_var)) +
-          geom_boxplot() +
-          scale_fill_manual(
-            values = colorRampPalette(RColorBrewer::brewer.pal(11, "Paired"))(length(unique(df[[x_var]])))
-          ) +
-          theme_minimal_vgrid() +
-          labs(title = "Diagrama de cajas", subtitle = "Universidad Oberta de Catalunya (UOC)") +
-          theme(plot.background=element_rect(fill="#73EDFF"), 
-                legend.position="none",
-                plot.title = element_text(hjust = 0.5, size = 14, face = "bold",color = "#000078"),
-                plot.subtitle = element_text(hjust = 0.5, size = 12, face = "bold",color = "#000078"),
-                axis.title.y = element_text(face = "bold",color = "#000078"),
-                axis.title.x = element_text(face = "bold",color = "#000078"),
-                axis.text.x = element_text(face = "bold", size = 10,color = "#000078"),
-                axis.text.y = element_text(face = "bold", size = 10,color = "#000078"))
-        
-      } else if ((x_class %in% c("numeric", "integer") & y_class %in% c("factor", "character"))) {
-        #Condicional para hacer un diagrama de cajas
-        ggplot(df, aes_string(x = x_var, y = y_var, fill = y_var)) +
-          geom_boxplot() +
-          scale_fill_manual(
-            values = colorRampPalette(RColorBrewer::brewer.pal(11, "Paired"))(length(unique(df[[y_var]])))
-          ) +
-          theme_minimal_vgrid() +
-          labs(title = "Diagrama de cajas", subtitle = "Universidad Oberta de Catalunya (UOC)") +
-          theme(plot.background=element_rect(fill="#73EDFF"), 
-                legend.position="none",
-                plot.title = element_text(hjust = 0.5, size = 14, face = "bold",color = "#000078"),
-                plot.subtitle = element_text(hjust = 0.5, size = 12, face = "bold",color = "#000078"),
-                axis.title.y = element_text(face = "bold",color = "#000078"),
-                axis.title.x = element_text(face = "bold",color = "#000078"),
-                axis.text.x = element_text(face = "bold", size = 10,color = "#000078"),
-                axis.text.y = element_text(face = "bold", size = 10,color = "#000078"))
-      } else {
-        #Condicional para hacer un diagrama de dispersión en los demas casos
-        ggplot(df, aes_string(x = x_var, y = y_var)) +
-          geom_point(colour = "#000078", size = 2) + theme_minimal_vgrid() +
-          labs(title = "Diagrama de dispersión", subtitle = "Universidad Oberta de Catalunya (UOC)") +
-          theme(plot.background=element_rect(fill="#73EDFF"), 
-                legend.position="none",
-                plot.title = element_text(hjust = 0.5, size = 14, face = "bold",color = "#000078"),
-                plot.subtitle = element_text(hjust = 0.5, size = 12, face = "bold",color = "#000078"),
-                axis.title.y = element_text(face = "bold",color = "#000078"),
-                axis.title.x = element_text(face = "bold",color = "#000078"),
-                axis.text.x = element_text(face = "bold", size = 10,color = "#000078"),
-                axis.text.y = element_text(face = "bold", size = 10,color = "#000078"))
-        
-      }
-    }
-  })
-  
-  #Parte que arroja los datos o resumen de las variables abiertas
-  output$summary_text <- renderPrint({
-    req(data())
-    summary(data())
-  })
+    # Una vez descomprimido borramos el zip para liberar espacio
+    file.remove(zip_file)
+
+    message("Descarga completada correctamente.")
+  } else {
+    warning("Se ha producido un error en la descarga del fichero. Por favor, vuelva a intentarlo pasados unos minutos o revise su código.")
+  }
+} else {
+  message("El archivo ya existe: ", csv_file)
+}
+```
+Una vez descargado el dataset procedemos a cargarlo con *read_csv*.
+```{r}
+# Cargamos los datos desde el fichero csv
+datos <- read_csv(csv_file)
+```
+# Sección 2. Prospección y preparación de los datos
+
+Comenzamos con la descripción del conjunto de datos visualizando los nombres de las variables, el tamaño del dataset y la información del dataframe cargado:
+```{r}
+# Nombres de las columnas
+names(datos)
+
+# Dimensiones del dataset
+dim(datos)
+
+# Descripción general
+str(datos)
+```
+
+A pesar de tener en la descripción del dataset *671 muestras*, en la lectura de datos obtenemos **683 muestras** esto puede ser debido a la actualización que realizó al archivo hace 4 años que también esta descrito en la página de *Kaggle* en la parte de exploración de Datos.
+
+Podemos comparar esta información con la que obtenemos de la descripción en *Kaggle*:  
+
+- `GSM`: El GSM (sample accession number) con el que se puede localizar la muestra en el NCBI.
+- `Smoking Status`: Fumardor/a - never = nunca fumó\ current = fumador/a actualmente.
+- `Gender`: Género.
+- `Age`: Edad.
+- `cg0XXXXXXX``: Metilación en la *CG island* correspondiente.
+
+En la primera parte de la exploración se puede visualizar el resumen de los datos
+
+```{r}
+# Descripción general
+summary(datos)
+```
+
+De la misma forma veamos la cantidad que se tiene por género estado de fumador y género.
+
+```{r}
+table(datos$`Smoking Status`)
+table(datos$Gender)
+```
+
+### Información
+
+Con la información preparada podemos identificar las clases de variables y los posibles transformaciones a realizar, el siguiente cuadro muestra un resumen de las variables planteadas a estudiar.
+
+| Variable | Descripción | Tipo | Tamaño | Valores nulos o NA | Transformación
+|:------------- |:--------------- |:-------------- |-------------- |-------------- |-------------- |
+| `GSM` | Localizador de la muestra en el NCBI - ADN genómico del individuo | Identificador para localizar la muestra | 683 individuos | No se tiene | Al ser el identificador de la muestra, no es necesario realizar transformación |
+| `Smoking Status` | Atributo que señala si el individuo de la muestra de estudio es fumador, ya sea que este nuna fumó o sea un fumador actual | cualitativa dicotómica | 683 individuos (490 fumadores actuales y 193 que nunca fumaron) | No se tiene | Se puede cambiar el nombre del inglés al español para interpretación de los resultados, además de que debe ser como tipo factor |
+| `Gender` | Atributo que señala el género del individuo de la muestra de estudio el cual se tienen entre individuos de género femenino y género masculino | cualitativa dicotómica | 683 individuos (440 + 13 Femenino y 181 + 49 Masculino) | No se tiene | Convertir el género f y F a femenino, de la misma forma m y M a masculino y convertirlo a factor |
+| `cg0XXXXXXX` | Metilación en 20 niveles o regiones genómicas en la *CpG Island* | cuantitativa continua | 683 individuos | 62 valores NA | Eliminar los valores nulos para poder proceder con el estudio |
+
+### Transformación
+
+Empezemos realizando la transformación correcta del género, ya que el dataset los brinda en diferentes tipos en el que se toma dos variables para femenino: f y F; de la misma forma dos para masculino: m y M. Procedamos a crear una función que realize la transformación del género
+
+```{r}
+#Función para transformar el género
+genero_transformar <- function(genero) {
+  if (genero == "f") {
+    return("Femenino")
+  } else if (genero == "F") {
+    return("Femenino")
+  } else if (genero == "m") {
+    return("Masculino")
+  } else if (genero == "M") {
+    return("Masculino")
+  } else {
+    return("NA")
+  }
 }
 ```
 
-El código completo vendría a ser el siguiente para hacer correr el app
+Ahora apliquemos la función para transformar el género en nuestros datos
 
-```{r, eval=FALSE}
-library(shiny)
-library(ggplot2)
-library(dplyr)
-library(cowplot)
-library(RColorBrewer)
+```{r}
+datos$Gender <- sapply(datos$Gender, genero_transformar) #Aplicar con sapply la función creada
+datos$Gender <- factor(datos$Gender) #Convertir a factor
+```
 
-#Parte del UI
-ui <- fluidPage(
-  titlePanel("Explorador de conjunto de datos"),
-  sidebarLayout(
-    sidebarPanel(
-      fileInput("file", "Selecciona un archivo CSV"),
-      selectInput("x", "Selecciona la variable X:", choices = ""),
-      selectInput("y", "Selecciona la variable Y:", choices = "")
-    ),
-    mainPanel(
-      plotOutput("plot"),
-      verbatimTextOutput("summary_text")
-    )
-  )
-)
+Veamos ahora la distribución del género
 
-#Parte del servidor
-server <- function(input, output, session) {
-  #Leer el archivo
-  data <- reactive({
-    req(input$file)
-    if (!endsWith(input$file$name, ".csv")) return(NULL)
-    read.csv(input$file$datapath)
-  })
-  
-  #PArte donde se mostraran los datos
-  observe({
-    req(data())
-    vars <- colnames(data())
-    updateSelectInput(session, "x", choices = vars)
-    updateSelectInput(session, "y", choices = c("Solo X", vars)) #Aca agregar para ver si solo se quiere un analisis individual o bivariado
-  })
-  
-  #Codigo para generar el grafico
-  output$plot <- renderPlot({
-    req(data(), input$x, input$y) #Llamar a los datos asi como las columnas seleccionadas
-    df <- data() #Al dataframe lo llamare df
-    x_var <- input$x #Al resultado del primer selecInput lo llamo x_var
-    y_var <- input$y #Al resultado del primer selecInput lo llamo y_var
-    
-    #Esta parte devuelve la clase en la que es el dataframe escodigo
-    #Puser ser numeric, factor o character
-    x_class <- class(df[[x_var]])
-    if (y_var != "Solo X") {
-      y_class <- class(df[[y_var]])
-    }
-    
-    # Solo X seleccionado
-    if (y_var == "Solo X") {
-      #Condicional para hacer un diagrama de barras
-      if (x_class %in% c("factor", "character")) {
-        colourCount = length(unique(df[[x_var]])) #Para que cada valor tenga un único color
-        ggplot(df, aes_string(x = x_var, fill = x_var)) + 
-          geom_bar() +
-          geom_label(stat = "count", aes(label = ..count..), colour = "#000078", fontface = "italic", hjust=0.2) +
-          theme_minimal() +
-          scale_fill_manual(values = colorRampPalette(RColorBrewer::brewer.pal(11, "Paired"))(colourCount)) +
-          labs(title = "Diagrama de barras individual",subtitle = "Universidad Oberta de Catalunya (UOC)") +
-          theme(
-            plot.background = element_rect(fill = "#73EDFF"), 
-            legend.position = "none",
-            plot.title = element_text(hjust = 0.5, size = 14, face = "bold", color = "#000078"),
-            plot.subtitle = element_text(hjust = 0.5, size = 12, face = "bold", color = "#000078"),
-            axis.title.y = element_text(face = "bold", color = "#000078"),
-            axis.title.x = element_text(face = "bold", color = "#000078"),
-            axis.text.x = element_text(face = "bold", size = 10, color = "#000078"),
-            axis.text.y = element_text(face = "bold", size = 10, color = "#000078")
-          )
-      } else {
-        #Condicional para hacer un histograma
-        ggplot(df, aes_string(x = x_var)) +
-          geom_histogram(bins = 30, color = "#000078", fill = "#D5FAFF", size = 1) +
-          labs(title = "Histograma individual",subtitle = "Universidad Oberta de Catalunya (UOC)") +
-          theme_minimal_vgrid() +
-          theme(plot.background=element_rect(fill="#73EDFF"),
-                plot.title = element_text(hjust = 0.5, size = 14, face = "bold",color = "#000078"),
-                plot.subtitle = element_text(hjust = 0.5, size = 12, face = "bold",color = "#000078"),
-                axis.text.y = element_text(face = "bold"),
-                axis.text.x = element_text(face = "bold"),
-                axis.title.x = element_text(face = "bold"))
-      }
-    } else {
-      # Ambos X e Y seleccionados
-      if (x_class %in% c("factor", "character") & y_class %in% c("factor", "character")) {
-        #Condicional para hacer un diagrama de barras con leyenda en ambos casos combinando
-        ggplot(df, aes_string(x = x_var, fill = y_var)) +
-          geom_bar(position = "dodge") +
-          geom_label(stat = "count", aes(label = ..count..), colour = "#000078", fontface = "italic", position = position_dodge(width = 0.9)) +
-          scale_fill_manual(
-            values = colorRampPalette(RColorBrewer::brewer.pal(11, "Paired"))(length(unique(df[[y_var]])))
-          ) +
-          labs(title = "Diagrama de barras",subtitle = "Universidad Oberta de Catalunya (UOC)") +
-          theme_minimal_vgrid() +
-          theme(
-            legend.position = "top",
-            plot.background = element_rect(fill = "#73EDFF"),
-            plot.title = element_text(hjust = 0.5, size = 14, face = "bold", color = "#000078"),
-            plot.subtitle = element_text(hjust = 0.5, size = 12, face = "bold", color = "#000078"),
-            axis.title.x = element_text(face = "bold", color = "#000078"),
-            axis.text.x = element_text(face = "bold", size = 10, color = "#000078"),
-            axis.text.y = element_text(face = "bold", size = 10, color = "#000078")
-          )
-        
-      } else if ((x_class %in% c("factor", "character") & y_class %in% c("numeric", "integer"))) {
-        #Condicional para hacer un diagrama de cajas
-        ggplot(df, aes_string(x = x_var, y = y_var, fill = x_var)) +
-          geom_boxplot() +
-          scale_fill_manual(
-            values = colorRampPalette(RColorBrewer::brewer.pal(11, "Paired"))(length(unique(df[[x_var]])))
-          ) +
-          theme_minimal_vgrid() +
-          labs(title = "Diagrama de cajas", subtitle = "Universidad Oberta de Catalunya (UOC)") +
-          theme(plot.background=element_rect(fill="#73EDFF"), 
-                legend.position="none",
-                plot.title = element_text(hjust = 0.5, size = 14, face = "bold",color = "#000078"),
-                plot.subtitle = element_text(hjust = 0.5, size = 12, face = "bold",color = "#000078"),
-                axis.title.y = element_text(face = "bold",color = "#000078"),
-                axis.title.x = element_text(face = "bold",color = "#000078"),
-                axis.text.x = element_text(face = "bold", size = 10,color = "#000078"),
-                axis.text.y = element_text(face = "bold", size = 10,color = "#000078"))
-        
-      } else if ((x_class %in% c("numeric", "integer") & y_class %in% c("factor", "character"))) {
-        #Condicional para hacer un diagrama de cajas
-        ggplot(df, aes_string(x = x_var, y = y_var, fill = y_var)) +
-          geom_boxplot() +
-          scale_fill_manual(
-            values = colorRampPalette(RColorBrewer::brewer.pal(11, "Paired"))(length(unique(df[[y_var]])))
-          ) +
-          theme_minimal_vgrid() +
-          labs(title = "Diagrama de cajas", subtitle = "Universidad Oberta de Catalunya (UOC)") +
-          theme(plot.background=element_rect(fill="#73EDFF"), 
-                legend.position="none",
-                plot.title = element_text(hjust = 0.5, size = 14, face = "bold",color = "#000078"),
-                plot.subtitle = element_text(hjust = 0.5, size = 12, face = "bold",color = "#000078"),
-                axis.title.y = element_text(face = "bold",color = "#000078"),
-                axis.title.x = element_text(face = "bold",color = "#000078"),
-                axis.text.x = element_text(face = "bold", size = 10,color = "#000078"),
-                axis.text.y = element_text(face = "bold", size = 10,color = "#000078"))
-      } else {
-        #Condicional para hacer un diagrama de dispersión en los demas casos
-        ggplot(df, aes_string(x = x_var, y = y_var)) +
-          geom_point(colour = "#000078", size = 2) + theme_minimal_vgrid() +
-          labs(title = "Diagrama de dispersión", subtitle = "Universidad Oberta de Catalunya (UOC)") +
-          theme(plot.background=element_rect(fill="#73EDFF"), 
-                legend.position="none",
-                plot.title = element_text(hjust = 0.5, size = 14, face = "bold",color = "#000078"),
-                plot.subtitle = element_text(hjust = 0.5, size = 12, face = "bold",color = "#000078"),
-                axis.title.y = element_text(face = "bold",color = "#000078"),
-                axis.title.x = element_text(face = "bold",color = "#000078"),
-                axis.text.x = element_text(face = "bold", size = 10,color = "#000078"),
-                axis.text.y = element_text(face = "bold", size = 10,color = "#000078"))
-        
-      }
-    }
-  })
-  
-  #Parte que arroja los datos o resumen de las variables abiertas
-  output$summary_text <- renderPrint({
-    req(data())
-    summary(data())
-  })
+```{r}
+table(datos$Gender)
+```
+
+De la misma forma para el estado de fumador
+
+```{r}
+#Función para transformar el estado de fumador a uno en español
+fumador_transformar <- function(smook) {
+  if (smook == "current") {
+    return("Fuma actualmente")
+  } else if (smook == "never") {
+    return("Nunca fumo")
+  } else {
+    return("NA")
+  }
 }
-
-shinyApp(ui = ui, server = server)
 ```
 
-Como última parte mostraré con capturas de pantalla la parte que realiza el app de Shiny cuando se ejecuta
+Ahora apliquemos la función para transformar el estado de fumador en el dataset
 
-```{r, echo=FALSE, out.width="100%"}
-knitr::include_graphics("shiny_1.png")
+```{r}
+datos$`Smoking Status` <- sapply(datos$`Smoking Status`, fumador_transformar) #Aplicar con sapply la función creada
+datos$`Smoking Status` <- factor(datos$`Smoking Status`) #Convertir a factor
 ```
 
-```{r, echo=FALSE, out.width="100%"}
-knitr::include_graphics("shiny_2.png")
+Veamos ahora la distribución del tipo de fumador
+
+```{r}
+table(datos$`Smoking Status`)
 ```
 
-```{r, echo=FALSE, out.width="100%"}
-knitr::include_graphics("shiny_3.png")
+#### Verificación de valores nulos
+
+Veamos los datos nulos en el dataset
+
+```{r}
+library(VIM)
 ```
+
+
+```{r}
+aggr(datos, col = c("navyblue", "red"), numbers = TRUE, sortVars = TRUE, 
+     labels = names(datos), cex.axis = .7, gap = 3, 
+     ylab = c("Distribución de datos faltantes", "Patrón"))
+```
+
+Se observa que los datos NA se encuentra en todos los valores, procedamos con la eliminación de los valores nulos, utilizando la función `na.omit()` y el operador pipe `%>%`
+
+```{r}
+library(dplyr) #Libreria a usar
+
+datos <- datos %>% na.omit()
+```
+
+Veamos ahora un resumen de los datos
+
+```{r}
+summary(datos)
+```
+
+De los **683** registros originales que se tenía, al eliminar los valores nulos nos quedamos con **621** registros indicando que se eliminaron **62** registros. 
+
+Teniendo ahora 621 observaciones que tienen todas las variables completas para poder ejecutar los objetivos y análisis de estudio.
+
+## Preguntas objetivo
+
+Tomando en cuenta el contexto explicado sobre la genómica de la metilación en los niveles de CpG island y los datos obtenidos, nos planteamos las siguientes preguntas objetivo que iremos desarrollando:
+
+- **¿Existe relación entre los niveles de CpG island?**
+- **¿Existe relación entre el sexo y la metilación de algún CpG island?**
+
+# Sección 3. Análisis exploratorio de los datos
+
+## Análisis descriptivo de los datos univariado
+
+Con el objetivo de poder hallar, a primera instancia, las posibles relaciones existentes entre los niveles de metilación de los CpG Islands con respecto a las condiciones de género, es importante realizar el análisis descriptivo de los datos ya que estos nos ayudan a observar patrones y relaciones entre las variables de estudio.
+
+Primeramente realicemos un análisis univariado de las variables, para después realizar un análisis exploratorio multivariado.
+
+```{r}
+library(skimr)
+skim(datos)
+```
+
+Se observa una distribución en cada valor de los niveles de CpG island, generalmente sin aproximarse a una distribución normal con diferentes niveles, veamos de forma multivariada
+
+## Análisis multivariado
+
+```{r}
+stars(datos[c(1:50),c(5:20)],key.loc=c(-5,20),lwd=1)  # muestra digrama de estrellas
+```
+
+
+Veamos que hay ciertos valores que presentan un patrón similar, en general que pueden ser diferenciados con las técnicas de análisis multivariado.
+
+# Sección 4. Análisis factorial exploratorio
+
+Para este caso se usará el análisis factorial exploratorio para ver si hay relaciones en los niveles de metilación de CpG Island, asimismo para reducir su dimensionalidad y aplicar un modelo de regresión logística, extrayendo las variables numéricas de metilación
+
+```{r}
+metilacion <- datos[,5:24]
+```
+
+
+## Prueba de esfericidad de Bartlet
+
+```{r}
+library(psych)
+cortest.bartlett(cor(metilacion), n=nrow(metilacion))
+```
+
+Se nos muestra un p valor menor a 0.05, justifica el uso de reducción de datos.
+
+## Indicador Kaiser-Meyer-Olkinn KMO y MSA
+
+```{r}
+KMO(metilacion)
+```
+
+Todos los valores son menores a 0.5 considerando aceptable la aplicación del análisis factorial al conjunto de datos
+
+Empezemos realizando la primera seleccionando tomando en cuenta todos los factores
+
+```{r}
+facto=principal(r=metilacion,nfactors=20,rotate="varimax")
+facto
+facto$loadings
+```
+
+Por la mayor explicación de la varianza, se recomienda usar 3 o 4 factores, utilizemos 3 factores
+
+```{r}
+facto=principal(r=metilacion,nfactors=3,rotate="varimax")
+facto
+facto$loadings
+```
+
+Para este caso no se interpretará los componentes, para el objetivo solo se extraerá los factores loadings, se estandarizará y posteriormente se aplicará la regresión logística para la clasificación del género.
+
+```{r}
+biplot(prcomp(metilacion, scale = FALSE))
+abline(h = 0, v = 0, lty = 2, col = 8)
+```
+
+Como se observa hay mejor distinción de las variables con respecto a sus factores.
+
+## Extracción y transformación de los factores
+
+Saquemos ahora los scores
+
+```{r}
+scores <- as.matrix(metilacion) %*% as.matrix(facto$loadings)
+scores <- data.frame(scores) ; head(scores)
+```
+
+Realizemos una transformación manteniendo sus características, para este caso en lugar de realizar la tranformacion por la estandarización normal, se aplicará mínimos y máximos para que tenga interpretabilidad con los porcentajes de metilación de CpG Island
+
+```{r}
+library(scales)
+```
+
+
+```{r}
+scores$RC1 <- rescale(scores$RC1, to = c(0,1))
+scores$RC3 <- rescale(scores$RC3, to = c(0,1))
+scores$RC2 <- rescale(scores$RC2, to = c(0,1))
+```
+
+**Interpretación:** Se observa que con los 3 factores se puede explicar el 85.3% de la variabilidad. Esto indica que la variable a estudiar puede ser fácilmente explicada a través de tres factores de tal forma que se reduzca la dimensionalidad de 20 niveles de metilación a CpG a solo tres factores que puedan explicar el 85.3% de la variabilidad de estos niveles.
+
+# Sección 5. Regresión logística
+
+Empezemos realizando la unión de los datos originales con los tres factores para aplicar una regresión logística y ver si se realizar una clasificación de los niveles de metilación de CpG Island con respecto al género.
+
+```{r}
+data_AFE <- cbind(datos,scores)
+data_AFE <- data_AFE %>% select(Gender, RC1, RC2, RC3)
+head(data_AFE)
+```
+
+Previamente veamos en un gráfico de cajas los diferentes factores y la clasificación del género
+
+## Visualización de los factores y el género
+
+```{r}
+par(mfrow = c(1,3))
+boxplot(RC1 ~ Gender, data = data_AFE)
+boxplot(RC2 ~ Gender, data = data_AFE)
+boxplot(RC3 ~ Gender, data = data_AFE)
+```
+
+Se observan diferencias entre ambos grupos con respecto a los niveles de metilación de CpG Island
+
+```{r}
+par(mfrow = c(1,1))
+```
+
+## Aplicación del modelo logístico
+
+Veamos el modelo logístico
+
+```{r}
+modelo_logistic <- glm(Gender ~ ., family=binomial,data=data_AFE)
+summary(modelo_logistic)
+```
+
+En este caso hay un notorio sobreajuste de los datos, ya que como se observa la diferenciación entre grupos es muy evidente. veamos con la ayuda de stepAIC
+
+```{r}
+library(MASS)
+modelo_logistic <- stepAIC(modelo_logistic)
+summary(modelo_logistic)
+```
+
+Con el modelo saquemos los errores de clasificación
+
+```{r}
+yprob<-predict(modelo_logistic,type="response")
+head(yprob)
+```
+
+## Matriz de confusión
+
+```{r}
+ypred <- as.numeric(yprob >= 0.5 )
+ypred <- factor(ypred, labels = levels(data_AFE$Gender))
+
+# Matriz de Confusión
+(mc<-table(ypred,data_AFE$Gender))
+```
+
+
+Se observa que el modelo realizó una clasificación perfecta para la data de testeo con respecto a los 20 niveles de metilación de CG island y el género, esto también se mostró de forma gráfica ya que había un patrón de acumulación en el nivel de metilación con respecto al género.
