@@ -3,7 +3,7 @@
 #-----------------------------------------------------------
 #llamamos la base de datos
 library(readxl)
-Datos <- read_excel("D:/Dictado de clases/UNSAAC/Maestría/Minería de Datos 2025/Clase4/Datos.xlsx")
+Datos <- read_excel("10 Mineria de Datos/Regresion_Logistica/Datos.xlsx")
 View(Datos)
 
 # Se llama a la libreria ggplot2
