@@ -19,6 +19,8 @@ m1 <- glm(Diag ~ Radio + Textura + Perimetro + Area + GSuavizacion +
           family = binomial)
 summary(m1)
 
+round(cor(Datos), digits = 2)
+
 # Calcular medidas de bondad de ajuste
 #install.packages("pscl")
 library(pscl)
