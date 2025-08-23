@@ -3,7 +3,8 @@
 #-------------------------------------------------------
 
 library(readr)
-diabetes <- read_csv("D:/Dictado de clases/UNSAAC/Maestría/Minería de Datos 2025/Clase6/diabetes.csv")
+diabetes <- read_csv("10 Mineria de Datos/NaiveBayes_KNN/diabetes.csv")
+str(diabetes)
 View(diabetes)
 
 #install.packages(kknn)
