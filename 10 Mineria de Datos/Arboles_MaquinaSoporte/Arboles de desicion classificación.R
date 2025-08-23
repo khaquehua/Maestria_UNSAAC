@@ -1,19 +1,15 @@
 #-------------------------------------------------------
 #               ARBOLES DE DECISION 
 #-------------------------------------------------------
-install.packages("rpart.plot")
-install.packages("rpart")
-install.packages("caret")
-
 library(tidyverse)
 library(rpart.plot)
 library(rpart)
 library(caret)
 
 library(haven)
-lowbirth <- read_dta("D:/Dictado de clases/UNSAAC/Maestría/Minería de Datos 2025/Clase6/lowbirth.dta")
+lowbirth <- read_dta("10 Mineria de Datos/Arboles_MaquinaSoporte/lowbirth.dta")
 str(lowbirth)
-
+summary(lowbirth)
 lowbirth$low = factor(lowbirth$low)
 
 # dividir la data en entrenamiento y testeo
