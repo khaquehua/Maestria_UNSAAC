@@ -12,7 +12,8 @@ library(naivebayes) # Implementación de Naive Bayes optimizada
 library(tm)         # Text mining (para preprocesamiento de texto)
 
 # Se lee la base de datos
-ep <- read_excel("D:/Dictado de clases/UNSAAC/Maestría/Minería de Datos 2025/Clase6/electronics-purchase.xlsx")
+ep <- read_excel("10 Mineria de Datos/NaiveBayes_KNN/electronics-purchase.xlsx")
+summary(ep)
 View(ep)
 table(ep$Purchase) #
 
