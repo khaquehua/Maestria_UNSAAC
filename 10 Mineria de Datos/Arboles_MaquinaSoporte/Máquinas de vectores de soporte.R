@@ -6,7 +6,7 @@ library(caret)
 library(e1071)
 library(readr)
 
-vector <- read_csv("D:/Dictado de clases/UNSAAC/Maestría/Minería de Datos 2025/Clase6/vector.csv")
+vector <- read_csv("10 Mineria de Datos/Arboles_MaquinaSoporte/vector.csv")
 View(vector)
 
 #Gráfico de dispersión para verlos datos en clases(grupos)
