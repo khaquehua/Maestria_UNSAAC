@@ -29,3 +29,7 @@ t.test(volumen~maquina, alternative = "t", var.equal = T)
 # Como el pvalor = 0.4347 > 0.05, no se rechaza H0 
 # En promedio el llenado (volumen) es similar para
 # ambas maquinas
+
+# Aleatorizar un diseño completo al azar: Caso cuyes
+trt <- c("T1","T2","T3","T4")
+repeticion <- c(3,3,3,3)
