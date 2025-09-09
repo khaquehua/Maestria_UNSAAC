@@ -9,7 +9,7 @@ diseno1 = design.crd(trt,r) # ejecuta el croquis
 diseno1$book # muestra el croquis
 
 library(readxl)
-datos = read_xlsx("data_caso1.xlsx") # lectura de datos
+datos = read_xlsx("11 Diseno Experimentos/2_DCA/data_caso1.xlsx") # lectura de datos
 datos # presentaci?n de datos
 attach(datos)
 
