@@ -8,9 +8,9 @@
 \pagenumbering{roman}
 
 %Colocar los argumentos definidos en el archivo sty
-\title{MODELO DE INVENTARIOS APLICADO AL CONTROL DE ALMACÉN DEL CENTRO DE SALUD INTEGRAL LA FUENTE DEL CUSCO, 2024}
-\author{BR. KEVIN HEBERTH HAQUEHUA APAZA}
-\orientador{DR. ALFREDO VALENCIA TOLEDO}
+\title{DISEÑO DE EXPERIMENTOS}
+\author{KEVIN HEBERTH HAQUEHUA APAZA}
+\orientador{MTRO. ARTURO ZUÑIGA BLANCO}
 %\coorientador{NO SE TIENE}
 
 %Iniciar el documento con la caratula y todos los capitulo modificados anteriormentesd
@@ -20,66 +20,16 @@
 
 \maketitle % Caratula
 \doublespacing % Para que en adelante el documento tenga un interlineado de 2pts formato APA
-\input{contenido/presentacion} % Presentacion
-\input{contenido/dedicatoria}
-\input{contenido/agradecimiento} % Agradecimiento
-
-\newpage
-\addcontentsline{toc}{chapter}{ÍNDICE} % Agregar el título del índice general al TOC
-\tableofcontents 
-
-\newpage
-\addcontentsline{toc}{chapter}{ÍNDICE DE TABLAS} % Ahora se agrega ANTES
-\listoftables  
-
-\newpage
-\addcontentsline{toc}{chapter}{ÍNDICE DE FIGURAS} % Ahora se agrega ANTES
-\listoffigures  
-
-%--------  CONFIGURACION TABLAS
 \setlength{\tabcolsep}{10pt} % Dejar en las tablas un espacio de 6pt en el lado horizontal
 %-------------------------------------
-\input{contenido/resumen} % Resumen
-\input{contenido/abs} % Abstracting
-\input{contenido/introduccion} % Introducción
-\clearpage
-\pagenumbering{arabic} % Numeracion normal
+% Insertar cuerpo del archivo
+\input{contenido/Cuerpo} 
 
-%::::::::::::::::::::::::::::::::::::::::::::::::
-%:::::::: MARCO TEORICO DE LA TESIS :::::::::::::
-%::::::::::::::::::::::::::::::::::::::::::::::::
-
-% Capitulo 1 - Planteamiento del problema
-\input{contenido/cap_1_planteamiento_problema} 
-% Capitulo 2 - Marco teorico
-\input{contenido/cap_2_marco_teorico} 
-% Capitulo 4 - Metodologia
-\input{contenido/cap_3_hipotesis_variables} 
-% Capitulo 4 - Metodologia
-\input{contenido/cap_4_metodologia}
-% Capitulo 5 - Resultados
-\input{contenido/cap_5_resultados}
-
-
-%::::::::::::::::::::::::::::::::::::::::::::::::
-%:::::::: PARTE FINAL CONCLUSIONES, RECOMENDACIONES, BIBLIOGRAFIA Y ANEXOS :::::::::::::
-%::::::::::::::::::::::::::::::::::::::::::::::::
-% Discusiones
-\input{contenido/discusiones}
-% Conclusiones
-\input{contenido/conclusiones} 
-% Recomendaciones
-\input{contenido/recomendaciones} 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 \bibliographystyle{apalike}
 \addcontentsline{toc}{chapter}{BIBLIOGRAFÍA}
 \bibliography{contenido/bibliog.bib}
-\clearpage
-% ANEXOS - Matriz de consistencia
-\input{contenido/anexo} 
-% Matriz de consistencia
-%\input{contenido/matriz_consistencia}
 
 \end{document}

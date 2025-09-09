@@ -18,16 +18,16 @@
     % Generar titulo
       {\LARGE{\textbf{UNIVERSIDAD NACIONAL DE SAN ANTONIO ABAD DEL CUSCO}}}\\
       \vspace{0.5cm}
-        {\Large{\textbf{FACULTAD DE CIENCIAS QUÍMICAS, FÍSICAS Y MATEMÁTICAS}}}\\
+        {\Large{\textbf{ESCUELA DE POSGRADO}}}\\
         \vspace{0.5cm}
-        {\Large{\textbf{ESCUELA PROFESIONAL DE MATEMÁTICA MENCIÓN ESTADÍSTICA}}}
+        {\Large{\textbf{MAESTRÌA EN ESTADÍSTICA}}}
 
         \begin{figure}[h]
             \center
             \includegraphics[scale = 0.18]{images/escudo}
         \end{figure}
 
-        {\large{\textbf{TESIS}}}
+        {\large{\textbf{TRABAJO INDIVIDUAL 1}}}
     \end{center}
 
     %Inertar logo de la UNSAAC
@@ -44,15 +44,15 @@
     \setlength{\tabcolsep}{10em} 
     {\renewcommand{\arraystretch}{0.9}
     \begin{tabular}{p{14cm}}
-        \textbf{PRESENTADO POR:}\\
+        \textbf{AUTOR:}\\
         \vspace*{0.05cm}
         {\@author}\\
         \vspace*{\stretch{1}}
-      \textbf{PARA OPTAR EL TÍTULO PROFESIONAL}\\
-      \textbf{DE LICENCIADO EN MATEMÁTICA}\\
-      \textbf{MENCIÓN ESTADÍSTICA}\\
+      %\textbf{PARA OPTAR EL TÍTULO PROFESIONAL}\\
+      %\textbf{DE LICENCIADO EN MATEMÁTICA}\\
+      %\textbf{MENCIÓN ESTADÍSTICA}\\
       \vspace*{0.05cm}
-        \textbf{ASESOR:}\\
+        \textbf{DOCENTE:}\\
         \vspace*{0.02cm}
         {\@orientador}%\\
         \vspace*{\stretch{1}}
@@ -87,128 +87,6 @@
 \newcommand{\orientador}{\gdef\@orientador}
 \newcommand{\coorientador}{\gdef\@coorientador}
 
-
-%::::::::::::::::::::::::::::::::::::::::::::::::::::
-%::::::::::::::::::  DEDICATORIA       ::::::::::::::
-%::::::::::::::::::::::::::::::::::::::::::::::::::::
-\newenvironment{dedicatoria}
-{
-    \newpage
-    \chapter*{DEDICATORIA}
-    \addcontentsline{toc}{chapter}{DEDICATORIA}
-}
-
-%::::::::::::::::::::::::::::::::::::::::::::::::::::
-%:::::::::::::::::  AGRADECIMIENTO   ::::::::::::::::
-%::::::::::::::::::::::::::::::::::::::::::::::::::::
-\newenvironment{agradecimiento}
-{
-    \newpage
-    \chapter*{AGRADECIMIENTO}
-    \addcontentsline{toc}{chapter}{AGRADECIMIENTO}
-}
-
-%::::::::::::::::::::::::::::::::::::::::::::::::::::
-%:::::::::::::  PRESENTACION           ::::::::::::::
-%::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-\newenvironment{presentacion}
-{
-    \newpage
-    \chapter*{PRESENTACIÓN}
-    \addcontentsline{toc}{chapter}{PRESENTACIÓN}
-}
-
-%::::::::::::::::::::::::::::::::::::::::::::::::::::
-%::::::::::::::::::::::  Abs    ::::::::::::::::
-%::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-\newenvironment{abs}
-{
-    \newpage
-    \chapter*{ABSTRACT}
-    \addcontentsline{toc}{chapter}{ABSTRACT}
-}
-
-%::::::::::::::::::::::::::::::::::::::::::::::
-%::::::::::::::::::::::  Introduccion   :::
-%::::::::::::::::::::::::::::::::::::::::::::::
-
-\newenvironment{introduccion}
-{
-    \newpage
-    \chapter*{INTRODUCCIÓN}
-    \addcontentsline{toc}{chapter}{INTRODUCCIÓN}
-}
-
-%::::::::::::::::::::::::::::::::::::::::::::::
-%:::::::::::::: Discusiones :::
-%::::::::::::::::::::::::::::::::::::::::::::::
-
-\newenvironment{discusiones}
-{
-    \newpage
-    \chapter*{DISCUSIONES}
-    \addcontentsline{toc}{chapter}{DISCUSIONES}
-}
-
-%::::::::::::::::::::::::::::::::::::::::::::::
-%:::::::::::::: Conclusiones  :::
-%::::::::::::::::::::::::::::::::::::::::::::::
-
-\newenvironment{conclusiones}
-{
-    \newpage
-    \chapter*{CONCLUSIONES}
-    \addcontentsline{toc}{chapter}{CONCLUSIONES}
-}
-
-%::::::::::::::::::::::::::::::::::::::::::::::
-%:::::::::::::: Recomendaciones  :::
-%::::::::::::::::::::::::::::::::::::::::::::::
-
-\newenvironment{recomendaciones}
-{
-    \newpage
-    \chapter*{RECOMENDACIONES}
-    \addcontentsline{toc}{chapter}{RECOMENDACIONES}
-}
-
-%::::::::::::::::::::::::::::::::::::::::::::::
-%:::::::::::::: Anexo  :::
-%::::::::::::::::::::::::::::::::::::::::::::::
-
-%\newenvironment{anexo}
-%{
-    %\addcontentsline{toc}{chapter}{ANEXOS}
-%}
-
-%::::::::::::::::::::::::::::::::::::::::::::::::::::
-%::::::::::::::::::::::  RESUMEN     ::::::::::::::::
-%::::::::::::::::::::::::::::::::::::::::::::::::::::
-\newenvironment{resumen}
-{
-    \newpage
-    \chapter*{RESUMEN}
-    \addcontentsline{toc}{chapter}{RESUMEN}
-}
-
-%:::::::::::::::::::::::::::::::::::::::::::::::::::: MATRIZ DE CONSISTENCIA    ::::::::::::::::
-%::::::::::::::::::::::::::::::::::::::::::::::::::::
-\newenvironment{matriz_consistencia}
-{
-    \addcontentsline{toc}{chapter}{Matriz de Consistencia}
-}
-
-\newenvironment{cronograma}
-{
-    \addcontentsline{toc}{chapter}{Cronograma}
-}
-
-\newenvironment{presupuesto}
-{
-    \addcontentsline{toc}{chapter}{Presupuesto}
-}
 
 %:::::::::::::::::::::::::::::::::::::::::
 %Encabezado y Pie de Página
