@@ -91,22 +91,6 @@ ggplot(data, aes(x = tratamiento, y = floracion, fill = tratamiento)) +
 
 **Interpretación:** Se observa que el YaraMila COMPLEX presenta la menor floración de _(Linum usitatissimum)_, seguido del YaraTera KRISTA K. Seguidamente los tratamientos: YaraVera AMIDAS, (N20, P20, K20), (N18, P15, K10) presentan la mayor floración de _(Linum usitatissimum)_ sin mostrar diferencias entre ellos.
 
-Veamos la media general
-
-```{r}
-med_general = mean(floracion); med_general
-```
-
-Ahora la media de los tratamientos
-
-```{r}
-library(dplyr)
-med_trat = aggregate(floracion~tratamiento, FUN = mean)
-med_trat%>% rename(Media = floracion) %>% mutate(Efecto = Media-med_general)
-```
-
-Se observa que el tratamiento que tiene el menor efecto en la floración de _(Linum usitatissimum)_ es YaraMila COMPLEX y el que presenta el mayor efecto es (N18, P15, K10)
-
 Ahora definamos el modelo
 
 ```{r}
@@ -205,8 +189,42 @@ Como el pvalor $>0.05$ no se rechaza $H_0$ lo cual indica que existe independenc
 
 d) **Estime el coeficiente de variabilidad.**
 
+Para cuantificar el grado de homogeneidad de los resultados del experimento veamos el coeficiente de variabilidad
 
+```{r}
+# Coeficiente de variabilidad
+cv = cv.model(mod.dca)
+cv
+```
+
+El cual nos da un valos de $3.11\%$ el cual es menor al $10\%$ en el que podemos indicar que hay homogeneidad en los resultados del experimento, esto indica que no hay factores adicionales que puedan influir en el estudio realizado.
 
 e) **¿Cuáles son los fertilizantes que tienen mejor efecto en la floración media en el cultivo de lino?**
+
+Veamos la media general
+
+```{r}
+med_general = mean(floracion); med_general
+```
+
+Ahora la media de los tratamientos con los efectos
+
+```{r}
+library(dplyr)
+med_trat = aggregate(floracion~tratamiento, FUN = mean)
+med_trat%>% rename(Media = floracion) %>% mutate(Efecto = Media-med_general)
+```
+
+Se observa que el tratamiento que tiene el menor efecto en la floración de _(Linum usitatissimum)_ es YaraMila COMPLEX y el que presenta el mayor efecto es (N18, P15, K10). Asimismo por el gráfico visto anteriormente
+
+```{r}
+ggplot(data, aes(x = tratamiento, y = floracion, fill = tratamiento)) +
+  geom_violin(alpha = 0.5) +
+  theme(legend.position = "none")+
+  geom_boxplot(width = 0.2)
+```
+
+Se observa que los tratamientos que poseen mejores efectos para mejorar la floración de _(Linum usitatissimum)_, son los tratamientos: YaraVera AMIDAS, (N20, P20, K20), (N18, P15, K10) aunque no se muestra diferencias entre ellos.
+
 f) **¿El tiempo promedio de floración al aplicar el fertilizante $T3$ es superior al aplicar el fertilizante $T2$ en más de 2 días?**
 g) **Al aplicar los fertilizantes $T2$ y $T3$ (en forma conjunta), ¿el tiempo medio en hacer efecto la floración es menor que al aplicar los fertilizantes $T4$ y $T5$ (en forma conjunta)?**
