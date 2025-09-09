@@ -50,15 +50,30 @@ d) Subir tu informe antes de las 13:00 pm (07-09-2025)
 
 a) **Plantee y describa el modelo que considere adecuado para analizar este caso.**
 
-Tomando en cuenta el contexto en el que solo se desea evaluar el efecto de cinco fertilizantes, el modelo adecuado a utilizar es un diseño completamente al azar. Evaluando el trabajo original se tomo en cuenta el diseño bloque completo al azar, debido a que se toma en cuenta los días de floración: Primera medición, segunda medición, días de floración y periodo vegetativo.
+Tomando en cuenta el contexto en el que solo se desea evaluar el efecto de cinco fertilizantes, el modelo adecuado a utilizar es un diseño completo al azar. En las cuales se tienen los tratamiento de los distintos fertilizantes, si evaluamos el estudio original indica que se utiliza el diseño bloque completo al azar, en donde las repeteciones vienen a ser los bloques.
+
+El modelo aditivo lineal es el siguiente
+
+$${Y}_{ij}=\mu + {\tau}_{i}+{\epsilon}_{ij}$$
+
+Donde:
+
+- ${Y}_{ij}$ La floración de plantas del i-ésimo tratamiento y j-ésima repetición.
+- $\mu$ es el efecto de la media general en la floración de plantas.
+- ${\tau}_{i}$ es el efecto del i-ésimo tratamiento.
+- ${\epsilon}_{ij}$ es el efecto del error experimental en el i-ésimo tratamiento y j-ésima repetición. para $i = \{1,2,3,4,5\}$ tratamientos y $j = \{1,2,3,4\}$ repeticiones. Además, el modelo asume que ${\epsilon}_{ij} \sim N(0,{\sigma}^{2})$
 
 b) **¿Se puede afirmar que al menos uno de los días de floración difiere del resto al aplicar los distintos fertilizantes complejos?**
 
-Efectivamente, se puede afirmar que revisando el trabajo con los días de floración, influye en que difiera del resto de los distintos fertilizantes complejos.
+Empezemos desarrollando los datos del archivo Excel que también se adjuntará en el trabajo, para posteriormente hacer la lectura del archivo.
+
+
+
+Efectivamente, se puede afirmar que revisando el trabajo con los días de floración, influye en que difiera del resto de los distintos fertilizantes complejos. Para los datos mostrados se toma los días a la floración
 
 c) **Verifique si el modelo propuesto cumple con los supuestos.**
 
-
+Empezemos desarrollando los datos del archivo Excel que también se adjuntará en el trabajo, para posteriormente hacer la lectura del archivo.
 
 d) **Estime el coeficiente de variabilidad.**
 e) **¿Cuáles son los fertilizantes que tienen mejor efecto en la floración media en el cultivo de lino?**
