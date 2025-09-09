@@ -1,0 +1,103 @@
+%:::::::::::::::::::::::::::::::::::::::::
+%CAPITULO
+%::::::::::::::::::::::::::::::::::::::::
+\titleformat{\chapter}[display]
+  {\normalfont\bfseries\centering\large} % Formato del título
+  {\MakeUppercase{\chaptertitlename}\ \Roman{chapter}} % Etiqueta (CAPÍTULO I)
+  {0pt} % Espacio entre la etiqueta y el título
+  {\MakeUppercase} % Eliminamos el \vspace aquí
+
+% Ajustar el espaciado alrededor del título del capítulo
+\titlespacing*{\chapter}{0pt}{0pt}{10pt} % Ajustamos los espacios antes y después
+
+% Definir un nuevo tipo de capítulo no numerado centrado
+\titleformat{name=\chapter,numberless}[display]
+  {\normalfont\bfseries\large\centering} % Formato de fuente y centrado
+  {} % No se muestra el número
+  {0pt} % Espacio entre la etiqueta y el título
+  {\MakeUppercase} % Formato del título
+
+%::::::::::::::::::::::::::::::::::::::::::::::
+%:::::::::::::: Modificacion del section y subsection:::
+%::::::::::::::::::::::::::::::::::::::::::::::
+\titleformat{\section}
+  {\normalfont\large\bfseries} % Tamaño large y negrita
+  {\thesection} % Número de la sección
+  {1em} % Espacio entre el número y el título
+  {} % Código antes del título
+
+% Formato para subsection (tamaño large)
+\titleformat{\subsection}
+  {\normalfont\large\bfseries\itshape} % Tamaño large, negrita e itálica
+  {\bfseries\itshape\thesubsection} % Numeración en negrita e itálica
+  {1em} % Espacio entre el número y el título
+  {} % Código antes del título
+
+% Formato para la subseccion como subseccion
+\newcommand{\manualsubsubsection}[2]{%
+  \subsubsection*{\normalfont\large\bfseries\itshape #1\ #2}%
+  \addcontentsline{toc}{subsubsection}{#1\ #2}%
+}
+
+
+%::::::::::::::::::::::::::::::::::::::::::::::
+%CAMBIAR EL NOMBRE DE ENCABEZADOS
+%::::::::::::::::::::::::::::::::::::::::::::::
+\addto\captionsspanish{\renewcommand{\bibname}{\large{BIBLIOGRAFÍA}}}
+\addto\captionsspanish{\renewcommand{\contentsname}{\begin{center} \large ÍNDICE \end{center}}}
+\addto\captionsspanish{\renewcommand{\listtablename}{\begin{center} \large ÍNDICE DE TABLAS \end{center}}}
+\addto\captionsspanish{\renewcommand{\listfigurename}{\begin{center} \large ÍNDICE DE FIGURAS \end{center}}}
+
+%::::::::::::::::::::::::::::::::::::::::
+%Cambiar el salto de pagina en capitulos
+%:::::::::::::::::::::::::::::::::::::::
+\makeatletter
+\patchcmd{\chapter}{\if@openright\cleardoublepage\else\clearpage\fi}{}{}{}
+\makeatother
+
+%::::::::::::::::::::::::::::::::::::::::
+%Cambiar el formato de tablas y figuras
+%:::::::::::::::::::::::::::::::::::::::
+
+%::::::::::::::::::::::::::::::::::::::::
+%Segunda opcion termina con dos puntos
+%:::::::::::::::::::::::::::::::::::::::
+
+%\DeclareCaptionFormat{custom}
+%{%
+%    \textbf{\textsl{#1#2}}\\\textsl{ #3}
+%}
+%\captionsetup{format=custom,
+%justification=raggedright,
+%  singlelinecheck=false}
+
+%\captionsetup[table]{name={Tabla}}
+
+
+\captionsetup[table]{name={Tabla},labelfont={bf,sl},textfont={sl},labelsep=newline,justification=raggedright,
+singlelinecheck=false}
+\captionsetup[figure]{labelfont={bf,sl},textfont={sl},labelsep=newline,justification=raggedright,
+singlelinecheck=false}
+
+\counterwithout{figure}{chapter}
+\counterwithout{table}{chapter}
+\renewcommand{\thetable}{\arabic{table}}
+\renewcommand{\thefigure}{\arabic{figure}}
+
+% Ajustar el ancho de la numeración en el índice de tablas y figuras
+\setlength{\cfttabnumwidth}{4.5em}  % Ajusta este valor si es necesario
+\setlength{\cftfignumwidth}{4.5em}  
+
+% Ajustar el ancho de la separación entre número y texto
+\setlength{\cfttabindent}{0em} % Indentación de la numeración
+\setlength{\cftfigindent}{0em} 
+
+% Evitar saltos de línea en los títulos largos
+\renewcommand{\cfttabpresnum}{\textbf{Tabla~}} 
+\renewcommand{\cftfigpresnum}{\textbf{Figura~}}
+\renewcommand{\cfttabaftersnum}{\hspace{1em}} % Ajustar espacio después del número
+\renewcommand{\cftfigaftersnum}{\hspace{1em}}
+
+% Asegurar que las entradas largas no se dividan en varias líneas
+\renewcommand{\cfttabfont}{\normalfont} 
+\renewcommand{\cfttabpagefont}{\normalfont}

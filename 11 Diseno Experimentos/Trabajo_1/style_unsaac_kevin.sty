@@ -1,0 +1,223 @@
+%::::::::::::::::::::::::::::::::::::::::::::::::::::
+%:::::::::::::DISEÑO DE LA CARATULA    ::::::::::::::
+%::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+%Este comando es necesario para que cuando se coloque el titulo en la caratula de la tesis no se separe en silabas
+\newcommand{\mytitle}[1]{%
+    \begin{hyphenrules}{nohyphenation}%
+        #1%
+    \end{hyphenrules}%
+}
+
+\renewcommand{\maketitle}
+{
+    \thispagestyle{empty}
+
+    \begin{center}
+      \baselineskip = 1cm
+    % Generar titulo
+      {\LARGE{\textbf{UNIVERSIDAD NACIONAL DE SAN ANTONIO ABAD DEL CUSCO}}}\\
+      \vspace{0.5cm}
+        {\Large{\textbf{FACULTAD DE CIENCIAS QUÍMICAS, FÍSICAS Y MATEMÁTICAS}}}\\
+        \vspace{0.5cm}
+        {\Large{\textbf{ESCUELA PROFESIONAL DE MATEMÁTICA MENCIÓN ESTADÍSTICA}}}
+
+        \begin{figure}[h]
+            \center
+            \includegraphics[scale = 0.18]{images/escudo}
+        \end{figure}
+
+        {\large{\textbf{TESIS}}}
+    \end{center}
+
+    %Inertar logo de la UNSAAC
+    
+
+    %Colocar el titulo del trabajo de investigacion en cuadro con tikz
+    \begin{center}
+        \tikz{
+          \node[draw=black, shape=rectangle, line width = 3pt, rounded corners=4pt, text width=\linewidth-1cm, align=center, inner sep=0.5cm]{\large \textbf{\mytitle{\@title}} \par};
+        }
+    \end{center}
+
+    %Colocar datos del estudiante y del asesor
+    \setlength{\tabcolsep}{10em} 
+    {\renewcommand{\arraystretch}{0.9}
+    \begin{tabular}{p{14cm}}
+        \textbf{PRESENTADO POR:}\\
+        \vspace*{0.05cm}
+        {\@author}\\
+        \vspace*{\stretch{1}}
+      \textbf{PARA OPTAR EL TÍTULO PROFESIONAL}\\
+      \textbf{DE LICENCIADO EN MATEMÁTICA}\\
+      \textbf{MENCIÓN ESTADÍSTICA}\\
+      \vspace*{0.05cm}
+        \textbf{ASESOR:}\\
+        \vspace*{0.02cm}
+        {\@orientador}%\\
+        \vspace*{\stretch{1}}
+        %\textbf{CÓDIGO ORCID: }0000-0001-6505-9634\\
+        %\vspace*{0.02cm}
+        %{\@coorientador}\\
+        %\vspace*{\stretch{1}}
+        %\vspace*{0.05cm}
+    \end{tabular}
+    }
+    \begin{center}
+    \vspace*{0.5cm}
+    \textbf{\large CUSCO - PERÚ}\\
+    \vspace*{0.5cm}
+    \textbf{\large \the\year}\\  
+    \end{center}
+    \vspace*{\stretch{1}}
+
+    %\begin{figure*}[p]
+    %\centering
+    %    \centering
+    %    \includegraphics[width=\linewidth]{images/informe_originalidad.pdf}
+    %\end{figure*}
+
+    %\begin{figure*}[p]
+    %\centering
+    %    \centering
+    %    \includegraphics[width=\linewidth]{images/informe_originalidad2.pdf}
+    %\end{figure*}
+}
+
+\newcommand{\orientador}{\gdef\@orientador}
+\newcommand{\coorientador}{\gdef\@coorientador}
+
+
+%::::::::::::::::::::::::::::::::::::::::::::::::::::
+%::::::::::::::::::  DEDICATORIA       ::::::::::::::
+%::::::::::::::::::::::::::::::::::::::::::::::::::::
+\newenvironment{dedicatoria}
+{
+    \newpage
+    \chapter*{DEDICATORIA}
+    \addcontentsline{toc}{chapter}{DEDICATORIA}
+}
+
+%::::::::::::::::::::::::::::::::::::::::::::::::::::
+%:::::::::::::::::  AGRADECIMIENTO   ::::::::::::::::
+%::::::::::::::::::::::::::::::::::::::::::::::::::::
+\newenvironment{agradecimiento}
+{
+    \newpage
+    \chapter*{AGRADECIMIENTO}
+    \addcontentsline{toc}{chapter}{AGRADECIMIENTO}
+}
+
+%::::::::::::::::::::::::::::::::::::::::::::::::::::
+%:::::::::::::  PRESENTACION           ::::::::::::::
+%::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+\newenvironment{presentacion}
+{
+    \newpage
+    \chapter*{PRESENTACIÓN}
+    \addcontentsline{toc}{chapter}{PRESENTACIÓN}
+}
+
+%::::::::::::::::::::::::::::::::::::::::::::::::::::
+%::::::::::::::::::::::  Abs    ::::::::::::::::
+%::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+\newenvironment{abs}
+{
+    \newpage
+    \chapter*{ABSTRACT}
+    \addcontentsline{toc}{chapter}{ABSTRACT}
+}
+
+%::::::::::::::::::::::::::::::::::::::::::::::
+%::::::::::::::::::::::  Introduccion   :::
+%::::::::::::::::::::::::::::::::::::::::::::::
+
+\newenvironment{introduccion}
+{
+    \newpage
+    \chapter*{INTRODUCCIÓN}
+    \addcontentsline{toc}{chapter}{INTRODUCCIÓN}
+}
+
+%::::::::::::::::::::::::::::::::::::::::::::::
+%:::::::::::::: Discusiones :::
+%::::::::::::::::::::::::::::::::::::::::::::::
+
+\newenvironment{discusiones}
+{
+    \newpage
+    \chapter*{DISCUSIONES}
+    \addcontentsline{toc}{chapter}{DISCUSIONES}
+}
+
+%::::::::::::::::::::::::::::::::::::::::::::::
+%:::::::::::::: Conclusiones  :::
+%::::::::::::::::::::::::::::::::::::::::::::::
+
+\newenvironment{conclusiones}
+{
+    \newpage
+    \chapter*{CONCLUSIONES}
+    \addcontentsline{toc}{chapter}{CONCLUSIONES}
+}
+
+%::::::::::::::::::::::::::::::::::::::::::::::
+%:::::::::::::: Recomendaciones  :::
+%::::::::::::::::::::::::::::::::::::::::::::::
+
+\newenvironment{recomendaciones}
+{
+    \newpage
+    \chapter*{RECOMENDACIONES}
+    \addcontentsline{toc}{chapter}{RECOMENDACIONES}
+}
+
+%::::::::::::::::::::::::::::::::::::::::::::::
+%:::::::::::::: Anexo  :::
+%::::::::::::::::::::::::::::::::::::::::::::::
+
+%\newenvironment{anexo}
+%{
+    %\addcontentsline{toc}{chapter}{ANEXOS}
+%}
+
+%::::::::::::::::::::::::::::::::::::::::::::::::::::
+%::::::::::::::::::::::  RESUMEN     ::::::::::::::::
+%::::::::::::::::::::::::::::::::::::::::::::::::::::
+\newenvironment{resumen}
+{
+    \newpage
+    \chapter*{RESUMEN}
+    \addcontentsline{toc}{chapter}{RESUMEN}
+}
+
+%:::::::::::::::::::::::::::::::::::::::::::::::::::: MATRIZ DE CONSISTENCIA    ::::::::::::::::
+%::::::::::::::::::::::::::::::::::::::::::::::::::::
+\newenvironment{matriz_consistencia}
+{
+    \addcontentsline{toc}{chapter}{Matriz de Consistencia}
+}
+
+\newenvironment{cronograma}
+{
+    \addcontentsline{toc}{chapter}{Cronograma}
+}
+
+\newenvironment{presupuesto}
+{
+    \addcontentsline{toc}{chapter}{Presupuesto}
+}
+
+%:::::::::::::::::::::::::::::::::::::::::
+%Encabezado y Pie de Página
+%::::::::::::::::::::::::::::::::::::::::
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyfoot[LE,RO]{\thepage}
+%\fancyhead[C]{\textbf{``Modelo de Inventarios aplicado al control de almacén del Centro De Salud Integral La Fuente del Cusco, 2024''}}
+
+
+\endinput
