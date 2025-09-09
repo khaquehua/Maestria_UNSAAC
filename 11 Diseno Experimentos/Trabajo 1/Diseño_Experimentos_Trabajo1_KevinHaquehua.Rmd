@@ -49,8 +49,17 @@ d) Subir tu informe antes de las 13:00 pm (07-09-2025)
 ### Solución
 
 a) **Plantee y describa el modelo que considere adecuado para analizar este caso.**
+
+Tomando en cuenta el contexto en el que solo se desea evaluar el efecto de cinco fertilizantes, el modelo adecuado a utilizar es un diseño completamente al azar. Evaluando el trabajo original se tomo en cuenta el diseño bloque completo al azar, debido a que se toma en cuenta los días de floración: Primera medición, segunda medición, días de floración y periodo vegetativo.
+
 b) **¿Se puede afirmar que al menos uno de los días de floración difiere del resto al aplicar los distintos fertilizantes complejos?**
+
+Efectivamente, se puede afirmar que revisando el trabajo con los días de floración, influye en que difiera del resto de los distintos fertilizantes complejos.
+
 c) **Verifique si el modelo propuesto cumple con los supuestos.**
+
+
+
 d) **Estime el coeficiente de variabilidad.**
 e) **¿Cuáles son los fertilizantes que tienen mejor efecto en la floración media en el cultivo de lino?**
 f) **¿El tiempo promedio de floración al aplicar el fertilizante $T3$ es superior al aplicar el fertilizante $T2$ en más de 2 días?**
