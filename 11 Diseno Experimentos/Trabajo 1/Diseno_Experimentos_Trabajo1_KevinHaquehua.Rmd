@@ -204,6 +204,9 @@ dwtest(mod.dca,alternative = c("two.sided"))
 Como el pvalor $>0.05$ no se rechaza $H_0$ lo cual indica que existe independencia de errores o no están autocorrelacionados de primer orden, lo cual indica que se cumple el supuesto de independencia de errores.
 
 d) **Estime el coeficiente de variabilidad.**
+
+
+
 e) **¿Cuáles son los fertilizantes que tienen mejor efecto en la floración media en el cultivo de lino?**
 f) **¿El tiempo promedio de floración al aplicar el fertilizante $T3$ es superior al aplicar el fertilizante $T2$ en más de 2 días?**
 g) **Al aplicar los fertilizantes $T2$ y $T3$ (en forma conjunta), ¿el tiempo medio en hacer efecto la floración es menor que al aplicar los fertilizantes $T4$ y $T5$ (en forma conjunta)?**
