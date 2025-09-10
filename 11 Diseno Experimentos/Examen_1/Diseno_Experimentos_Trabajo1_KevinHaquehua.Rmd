@@ -70,7 +70,7 @@ Empezemos desarrollando los datos del archivo Excel que también se adjuntará e
 ```{r}
 library(readxl)
 library(here)
-data <- read_excel(here("11 Diseno Experimentos/Trabajo 1/data_floracion.xlsx"))
+data <- read_excel(here("11 Diseno Experimentos/Examen_1/data_floracion.xlsx"))
 head(data)
 ```
 
@@ -227,4 +227,20 @@ ggplot(data, aes(x = tratamiento, y = floracion, fill = tratamiento)) +
 Se observa que los tratamientos que poseen mejores efectos para mejorar la floración de _(Linum usitatissimum)_, son los tratamientos: YaraVera AMIDAS, (N20, P20, K20), (N18, P15, K10) aunque no se muestra diferencias entre ellos.
 
 f) **¿El tiempo promedio de floración al aplicar el fertilizante $T3$ es superior al aplicar el fertilizante $T2$ en más de 2 días?**
+
+Nos planteamos las hipótesis
+$H_0: \mu_3 - \mu_2 \leq 2$
+$H_0: \mu_3 - \mu_2 > 2$
+
+Y por medio de los contrastes ortogonales realizamos la comparación
+
+```{r}
+library(gmodels)
+con = matrix(c(0, -1, 1, 0, 0),5,1)
+L   = t(con)
+L
+fit.contrast(mod.dca , "tratamiento", L)
+```
+
+
 g) **Al aplicar los fertilizantes $T2$ y $T3$ (en forma conjunta), ¿el tiempo medio en hacer efecto la floración es menor que al aplicar los fertilizantes $T4$ y $T5$ (en forma conjunta)?**
