@@ -192,7 +192,7 @@ d) **Estime el coeficiente de variabilidad.**
 Para cuantificar el grado de homogeneidad de los resultados del experimento veamos el coeficiente de variabilidad
 
 ```{r}
-# Coeficiente de variabilidad
+# Coeficiente de variación
 cv = cv.model(mod.dca)
 cv
 ```
@@ -228,19 +228,49 @@ Se observa que los tratamientos que poseen mejores efectos para mejorar la flora
 
 f) **¿El tiempo promedio de floración al aplicar el fertilizante $T3$ es superior al aplicar el fertilizante $T2$ en más de 2 días?**
 
+Formalizamos la expresión
+
+$$
+\mu_3 > 2\mu_2
+$$
+$$
+\mu_3 - 2\mu_2 > 0
+$$
+
 Nos planteamos las hipótesis
-$H_0: \mu_3 - \mu_2 \leq 2$
-$H_0: \mu_3 - \mu_2 > 2$
+$H_0: \mu_3 - 2\mu_2 \leq 0$
+$H_0: \mu_3 - 2\mu_2 > 0$
 
 Y por medio de los contrastes ortogonales realizamos la comparación
 
 ```{r}
 library(gmodels)
-con = matrix(c(0, -1, 1, 0, 0),5,1)
-L   = t(con)
-L
-fit.contrast(mod.dca , "tratamiento", L)
+con = c(0, -2, 1, 0, 0)
+fit.contrast(mod.dca , "tratamiento", con)
 ```
 
+Como el pvalor $<0.05$, rechazamos la hipótesis nula. Por lo que el promedio de floración al aplicar el fertilizante YaraTera KRISTA K es superior al fertilizante YaraMila COMPLEX en más de dos días.
 
 g) **Al aplicar los fertilizantes $T2$ y $T3$ (en forma conjunta), ¿el tiempo medio en hacer efecto la floración es menor que al aplicar los fertilizantes $T4$ y $T5$ (en forma conjunta)?**
+
+Formalizamos la expresión
+
+$$
+\mu_2 + \mu_3 < \mu_4 + \mu_5
+$$
+$$
+\mu_2 + \mu_3 - \mu_4 - \mu_5 < 0
+$$
+
+Nos planteamos las hipótesis
+$H_0: \mu_2 + \mu_3 - \mu_4 - \mu_5 \geq 0$
+$\mu_2 + \mu_3 - \mu_4 - \mu_5 < 0$
+
+Y por medio de los contrastes ortogonales realizamos la comparación
+
+```{r}
+con = c(0, 0.5, 0.5, -0.5, -0.5)
+fit.contrast(mod.dca , "tratamiento", con)
+```
+
+Como el pvalor $<0.05$, rechazamos la hipótesis nula. Por lo que al aplicar los fertilizantes YaraMila COMPLEX y YaraTera KRISTA K en forma conjunta el tiempo medio en hacer efecto la floración es menor que al aplicar los fertilizantes (N20, P20, K20) y (N18, P15, K10) en forma conjunta).
