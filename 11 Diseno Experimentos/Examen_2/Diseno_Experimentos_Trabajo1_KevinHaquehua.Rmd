@@ -48,6 +48,9 @@ d) Subir tu informe antes de las 13:00 pm (14-09-2025)
 ### Solución
 
 a) _Presente el modelo aditivo lineal y explique sus componentes según el enunciado de la pregunta._
+
+
+
 b) _Asumiendo el cumplimiento de supuestos, pruebe si al menos una **fórmula** presenta un rendimiento medio de papa distinto a las demás._
 c) _Se planeó evaluar si con la **fórmula 4** se obtienen mejores rendimientos que con la **fórmula 2**, ¿es cierta la información que se planteó?_
 d) _Un especialista afirma que el rendimiento medio de papa con la **fórmula 2** es diferente al obtenido con la **fórmula 1**. ¿Es cierta la afirmación del especialista?. Use el reporte y la prueba estadística adecuada._
