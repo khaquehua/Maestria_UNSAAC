@@ -49,7 +49,19 @@ d) Subir tu informe antes de las 13:00 pm (14-09-2025)
 
 a) _Presente el modelo aditivo lineal y explique sus componentes según el enunciado de la pregunta._
 
+Al ser un diseño de bloques completo al azar con una observación por unidad experimental, la observación $Y_{ij}$ que representa el rendimiento por kg de las papas puede representarse por el modelo siguiente:
 
+$$
+Y_{ij} = \mu + {\tau}_{i} + {\beta}_{j} + {\epsilon}_{ij}
+$$
+
+Donde:
+
+- $Y_{ij}:$ Es el rendimiento por kg de papa obtenida por el $j$-ésimo bloque (tipo de suelo) sujeta al tratamiento $i$ (fórmula).
+- $\mu:$ El efecto de la media común.
+- ${\tau}_{i}:$ Es el efecto de la fórmula $i$, ($i = 1,2,3,4$).
+- ${\beta}_{j}:$ Es el efecto del tipo de suelo $j$, ($j = 1 \text{(arcilloso)},2\text{(arenoso)},3\text{(franco arenoso)}$).
+- ${\epsilon}_{ij}:$ Es una variable aleatoria no observable llamado error.
 
 b) _Asumiendo el cumplimiento de supuestos, pruebe si al menos una **fórmula** presenta un rendimiento medio de papa distinto a las demás._
 c) _Se planeó evaluar si con la **fórmula 4** se obtienen mejores rendimientos que con la **fórmula 2**, ¿es cierta la información que se planteó?_
