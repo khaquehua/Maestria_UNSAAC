@@ -1,28 +1,27 @@
 ---
 title: "Diseño de experimentos"
 author: "Kevin Heberth Haquehua Apaza"
-date: "08 de setiembre del 2025"
+date: "18 de setiembre del 2025"
 output:
   word_document:
     reference_docx: template.docx
     toc: true
     toc_depth: 3
-subtitle: 'Exámen de semana 01'
+subtitle: 'Exámen de semana 02'
 ---
 
-# DCA-Comparaciones múltiples-supuestos
+# DISEÑO BLOQUE COMPLETO AL AZAR
 
-## EJERCICIO
+## EJEMPLO: RENDIMIENTO DE PAPA PERUANA CON DIFERENTES FÓRMULAS DE FERTILIZANTE
 
-Un grupo de ingenieros agrónomos realizaron una investigación experimental en el fundo Huancayo en el distrito de Huariaca, provincia Pasco, región Pasco, en condiciones de campo con el fin de determinar el efecto de cinco fertilizantes complejos en días de floración del cultivo de lino _(Linum usitatissimum)_
+Se realizó un experimento para determinar si existe alguna diferencia en el rendimiento de papa variedad peruana con 4 fórmulas diferentes de fertilizante. Las fórmulas empleadas fueron las siguientes:
 
-**Descripción de los tratamientos (fertilizantes)**
+- **Fórmula 1 (Testigo):** Sin fósforo (P) y sin nitrógeno (N).
+- **Fórmula 2:** Solo fósforo.
+- **Fórmula 3:** Solo nitrógeno.
+- **Fórmula 4:** Con fósforo y nitrógeno.
 
-- $T1:$ YaraVera AMIDAS
-- $T2:$ YaraMila COMPLEX
-- $T3:$ YaraTera KRISTA K
-- $T4:$ N20, P20, K20
-- $T5:$ N18, P15, K10
+Una variante en particular en la conducción del experimento fue el tipo de suelo, ya que no fue el mismo para todas las parcelas en estudio. Los rendimientos obtenidos en Kg por parcela se presentan a continuación:
 
 ```{r, echo=FALSE, out.width="63%", out.height="63%"}
 knitr::include_graphics("datos.png")
@@ -30,247 +29,30 @@ knitr::include_graphics("datos.png")
 
 ### Preguntas
 
-a) Plantee y describa el modelo que considere adecuado para analizar este caso.
-b) ¿Se puede afirmar que al menos uno de los días de floración difiere del resto al aplicar los distintos fertilizantes complejos?
-c) Verifique si el modelo propuesto cumple con los supuestos.
-d) Estime el coeficiente de variabilidad.
-e) ¿Cuáles son los fertilizantes que tienen mejor efecto en la floración media en el cultivo de lino?
-f) ¿El tiempo promedio de floración al aplicar el fertilizante $T3$ es superior al aplicar el fertilizante $T2$ en más de 2 días?
-g) Al aplicar los fertilizantes $T2$ y $T3$ (en forma conjunta), ¿el tiempo medio en hacer efecto la floración es menor que al aplicar los fertilizantes $T4$ y $T5$ (en forma conjunta)?
+a) Presente el modelo aditivo lineal y explique sus componentes según el enunciado de la pregunta.
+b) Asumiendo el cumplimiento de supuestos, pruebe si al menos una **fórmula** presenta un rendimiento medio de papa distinto a las demás.
+c) Se planeó evaluar si con la **fórmula 4** se obtienen mejores rendimientos que con la **fórmula 2**, ¿es cierta la información que se planteó?
+d) Un especialista afirma que el rendimiento medio de papa con la **fórmula 2** es diferente al obtenido con la **fórmula 1**. ¿Es cierta la afirmación del especialista?. Use el reporte y la prueba estadística adecuada.
+e) El especialista desea comparar la **fórmula que no contiene fósforo ni nitrógeno** con el resto de fórmulas; realice la prueba estadística más adecuada.
+f) El especialista desea realizar todas las comparaciones posibles entre las fórmulas empleadas; realice la prueba estadística más adecuada.
+g) El especialista afirma que el rendimiento medio de papa obtenido al aplicar la **fórmula 1** es inferior al rendimiento medio de papa cuando se aplica conjuntamente la **fórmula 3 y 4**. ¿Es cierta la afirmación del especialista? Realice la prueba estadística más adecuada.
 
 **Indicaciones finales**
 
 a) El documento debe utilizar un lenguaje académico.
 b) Subir el informe final-documento en pdf.
 c) Subir el Script y data comprimido (se descontaran puntos).
-d) Subir tu informe antes de las 13:00 pm (07-09-2025)
+d) Subir tu informe antes de las 13:00 pm (14-09-2025)
 
 
 ### Solución
 
-a) **Plantee y describa el modelo que considere adecuado para analizar este caso.**
+a) _Presente el modelo aditivo lineal y explique sus componentes según el enunciado de la pregunta._
+b) _Asumiendo el cumplimiento de supuestos, pruebe si al menos una **fórmula** presenta un rendimiento medio de papa distinto a las demás._
+c) _Se planeó evaluar si con la **fórmula 4** se obtienen mejores rendimientos que con la **fórmula 2**, ¿es cierta la información que se planteó?_
+d) _Un especialista afirma que el rendimiento medio de papa con la **fórmula 2** es diferente al obtenido con la **fórmula 1**. ¿Es cierta la afirmación del especialista?. Use el reporte y la prueba estadística adecuada._
+e) _El especialista desea comparar la **fórmula que no contiene fósforo ni nitrógeno** con el resto de fórmulas; realice la prueba estadística más adecuada._
+f) _El especialista desea realizar todas las comparaciones posibles entre las fórmulas empleadas; realice la prueba estadística más adecuada._
+g) _El especialista afirma que el rendimiento medio de papa obtenido al aplicar la **fórmula 1** es inferior al rendimiento medio de papa cuando se aplica conjuntamente la **fórmula 3 y 4**. ¿Es cierta la afirmación del especialista? Realice la prueba estadística más adecuada._
 
-Tomando en cuenta el contexto en el que solo se desea evaluar el efecto de cinco fertilizantes, el modelo adecuado a utilizar es un diseño completo al azar. En las cuales se tienen los tratamiento de los distintos fertilizantes, si evaluamos el estudio original indica que se utiliza el diseño bloque completo al azar, en donde las repeteciones vienen a ser los bloques.
 
-El modelo aditivo lineal es el siguiente
-
-$${Y}_{ij}=\mu + {\tau}_{i}+{\epsilon}_{ij}$$
-
-Donde:
-
-- ${Y}_{ij}$ Es la floración de _(Linum usitatissimum)_ del i-ésimo tratamiento y j-ésima repetición.
-- $\mu$ es el efecto de la media general en la floración de _(Linum usitatissimum)_.
-- ${\tau}_{i}$ es el efecto del i-ésimo tratamiento.
-- ${\epsilon}_{ij}$ es el efecto del error experimental en el i-ésimo tratamiento y j-ésima repetición. para $i = \{1,2,3,4,5\}$ tratamientos y $j = \{1,2,3,4\}$ repeticiones. Además, el modelo asume que ${\epsilon}_{ij} \sim N(0,{\sigma}^{2})$
-
-b) **¿Se puede afirmar que al menos uno de los días de floración difiere del resto al aplicar los distintos fertilizantes complejos?**
-
-Empezemos desarrollando los datos del archivo Excel que también se adjuntará en el trabajo, para posteriormente hacer la lectura del archivo.
-
-```{r}
-library(readxl)
-library(here)
-data <- read_excel(here("11 Diseno Experimentos/Examen_1/data_floracion.xlsx"))
-head(data)
-```
-
-```{r}
-attach(data) # Para tomar los datos
-data$tratamiento  = as.factor(tratamiento) # convierte tratamiento en factor
-```
-
-Empezemos viendo un gráfico de la dispersión y el efecto de los tratamientos en la floración del cultivo de _(Linum usitatissimum)_
-
-```{r}
-library(ggplot2)
-ggplot(data, aes(x = tratamiento, y = floracion, fill = tratamiento)) +
-  geom_violin(alpha = 0.5) +
-  theme(legend.position = "none")+
-  geom_boxplot(width = 0.2)
-```
-
-**Interpretación:** Se observa que el YaraMila COMPLEX presenta la menor floración de _(Linum usitatissimum)_, seguido del YaraTera KRISTA K. Seguidamente los tratamientos: YaraVera AMIDAS, (N20, P20, K20), (N18, P15, K10) presentan la mayor floración de _(Linum usitatissimum)_ sin mostrar diferencias entre ellos.
-
-Ahora definamos el modelo
-
-```{r}
-mod.dca = lm(floracion ~ tratamiento) # modelo DCA
-```
-
-Y veamos el análisis de la varianza para afirmar que al menos uno de los días de floración difiere del resto al aplicar los distintos fertilizantes complejos.
-
-```{r}
-summary(aov(mod.dca)) # Análisis de varianza
-```
-
-Efectivamente, se puede afirmar que al menos uno de los días de floración de _(Linum usitatissimum)_ difiere del resto al aplicar los distintos fertilizantes complejos. Ya que existe evidencia suficiente para rechazar la hipótesis nula que indica que los días de floración de _(Linum usitatissimum)_ no difieran en los tratamientos complejos.
-
-c) **Verifique si el modelo propuesto cumple con los supuestos.**
-
-- **Normalidad de errores**
-
-Nos planteamos las hipótesis
-$H_0:$ Los errores se distribuyen normalmente
-$H_1:$ Los errores no se distribuyen normalmente
-
-Veamos los residuales del modelo
-
-```{r}
-library(agricolae)
-residuales = residuals(mod.dca) # extrae residuales
-histo      = hist(residuales, col="gold", xlab="residuales", main="Histograma de los residuales", ylab="Densidad",prob=1)
-normal.freq(histo, frequency=3) # densidad
-```
-
-Se observa que los errores se distribuyen a una normal, veamos el QQ-plot
-
-```{r}
-plot(mod.dca, which = 2)
-```
-
-A excepción de unos valores, la mayor parte se centra a la recta de residuales, veamos ahora la prueba de Shapiro-Wilk de normalidad de residuos
-
-```{r}
-shapiro.test(residuales)
-```
-
-Como se tiene un pvalor $> 0.05$ no se rechaza $H_0$ lo cual indica que el modelo cumple el supuesto de normalidad de errores.
-
-- **Homocedasticidad**
-
-Nos planteamos las hipótesis:
-$H_0:$ Existe homogeneidad de varianzas
-$H_1:$ No existe homogeneidad de varianzas
-
-Veamos si la variabilidad es distinta en los factores
-
-```{r}
-plot(mod.dca, which = 5)
-```
-
-Y si la variabilidad se incrementa con la media general
-
-```{r}
-plot(mod.dca, which = 1)
-```
-
-Se observa que la varianza se mantiene constante en los residuos. Utilizemos la prueba de Breusch-Pagan para evaluar este supuesto
-
-```{r}
-library(car)
-ncvTest(mod.dca)
-```
-
-Como el pvalor $>0.05$ no se rechaza $H_0$ en lo cual se indica que la varianza es constante en los residuos, por lo que se cumple el supuesto de homocedasticidad.
-
-- **Independencia de errores**
-
-Para ver la no autocorrelación de los errores nos planteamos las hipótesis
-$H_0:$ Existe independencia de errores
-$H_1:$ No existe independencia de errores
-
-Veamos de forma gráfica la autocorrelación de los errores
-
-```{r}
-plot(residuals(mod.dca), pch = 18,
-     type = "b", ylab = "residuales",
-     xlab = "Índice", main="Residuales")
-abline(h=0)
-```
-
-No se observa un patrón de dependencia en los errores, realizemos la prueba de Durbin-Watson
-
-```{r}
-library(lmtest)
-dwtest(mod.dca,alternative = c("two.sided"))
-```
-
-Como el pvalor $>0.05$ no se rechaza $H_0$ lo cual indica que existe independencia de errores o no están autocorrelacionados de primer orden, lo cual indica que se cumple el supuesto de independencia de errores.
-
-d) **Estime el coeficiente de variabilidad.**
-
-Para cuantificar el grado de homogeneidad de los resultados del experimento veamos el coeficiente de variabilidad
-
-```{r}
-# Coeficiente de variación
-cv = cv.model(mod.dca)
-cv
-```
-
-El cual nos da un valos de $3.11\%$ el cual es menor al $10\%$ en el que podemos indicar que hay homogeneidad en los resultados del experimento, esto indica que no hay factores adicionales que puedan influir en el estudio realizado.
-
-e) **¿Cuáles son los fertilizantes que tienen mejor efecto en la floración media en el cultivo de lino?**
-
-Veamos la media general
-
-```{r}
-med_general = mean(floracion); med_general
-```
-
-Ahora la media de los tratamientos con los efectos
-
-```{r}
-library(dplyr)
-med_trat = aggregate(floracion~tratamiento, FUN = mean)
-med_trat%>% rename(Media = floracion) %>% mutate(Efecto = Media-med_general)
-```
-
-Se observa que el tratamiento que tiene el menor efecto en la floración de _(Linum usitatissimum)_ es YaraMila COMPLEX y el que presenta el mayor efecto es (N18, P15, K10). Asimismo por el gráfico visto anteriormente
-
-```{r}
-ggplot(data, aes(x = tratamiento, y = floracion, fill = tratamiento)) +
-  geom_violin(alpha = 0.5) +
-  theme(legend.position = "none")+
-  geom_boxplot(width = 0.2)
-```
-
-Se observa que los tratamientos que poseen mejores efectos para mejorar la floración de _(Linum usitatissimum)_, son los tratamientos: YaraVera AMIDAS, (N20, P20, K20), (N18, P15, K10) aunque no se muestra diferencias entre ellos.
-
-f) **¿El tiempo promedio de floración al aplicar el fertilizante $T3$ es superior al aplicar el fertilizante $T2$ en más de 2 días?**
-
-Formalizamos la expresión
-
-$$
-\mu_3 > 2\mu_2
-$$
-$$
-\mu_3 - 2\mu_2 > 0
-$$
-
-Nos planteamos las hipótesis
-$H_0: \mu_3 - 2\mu_2 \leq 0$
-$H_0: \mu_3 - 2\mu_2 > 0$
-
-Y por medio de los contrastes ortogonales realizamos la comparación
-
-```{r}
-library(gmodels)
-con = c(0, -2, 1, 0, 0)
-fit.contrast(mod.dca , "tratamiento", con)
-```
-
-Como el pvalor $<0.05$, rechazamos la hipótesis nula. Por lo que el promedio de floración al aplicar el fertilizante YaraTera KRISTA K es superior al fertilizante YaraMila COMPLEX en más de dos días.
-
-g) **Al aplicar los fertilizantes $T2$ y $T3$ (en forma conjunta), ¿el tiempo medio en hacer efecto la floración es menor que al aplicar los fertilizantes $T4$ y $T5$ (en forma conjunta)?**
-
-Formalizamos la expresión
-
-$$
-\mu_2 + \mu_3 < \mu_4 + \mu_5
-$$
-$$
-\mu_2 + \mu_3 - \mu_4 - \mu_5 < 0
-$$
-
-Nos planteamos las hipótesis
-$H_0: \mu_2 + \mu_3 - \mu_4 - \mu_5 \geq 0$
-$\mu_2 + \mu_3 - \mu_4 - \mu_5 < 0$
-
-Y por medio de los contrastes ortogonales realizamos la comparación
-
-```{r}
-con = c(0, 0.5, 0.5, -0.5, -0.5)
-fit.contrast(mod.dca , "tratamiento", con)
-```
-
-Como el pvalor $<0.05$, rechazamos la hipótesis nula. Por lo que al aplicar los fertilizantes YaraMila COMPLEX y YaraTera KRISTA K en forma conjunta el tiempo medio en hacer efecto la floración es menor que al aplicar los fertilizantes (N20, P20, K20) y (N18, P15, K10) en forma conjunta).
