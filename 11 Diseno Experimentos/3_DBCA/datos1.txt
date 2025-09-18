@@ -1,0 +1,13 @@
+Rendimiento	P	N
+7	No	No
+11	No	No
+13	No	No
+7	Si	No
+10	Si	No
+12	Si	No
+11	No	Si
+16	No	Si
+18	No	Si
+12	Si	Si
+16	Si	Si
+19	Si	Si
