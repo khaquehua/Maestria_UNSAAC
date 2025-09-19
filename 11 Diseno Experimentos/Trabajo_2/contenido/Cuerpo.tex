@@ -1,137 +1,159 @@
 \newpage
-\chapter{INDICACIONES}
+\chapter{Trabajo de investigación}
 
-\begin{itemize}
-	\item El trabajo es académico, ser cuidadoso de la forma en como justificas, redacción y coherencia.
-	\item Tener cuidado con la ortografía.
-	\item Citar y referenciar en APA 7ma edición.
-	\item La fecha de entrega es hasta el jueves 11 hasta las 23:59 hrs, no se aceptaran trabajos después. 
-\end{itemize}
+\subsubsection{Investigar}
 
-Revisar 5 artículos científicos en donde se use diseños experimentales, el área es libre.
-
-Responder a las siguientes interrogantes:
+Investigar sobre uno de estos tres temas:
 
 \begin{enumerate}
-	\item Título de la investigación
-	\item Link de la investigación
-	\item Objetivo de la investigación
-	\item Material experimental
-	\item Unidad experimental
-	\item ¿En el desarrollo de la investigación, cumple con los principios básicos de un diseño de experimento? (Indique cuales)
-	\item ¿La unidad experimental y unidad de análisis coinciden? Justifique
-	\item Diseño experimental
-	\item ¿Existe control local? Justifique
-	\item El diseño es balanceado o desbalanceado (justifique)
-	\item Utiliza algún método de comparación múltiple (Cual)
-	\item ¿La investigación verifica el cumplimiento de supuestos?: (Si es afirmativa tu respuesta, indique cuales)
+  \item \textbf{DCA con submuestreo}
+  \item \textbf{Diseño Cuadrado Latino}
+  \item \textbf{Diseño Greco Latino}
 \end{enumerate}
+
+Presente un informe académico de alguno de los temas elegidos, este informe debe tener fundamentos teóricos, aplicaciones y un ejercicio resuelto paso a paso usando las sumas de cuadrados (descomponiendo la variabilidad total), y corroborado en el R; Verificar los supuestos del modelo en el R, (utilizar transformaciones si fuera necesario) Así mismo si es pertinente usar pruebas de comparación múltiple.
+
+\subsubsection{Componentes mínimo del informe}
+
+\begin{itemize}
+  \item[a)] Presente el modelo aditivo lineal y explique sus componentes según el enunciado de la pregunta.
+  \item[b)] Aplicaciones.
+  \item[c)] Enunciado del ejemplo (cite o link) 
+  \item[d)] Anova (paso a paso)
+  \item[e)] comprobación con el R
+  \item[f)] Comprobación de supuestos, (Transformar si es necesario)
+  \item[g)] Comparaciones multiples
+\end{itemize}
+
+\subsubsection{Indicaciones finales}
+
+\begin{itemize}
+  \item[a)] El documento debe utilizar un lenguaje académico.
+  \item[b)] Subir el informe final-documento en pdf.
+  \item[c)] Subir el Script y data comprimido (se descontaran puntos si no lo hace).
+  \item[d)] Subir tu informe antes de las 23:59 pm (18-09-2025)
+\end{itemize}
 
 \section{SOLUCIÓN}
 
-Para realizar la resolución de esta activad se esta usando el editor de texto \LaTeX en el cual se hizo las debidas configuraciones en el preámbulo para obtener resultados en formato APA, se presentarán los 5 artículos encontrados, con su respectivo titulo del artículo, resumen y respuesta a las preguntas planteadas.
+Para realizar la resolución de esta activad se esta usando el editor de texto \LaTeX en el cual se hizo las debidas configuraciones en el preámbulo para obtener resultados en formato APA, me decidí por buscar el caso del diseño cuadrado latino.
 
-\subsection{Block design allowed for control of the Hawthorne effect in a randomized controlled trial of test ordering}
+\subsection{Diseño en cuadrados latinos}
 
-El estudio presentado por \cite{verstappen2004block} evalúa el valor de los diseños de bloques incompletos balanceados en la investigación sobre mejora de la calidad y su capacidad para controlar el efecto Hawthorne. Se aleatorizó a equipos médicos generales en tres grupos y se les realizó una intervención sobre la solicitud de pruebas para dos grupos de problemas clínicos (pruebas A y pruebas B). En los dos ensayos con diseño de bloques, se intentó controlar el efecto Hawthorne comparando la intervención completa en ambos grupos en las pruebas A (grupo I) o grupo B (grupo II); los grupos actuaron como controles ciegos entre sí. En el ensayo clásico, se comparó la intervención completa en las pruebas B (grupo II) con un grupo control sin intervención en las pruebas B (grupo III). Los ensayos con diseño de bloques mostraron cambios estadísticamente significativos en el número de pruebas A solicitadas ($p = 0.013$), pero no en el número de pruebas B solicitadas ($p = 0.29$). En el diseño clásico, la intervención completa alcanzó un cambio marginalmente significativo en las pruebas B ($p = 0.068$). El efecto Hawthorne fue el mismo en ambos grupos del diseño de bloques. En el diseño clásico, el efecto podría atribuirse en cierta medida al efecto Hawthorne. El diseño de bloques permitió controlar dicho efecto. Concluyendo que el uso adecuado de diseño de bloques puede ampliar el conocimiento sobre los efectos no específicos en la investigación sobre mejora de la calidad.
+\subsubsection{Introducción}
 
-En lo cual la resolución de las preguntas planteadas sería:
+En este modelo se consideran simultáneamente dos variables de bloque \citep{ugr_latinos}. Por ejemplo considera un experimento en el que se quiere estudiar el efecto de distintos tipos de semilla en el rendimiento del trigo y se considera que en el rendimiento puede influir los tipos de abonos e insecticidas empleados. Se puede trabajar con un diseño completo aleatorizado donde el factor es el tipo de semilla y las variables de bloques son los tipos de abono e insecticida.
 
-\begin{enumerate}
-	\item \textbf{Título de la investigación:} Block design allowed for control of the Hawthorne effect in a randomized controlled trial of test ordering
-	\item \textbf{Link de la investigación:} \url{https://www.jclinepi.com/article/S0895-4356(04)00137-4/fulltext}
-	\item \textbf{Objetivo de la investigación:} Evaluar el valor de los diseños de bloques incompletos balanceados para controlar el efecto Hawthorne
-	\item \textbf{Material experimental:} Region de un centro de diagnóstico
-	\item \textbf{Unidad experimental:} Médicos de cabecera
-	\item \textbf{¿En el desarrollo de la investigación, cumple con los principios básicos de un diseño de experimento? (Indique cuales):} Si, con respecto a la repetíción se tuvo a médicos que realizaron las pruebas (PRUEBA A que consiste en pruebas para problemas cardiovasculares, abdominales superiores e inferiores), B para problemas pulmonares y CONTROL), aleatorizados ya que no supieron a que prueba correspondía y se les dieron al azar y control del error ya que se uso el análisis de covarianza.
-	\item \textbf{¿La unidad experimental y unidad de análisis coinciden? Justifique:} Si, ya que los grupos de médicos de cabecera vieron si había diferencias en las intervenciones realizadas con respecto al efecto Hwathorne.
-	\item \textbf{Diseño experimental:} Diseño bloque incompleto al azar
-	\item \textbf{¿Existe control local? Justifique:} Si existe el grupo control, que consiste en aquel que tuvo una intervención mínima.
-	\item \textbf{El diseño es balanceado o desbalanceado (justifique):} Desbalanceado, ya que las asignaciones fueron desiguales en los diferentes grupos.
-	\item \textbf{Utiliza algún método de comparación múltiple (Cual):} Analisis de covarianza para evaluar el poder y efecto.
-	\item \textbf{¿La investigación verifica el cumplimiento de supuestos?: (Si es afirmativa tu respuesta, indique cuales):} No hubo un apartado dedicado al cumplimiento de supuestos, en si se limitó a la presentación de resultados.
-\end{enumerate}
+Pero su inconveniente es el de requerir excesivas unidades para su realización, para estos tres factores se tengan $K_1$, $K_2$ y $K_3$ niveles en cada uno de los factores de lo que requeriría $K_1 \times K_2 \times K_3$ unidades experimentales por lo que pueden resultar muy costos. Entonces se recurre a un tipo especial de diseño en bloques incompletos aleatorizados en el que se selecciona una parte del diseño completo de tal forma que se puedan estimar los efectos de interés.
 
-\subsection{Mejor rendimiento y rentabilidad de maíz en el trópico húmedo mediante camas permanentes, residuos de cultivos y rotación de frijoles}
+Uno de estos bloques es el modelo en cuadrado latino el cual requiere el mismo número de niveles para los tres factores.
 
-El estudio presentado por \cite{guera2025mejor} evalúa las prácticas agrícolas sustentables en las zonas agrícolas de Oaxaca. La región de Papaloapan se caracteriza por tener suelos degradados, situación que es agravada por las pendientes pronunciadas, las altas precipitaciones y la predominancia de suelos luvisólicos, susceptibles a erosionarse en la superficie y compactarse en el subsuelo (piso de arado). Una alternativa para reducir la degradación podría ser la agricultura de conservación, pero su exitosa implementación y adopción masiva requiere de estudios que adapten sus componentes (mínimo movimiento del suelo, cobertura permanente del suelo y diversificación de cultivos) a las condiciones locales. Su objetivo es evaluar los efectos combinados de los componentes de la agricultura de conservación en el rendimiento y rentabilidad del maíz (\textsl{Zea mays L.}) utilizando y diseño de bloques completos aleatorizados (DBCA) para evaluar ocho tratamientos resultantes de la combinación de prácticas de labranza (labranza convencional, cero labranza y camas permanentes), manejo de rastrojos, rotaciones de cultivos (\textsl{Mucuna pruriens y Phaseolus vulgaris L.}), diferentes fórmulas de fertilización y mejoradores de suelo obteniendo que el maíz rotado con frijol en camas permanentes con retención de rastrojo presentó en promedio un rendimiento de 5.2 Mg ha$^{-1}$, una utilidad neta de $\$16,517.00 MXN$ ha$^{-1}$ y una relación Beneficio/Costo (B/C) de 1.69, presentando así mejor desempeño que el tratamiento testigo (labranza convencional sin rotación de cultivos, el cual presentó un rendimiento promedio de 5.1 Mg ha$^{-1}$, $\$7,721.00 MXN$ ha$^{-1}$ de utilidad neta y 1.53 de relación Beneficio/Costo). Incluso sin rotación de cultivos, los sistemas con camas permanentes con rastrojo mostraron rendimientos de maíz superiores a los de cero labranza y similares a los de labranza convencionales. El maíz sembrado en primavera-verano y rotado con frijol en otoño-invierno en camas permanentes con rastrojo presenta un rendimiento similar al del sistema convencional y una mayor utilidad neta. Concluyendo que la agricultura de conservación, en su variante de camas permanentes, con retención de rastrojo y rotación maíz-frijol es una opción viable para la producción agrícola sustentable en el trópico húmedo como en el Papaloapan.
+\subsubsection{Descripción del modelo}
 
-En lo cual la resolución de las preguntas planteadas sería:
+En estos diseños el número de niveles del factor principal tiene que coincidir con el número de niveles de las dos variables de bloque o factores secundarios y además hay que suponer que no existe interacción entre ninguna pareja de factores.
 
-\begin{enumerate}
-	\item \textbf{Título de la investigación:} Mejor rendimiento y rentabilidad de maíz en el trópico húmedo mediante camas permanentes, residuos de cultivos y rotación con frijoles
-	\item \textbf{Link de la investigación:} \url{https://www.revista.ccba.uady.mx/ojs/index.php/TSA/article/view/5756/2494}
-	\item \textbf{Objetivo de la investigación:} Evaluar los efectos combinados de tres prácticas de labranza
-	\item \textbf{Material experimental:} Terreno de 2,764.8 $m^2$ del predio ``La Sabana'', ubicado a $17^{\circ},25'31.05''$N, $95^{\circ},23'52.76''$O y una altitud de 123 msnm en el municipio de San Juan Cotzocón, Oaxaca
-	\item \textbf{Unidad experimental:} Rendimientos de granos de maíz y frijos (Mg ha$^{-1}$) y las utilidades netas ($\$MXN ha^{-1}$)
-	\item \textbf{¿En el desarrollo de la investigación, cumple con los principios básicos de un diseño de experimento? (Indique cuales):} Si, con respecto a la repetíción se aplico el tratamiento a cada bloque, aleatorizados ya que fueron aleatorios los terrenos o parcelas para la aplicación del estudio y control del error ya que se utilizaron métricas para comparar los modelos.
-	\item \textbf{¿La unidad experimental y unidad de análisis coinciden? Justifique:} Si, debido a que se evaluan los rendimientos de maíz y frijoles, así como las utilidades netas Beneficio/Costo con la unidad aplicada de estudio.
-	\item \textbf{Diseño experimental:} Diseño bloque completo al azar con dos repeticiones
-	\item \textbf{¿Existe control local? Justifique:} Si existe el grupo control, lo denominaron como el tratamiento 1 en el que es la labranza convencional (LC) de la región.
-	\item \textbf{El diseño es balanceado o desbalanceado (justifique):} Balanceado, ya que las asignaciones fueron iguales en los diferentes bloques.
-	\item \textbf{Utiliza algún método de comparación múltiple (Cual):} Modelo lineal de efecto mixto ajustado.
-	\item \textbf{¿La investigación verifica el cumplimiento de supuestos?: (Si es afirmativa tu respuesta, indique cuales):} Si, ya que como indica en el artículo se utilizaron se verificaron los supuestos estadísticos de normalidad, homocedasticidad e independencia de residuos usando el análisis visual de residuos, prueba de Shapiro-Wilk y prueba de Levene. No se cumplió el supuestos de normalidad por lo que se utilizó los modelos lineales mixtos, usando estimaciones Bootstrap.
-\end{enumerate}
+Suponiendo que el número de niveles de cada uno de los factores es $K$. El diseño cuadrado latino utiliza $K^2$ bloques, cada bloque corresponde a una de las posibles combinaciones de niveles de los dos factores de control. En cada bloque se aplica un solo tratamiento de manera que cada tratamiento debe aparecer con cada uno de los niveles de los dos factores de control.
 
-\subsection{Capacidad antioxidante y aceptabilidad del helado de leche con adición de pulpa concentrada de ayrampo (Berberis flexuosa)}
+Para el caso de abonos donde se tienen para la semilla, abono e insecticidad con $K=4$ niveles se muestra la siguiente tabla:
 
-El estudio de \cite{cutti2022influencia} orientó a evaluar la influencia del jugo concentrado de ayrampo (\textsl{Berberis flexuosa}) en el helado de leche sobre su aceptabilidad general y capacidad antioxidante. Se concentró el jugo de ayrampo para mejorar su vida útil y poderlo incorporar a la formulación de helado, se determinó su capacidad antioxidante. Luego se adicionó en tres proporciones 10, 20 y 30$\%$ de jugo concentrado con respecto al peso del helado. Luego se evaluó la aceptabilidad usando un Diseño de bloques completos al azar con 60 jueces no entrenados, con una escala hedónica de 9 puntos. Luego se seleccionó el helado con mayor aceptabilidad para que se analice su capacidad antioxidante. Se encontró que, a mayor proporción de jugo concentrado de ayrampo mayor es la aceptabilidad general del helado de leche, la proporción del $30\%$ la mejor. La capacidad antioxidante del helado fue mayor que el jugo concentrado, y fue de 0.2362 $+/-$ 0.014 mmon Trolox/mL. Se logró obtener un helado rico en antioxidantes naturales.
+\begin{figure}[h!]
+    \begin{tcolorbox}[colback=white, colframe=black, boxrule=1.5pt, sharp corners=all]
+          \begin{center}
+            {\includegraphics[scale=1.5]{images/img1.png}}
+          \end{center}
+        \end{tcolorbox}
+\end{figure}
 
-En lo cual la resolución de las preguntas planteadas sería:
+De donde un diseño cuadrado latino tiene las siguientes características:
 
 \begin{enumerate}
-	\item \textbf{Título de la investigación:} Capacidad antioxidante y aceptabilidad del helado de leche con adición de pulpa concentrada de ayrampo
-	\item \textbf{Link de la investigación:} \url{https://laccei.org/LACCEI2024-CostaRica/papers/Contribution_1360_final_a.pdf}
-	\item \textbf{Objetivo de la investigación:} Obtener un helado rico en antioxidantes con aceptabilidad
-	\item \textbf{Material experimental:} 10 kg de frutos de ayrampo cosechada de la provincia de Acobamba - Huancavelica, leche fresca de vaca de un establo local. Estos fueron evaluados y usados utilizando reactivos para mantener los niveles iguales.
-	\item \textbf{Unidad experimental:} Evaluación sensorial (del 1 al 9 sobre la valoración del helado)
-	\item \textbf{¿En el desarrollo de la investigación, cumple con los principios básicos de un diseño de experimento? (Indique cuales):} No, debido a que en este caso se uso a los 60 expertos que evaluaran cada tipo de helado.
-	\item \textbf{¿La unidad experimental y unidad de análisis coinciden? Justifique:} Si, debido a que se evaluan la evaluación de los expertos y la capacidad antioxidante.
-	\item \textbf{Diseño experimental:} Diseño bloque completo al azar.
-	\item \textbf{¿Existe control local? Justifique:} No, ya que no se tomó la valoración del helado sin el concentrado de pulpa de ayrampo
-	\item \textbf{El diseño es balanceado o desbalanceado (justifique):} No se puede definir ya que todos los expertos realizaron la valoración para ambos grupos.
-	\item \textbf{Utiliza algún método de comparación múltiple (Cual):} Prueba no paramétrica Kruskal-Wallis y prueba de pares con Mann - Whitney, capacidad antioxidante con la prueba t-student
-	\item \textbf{¿La investigación verifica el cumplimiento de supuestos?: (Si es afirmativa tu respuesta, indique cuales):} Si, ya que como indica en el artículo se utilizaron se verificaron los supuestos estadísticos de normalidad y homocedasticidad para ser evaluados con estadística paramétrica, el cual no cumplió el supuesto de normalidad por lo que se optó por usar pruebas no paramétricas.
+  \item Se controlan tres fuentes de variabilidad, un factor principal y dos factores de bloque.
+  \item Cada uno de los factores tiene el mismo número de niveles, $K$.
+  \item Cada nivel del factor principal aparece una sola vez en cada fila y una vez en cada columna.
+  \item No hay interacción entre los factores.
 \end{enumerate}
 
-\subsection{Calidad de Maíz Colorado Flint para Industria Cervecera en Corrientes, Argentina}
+\subsubsection{Planteamiento del modelo}
 
-El estudio presentado por \cite{balbi2010calidad} tuvo el objetivo de vincular variables de crecimiento y calidad de híbridos de maíz colorado flint usado en una industria cervecera. Se realizó un experimento con 5 híbridos comerciales a una densidad de 6 pl m$^{-2}$ conducidos sin limitantes hídricas ni nutricionales en un diseño de bloques completos al azar con cuatro repeticiones. Se midió materia seca, índice de área de foliar e intercepción de radiación antes y después del período crítico, rendimiento y calidad, índice de flotación, peso hectolítrico, relación de molienda y materia grasa. Se obtuvo rendimientos de 771 y 982 gm$^{-2}$ (p<0.0001) para los diferentes híbridos. Se encontraron asociaciones entre la relación fuente destino posfloración y dos variables de calidad, índice de flotación y peso hectolítrico.
+En un diseño en cuadrado latino intervienen los siguientes factores: un factor principal y dos factores secundarios o variables de bloque. Se supone que no existe interacción entre estos tres factores, teniendo un modelo aditivo.
 
-En lo cual la resolución de las preguntas planteadas sería:
+Si consideramos que los tres factores son de efectos fijos, el modelo estadístico para este diseño es:
 
-\begin{enumerate}
-	\item \textbf{Título de la investigación:} Calidad del Maíz Colorado Flint para Industria Cervecera en Corrientes, Argentina
-	\item \textbf{Link de la investigación:} \url{https://www.scopus.com/pages/publications/77953367329}
-	\item \textbf{Objetivo de la investigación:} Vincular variables de crecimiento y calidad de híbridos de maíz colorado flint.
-	\item \textbf{Material experimental:} Campo Experimental de la Facultad de Ciencias Agrarias de la UNNE con suelo clasificado como Udipsament acuico hipertérmico de la serie Ensenada Grande.
-	\item \textbf{Unidad experimental:} Rendimiento en grados (g m$^{-2}$)
-	\item \textbf{¿En el desarrollo de la investigación, cumple con los principios básicos de un diseño de experimento? (Indique cuales):} Si, con respecto a la repetíción se aplicaron cuatro repeticiones, aleatorizados ya que fueron aleatorios los terrenos o parcelas para la aplicación del estudio y control del error ya que se utilizarón el análisis de variancia.
-	\item \textbf{¿La unidad experimental y unidad de análisis coinciden? Justifique:} Si, debido a que se evaluan los rendimientos de los diferentes hibridos a través de sus componentes Rendimiento, Peso 1000 gr y número de granos
-	\item \textbf{Diseño experimental:} Diseño bloque completo al azar con cuatro repeticiones
-	\item \textbf{¿Existe control local? Justifique:} No, no se tuvo un grupo control ya que se compararon los diferentes hibridos propuestos.
-	\item \textbf{El diseño es balanceado o desbalanceado (justifique):} Balanceado, ya que las asignaciones fueron iguales en los diferentes bloques.
-	\item \textbf{Utiliza algún método de comparación múltiple (Cual):} Análisis de covariancia y análisis de correlación y regresión.
-	\item \textbf{¿La investigación verifica el cumplimiento de supuestos?: (Si es afirmativa tu respuesta, indique cuales):} No, en este caso no se detalla el cumplimiento de los supuestos estadísticos, se asume que por defecto ya cumplieron los supuestos y paso a las interpretaciones de los resultados.
-\end{enumerate}
+$$
+y_{ijh} = \mu + {\tau}_{i} + {\beta}_{j} + {\gamma}_{h} + {\epsilon}_{ijh}
+$$
 
-\subsection{PERSEA CAERULEA: Una alternativa para la regeneración de heridas}
+En el que $i=j=h= (1, 2, \cdots , K )$ y donde:
 
-El estudio presentado por \cite{soto2023persea} plantea la regeneración de tejidos frente a heridas de diferente índole como quemaduras evaluando el uso de Persea caerulea como una alternativa para la regeneración de heridas, empleado como modelo biológico Girardia festae bajo condiciones de laboratorio. Se colectó y determinó taxonómicamente tanto la especie vegetal como el platelminto modelo; se prepararon extractos al $0.4\%$; $0.2\%$; $0.1\%$ y $0\%$ de P. caerulea y siguiendo un diseño experimental en bloques totalmente aleatorizados se procedió a evaluar su efecto en siete tipos de fragmentos de G. festae, incluyendo una población de 280 fragmentos. Los resultados obtenidos se muestran promisorios para continuar estudios en modelos más cercanos a los tejidos humanos. La concentración de $0.4\%$ de P. caerulea redujo significativamente el tiempo de formación de blastema a 9.6 minutos en el fragmento cefálico y a 131.6 horas su conformación a individuo completo.
+\begin{itemize}
+  \item ${y}_{ijh}$: Representa la observación correspondiente de la $i$-ésima fila, $j$-ésima columna y $h$-ésima letra latina.
+  \item $\mu$: Es la media global.
+  \item $\tau_i$: Es el efecto producido por el $i$-ésimo nivel del factor fila. Los cuales están sujetos a la restricción $\sum {\tau}_{i} = 0$
+  \item ${\beta}_{j}$: Es el efecto producido por el $j$-ésimo nivel del factor columna. Dichos efectos están sujetos a la restricción $\sum {\beta}_{j} = 0$
+  \item ${\gamma}_{h}$: Es el efecto producido por la $h$-ésima letra latina. Dichos efectos están sujetos a la restricción $\sum {\gamma}_{h} = 0$
+  \item ${\epsilon}_{ijh}$: Son los errores que siguen una distribución $N \sim (0,\sigma)$
+\end{itemize}
 
-En lo cual la resolución de las preguntas planteadas sería:
+\subsubsection{Ejemplo}
 
-\begin{enumerate}
-	\item \textbf{Título de la investigación:} PERSEA CAERULEA: Una alternativa para la regeneración de heridas
-	\item \textbf{Link de la investigación:} \url{https://dialnet.unirioja.es/servlet/articulo?codigo=8787328}
-	\item \textbf{Objetivo de la investigación:} Evaluar el uso de Persea caerulea como alternativa para la regeneración de heridas.
-	\item \textbf{Material experimental:} Persea caerulea en la zona Bagua Chica (Amazonas, Perú)
-	\item \textbf{Unidad experimental:} Tiempo en minutos de formación del blasterna y tiempo en horas de regeneración a individuo completo.
-	\item \textbf{¿En el desarrollo de la investigación, cumple con los principios básicos de un diseño de experimento? (Indique cuales):} Si, con respecto a la repetíción se aplicaron diez repeticiones, aleatorizados ya que fueron aleatorios los fragmentos de G. festae y control del error ya que se utilizarón el análisis de variancia.
-	\item \textbf{¿La unidad experimental y unidad de análisis coinciden? Justifique:} Si, debido a que se evaluan los tiempos de regeneración con la aplicación de los diferentes tratamientos de P. caurelea.
-	\item \textbf{Diseño experimental:} Diseño bloque completo al azar con 10 repeticiones.
-	\item \textbf{¿Existe control local? Justifique:} Puede ser, no se especifica en el artículo pero sería el tratamiento con concentración de Persea caerulea al $0\%$ que indica sin concentración.
-	\item \textbf{El diseño es balanceado o desbalanceado (justifique):} Balanceado, ya que las asignaciones fueron iguales en las mismas proporciones como indica el trabajo.
-	\item \textbf{Utiliza algún método de comparación múltiple (Cual):} Análisis de varianza y test de comparación de medias, a pesar de eso no se muestra las tablas y los resultados en el artículo.
-	\item \textbf{¿La investigación verifica el cumplimiento de supuestos?: (Si es afirmativa tu respuesta, indique cuales):} No, en este caso no se detalla el cumplimiento de los supuestos estadísticos, se asume que por defecto ya cumplieron los supuestos y paso a las interpretaciones de los resultados.
-\end{enumerate}
+Se ha realizado el experimento aleatorio correspondiente y se designó por las letras (A, B, C, D) a los tratamientos. Así, el cuadrado latino resultante junto con las observaciones obtenidas, dan lugar a la siguiente tabla
+
+\begin{figure}[H]
+    \begin{tcolorbox}[colback=white, colframe=black, boxrule=1.5pt, sharp corners=all]
+          \begin{center}
+            {\includegraphics[scale=1]{images/img2.png}}
+          \end{center}
+        \end{tcolorbox}
+\end{figure}
+
+Asi mismo la suma de cuadrados para el análisis de la varianza
+
+\begin{figure}[H]
+    \begin{tcolorbox}[colback=white, colframe=black, boxrule=1.5pt, sharp corners=all]
+          \begin{center}
+            {\includegraphics[scale=1.5]{images/img3.png}}
+          \end{center}
+        \end{tcolorbox}
+\end{figure}
+
+$$
+SCT = \sum_{i=1}^{4} \sum_{j=1}^{4} {y}_{ij.}^{2} - \frac{{y}_{\ldots}^{2}}{K^2} = 3001 - \frac{203^2}{4^2} = 425.4375
+$$
+
+$$
+SCF = \frac{1}{K} \sum_{i=1}^{4}{y}_{i..}^{2} - \frac{{y}_{\ldots}^{2}}{K^2} = \frac{11621}{4} - \frac{203^2}{4^2} = 329.6875
+$$
+
+$$
+SCC  = \frac{1}{K}\sum_{j=1}^{4}{y}_{.j.}^{2} - \frac{{y}_{\ldots}^{2}}{K^2} = \frac{10317}{4} - \frac{203^2}{4^2} = 3.6875
+$$
+
+$$
+SCL  = \frac{1}{K}\sum_{h=1}^{4}{y}_{..h}^{2} - \frac{{y}_{\ldots}^{2}}{K^2} = \frac{10615}{4} - \frac{203^2}{4^2} = 78.1875
+$$
+
+Y la suma de cuadrados del error se obtiene por diferencia
+
+$$
+SCR = SCT - SCF - SCC - SCL = 13.875
+$$
+
+En el que la tabla ANOVA seria el siguiente
+
+\begin{figure}[H]
+    \begin{tcolorbox}[colback=white, colframe=black, boxrule=1.5pt, sharp corners=all]
+          \begin{center}
+            {\includegraphics[scale=1]{images/img4.png}}
+          \end{center}
+        \end{tcolorbox}
+\end{figure}
+
+Realizando el contraste al $5\%$ y tomamos el $F_{cal}$ con el $F_{teo}$.Se concluye que los efectos de los abonos y semillas son significativas, pero no de los insecticidas.
+
+Por última veamos la aplicación de los resultados en RStudio.
+
+\begin{figure}[h!]
+        \begin{tcolorbox}[colback=white, colframe=black, boxrule=1.5pt, sharp corners=all]
+            {\includegraphics[width=\linewidth, height=8cm, trim=2.5cm 16cm 2.5cm 2.5cm, clip]{images/imgscript.pdf}}
+        \end{tcolorbox}
+\end{figure}
