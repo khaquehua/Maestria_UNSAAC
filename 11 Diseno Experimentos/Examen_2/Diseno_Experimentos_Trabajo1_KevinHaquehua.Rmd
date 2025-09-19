@@ -190,6 +190,5 @@ con = c(1, 0, -0.5, -0.5)
 fit.contrast(modg , "formula", con)
 ```
 
-Nos indican diferencias significativas lo cual indica que 
-
+Nos indican diferencias significativas lo cual indica que el rendimiento medio de la fórmula 1 es inferior al rendimiento medio de papa cuando se aplica conjuntamente la formula 3 y 4.
 
