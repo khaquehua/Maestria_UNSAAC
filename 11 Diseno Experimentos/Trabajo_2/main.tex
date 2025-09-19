@@ -1,0 +1,37 @@
+\documentclass[a4paper,openzrany,12pt]{book}
+\input{contenido/includes.tex}
+\input{contenido/formatos.tex}
+%\renewcommand{\andname}{y}
+
+%::::::::::::::::::::::::::::::::::::::::::
+%INICIAR NUMERACION EN ROMANOS
+\pagenumbering{roman}
+
+%Colocar los argumentos definidos en el archivo sty
+\title{DISEÑO DE EXPERIMENTOS}
+\author{KEVIN HEBERTH HAQUEHUA APAZA}
+\orientador{MTRO. ARTURO ZUÑIGA BLANCO}
+%\coorientador{NO SE TIENE}
+
+%Iniciar el documento con la caratula y todos los capitulo modificados anteriormentesd
+
+
+\begin{document}
+
+\maketitle % Caratula
+\doublespacing % Para que en adelante el documento tenga un interlineado de 2pts formato APA
+\setlength{\tabcolsep}{10pt} % Dejar en las tablas un espacio de 6pt en el lado horizontal
+%-------------------------------------
+% Insertar cuerpo del archivo
+\clearpage
+\pagenumbering{arabic}
+\input{contenido/Cuerpo} 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\bibliographystyle{apalike}
+\addcontentsline{toc}{chapter}{BIBLIOGRAFÍA}
+\bibliography{contenido/bibliog.bib}
+
+\end{document}
