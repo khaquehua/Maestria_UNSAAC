@@ -1,61 +1,55 @@
 #::::::::::::    SCRIPT KEVIN HAQUEHUA     :::::::::::::::::::::::::::::::::::::
 # LIBRERIAS A UTILIZAR
 library(readxl)
-library(ggplot2)
+library(here)
 library(agricolae)
-library(car)
-library(lmtest)
-library(dplyr)
+library(multcomp)
+library(emmeans)
 library(gmodels)
 
 # LECTURA DE DATOS
-data <- read_excel("11 Diseno Experimentos/Examen_1/data_floracion.xlsx")
-attach(data) # Para tomar los datos
-data$tratamiento  = as.factor(tratamiento) # convierte tratamiento en factor
+data <- read_excel(here("11 Diseno Experimentos/Examen_2/data_papa.xlsx"))
+head(data)
 
-# GRAFICO DE LOS TRATAMIENTOS
-ggplot(data, aes(x = tratamiento, y = floracion, fill = tratamiento)) +
-  geom_violin(alpha = 0.5) +
-  theme(legend.position = "none")+
-  geom_boxplot(width = 0.2)
+# REALIZACION DEL MODELO Y ANOVA
+attach(data)
+modeg<-lm(rendimiento~suelo+formula)
+anva<-anova(modeg)
+anva
 
-# MODELO
-mod.dca = lm(floracion ~ tratamiento) # modelo DCA
-summary(aov(mod.dca)) # Análisis de varianza
+# VER LOS COEFICIENTE A PARTIR DE F1 Y S1
+modeg
+cm<-anva$Mean #Valores de la tabla anova
 
-# PRUEBA DE NORMALIDAD
-residuales = residuals(mod.dca) # extrae residuales
-histo      = hist(residuales, col="gold", xlab="residuales", main="Histograma de los residuales", ylab="Densidad",prob=1)
-normal.freq(histo, frequency=3) # densidad
-plot(mod.dca, which = 2)
-shapiro.test(residuales) # Preuba de Shapiro
+# COMPARAR
+efect<-modeg$coefficients
+dmedia<-efect-efect[6]
+dmedia<-dmedia[4]
+dmedia
 
-# HOMOCEDASTICIDAD
-plot(mod.dca, which = 5)
-plot(mod.dca, which = 1)
-ncvTest(mod.dca)
+tc<-dmedia/sqrt(cm[3]*(2/5))
+tc
 
-# INDEPENDENCIA DE ERRORES
-plot(residuals(mod.dca), pch = 18,
-     type = "b", ylab = "residuales",
-     xlab = "Índice", main="Residuales")
-abline(h=0)
-dwtest(mod.dca,alternative = c("two.sided")) # Prueba de Durbin Watson
+pvalue<-2*pt(tc,df.residual(modeg))
+pvalue
 
-# COEFICIENTE DE VARIACION
-cv = cv.model(mod.dca)
-cv
+# COMPARACIÓN DE TUKEY
+model_formula <- aov(rendimiento ~ formula, data = data)
+TukeyHSD(model_formula, "formula")
 
-# MEDIA GENERAL
-med_general = mean(floracion); med_general
+# PRUBE DE DUNNET
+data$formula <- factor(data$formula)
+data$suelo <- factor(data$suelo)
+modg = aov(rendimiento~formula+suelo, data = data)
+summary(glht(modg, linfct = mcp(formula = "Dunnett")))
 
-# MEDIA Y EFECTOS DE LOS TRATAMIENTOS
-med_trat = aggregate(floracion~tratamiento, FUN = mean)
-med_trat%>% rename(Media = floracion) %>% mutate(Efecto = Media-med_general)
+# REALIZAR TODAS LAS COMPARACIONES
+medias <- emmeans(modg, ~ formula)
+comparaciones_tukey <- contrast(medias, method = "pairwise", adjust = "tukey")
+summary(comparaciones_tukey)  
 
-# CONTRASTES ORTOGONALES
-con = c(0, -2, 1, 0, 0)
-fit.contrast(mod.dca , "tratamiento", con)
+# REALIZAR EL CONTRASTE
+data$formula <- factor(data$formula, levels = c("f1","f2","f3","f4"))
+con = c(1, 0, -0.5, -0.5)
+fit.contrast(modg , "formula", con)
 
-con = c(0, 0.5, 0.5, -0.5, -0.5)
-fit.contrast(mod.dca , "tratamiento", con)
