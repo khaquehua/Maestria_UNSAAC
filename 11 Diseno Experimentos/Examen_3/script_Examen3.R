@@ -1,55 +1,103 @@
-#::::::::::::    SCRIPT KEVIN HAQUEHUA     :::::::::::::::::::::::::::::::::::::
+#::::::::::::    SCRIPT KEVIN HAQUEHUA EXAMEN 3    ::::::::::::::::::::::::::::
 # LIBRERIAS A UTILIZAR
-library(readxl)
-library(here)
-library(agricolae)
-library(multcomp)
-library(emmeans)
-library(gmodels)
+library(nortest)
+library(car)
 
-# LECTURA DE DATOS
-data <- read_excel(here("11 Diseno Experimentos/Examen_2/data_papa.xlsx"))
-head(data)
+# GENERACION DE LOS DATOS Y EFECTOS
+y<-c(22, 32, 35, 55, 44, 40, 60, 39, 31, 43, 34, 47, 45, 37, 50, 41, 25, 29, 50, 46, 38, 36, 54, 47)
+A<-rep(c(-1,1),12)
+B<-rep(c(rep(-1,2),rep(1,2)),6)
+C<-rep(c(rep(-1,4),rep(1,4)),3)
 
-# REALIZACION DEL MODELO Y ANOVA
-attach(data)
-modeg<-lm(rendimiento~suelo+formula)
-anva<-anova(modeg)
-anva
+# INTERACCIONES
+AB <- A*B
+BC <- B*C
+AC <- A*C
+ABC <- A*B*C 
 
-# VER LOS COEFICIENTE A PARTIR DE F1 Y S1
-modeg
-cm<-anva$Mean #Valores de la tabla anova
+# PARA VER LOS DIFERENTES EFECTOS
+# A
+ypA<-tapply(y,A,mean)
+ypA
+Aefe<-ypA[2]-ypA[1]
+Aefe
+# B
+ypB<-tapply(y,B,mean)
+ypB
+Befe<-ypB[2]-ypB[1]
+Befe
+# C
+ypC<-tapply(y,C,mean)
+ypC
+Cefe<-ypC[2]-ypC[1]
+Cefe
+# AB
+ypAB<-tapply(y,AB,mean)
+ypAB
+ABefe<-ypAB[2]-ypAB[1]
+ABefe
+# AC
+ypAC<-tapply(y,AC,mean)
+ypAC
+ACefe<-ypAC[2]-ypAC[1]
+ACefe
+# BC
+ypBC<-tapply(y,BC,mean)
+ypBC
+BCefe<-ypBC[2]-ypBC[1]
+BCefe
+# ABC
+ypABC<-tapply(y,ABC,mean)
+ypABC
+ABCefe<-ypABC[2]-ypABC[1]
+ABCefe
 
-# COMPARAR
-efect<-modeg$coefficients
-dmedia<-efect-efect[6]
-dmedia<-dmedia[4]
-dmedia
+# OBTENEMOS EL MODELO
+mod<-lm(y~A+B+C+ A*B+A*C+B*C + A*B*C)
+# sumas de cuadrados y ANVA
+anva<-aov(mod)
+summary(anva)
 
-tc<-dmedia/sqrt(cm[3]*(2/5))
-tc
+# MODELO DE REGRESION GENERADO
+mod1<-lm(y~B+C+A*C)
+summary(mod1)
 
-pvalue<-2*pt(tc,df.residual(modeg))
-pvalue
+# HALLAR LOS CME Y RESIDUOS DEL MODELO
+CME<-deviance(mod1)/df.residual(mod1)
+beta1<-coefficients(mod1)
+I<-rep(1,length(y))
+X<-cbind(I,B,C,A,AC)
+yest<-X%*%beta1
+e<- y-yest
+e
 
-# COMPARACIÓN DE TUKEY
-model_formula <- aov(rendimiento ~ formula, data = data)
-TukeyHSD(model_formula, "formula")
+H<-X%*%solve(t(X)%*%X)%*%t(X)
+ri<-e/sqrt(CME*(1-diag(H)))
+ri
 
-# PRUBE DE DUNNET
-data$formula <- factor(data$formula)
-data$suelo <- factor(data$suelo)
-modg = aov(rendimiento~formula+suelo, data = data)
-summary(glht(modg, linfct = mcp(formula = "Dunnett")))
+H<-X%*%solve(t(X)%*%X)%*%t(X)
+ri<-e/sqrt(CME*(1-diag(H)))
+ri
 
-# REALIZAR TODAS LAS COMPARACIONES
-medias <- emmeans(modg, ~ formula)
-comparaciones_tukey <- contrast(medias, method = "pairwise", adjust = "tukey")
-summary(comparaciones_tukey)  
+# COMPROBACION DE SUPUESTOS
+# grafico
+par(mfrow=c(2,2))
+plot(mod1)
+# NORMALIDAD
+ri<-rstandard(mod1)
+shapiro.test(ri) #SHAPIRO
+ad.test(ri) #ANDERSON
+# VARIANZA CONSTANTE
+ncvTest(mod1) # BREUCH PAGAN
 
-# REALIZAR EL CONTRASTE
-data$formula <- factor(data$formula, levels = c("f1","f2","f3","f4"))
-con = c(1, 0, -0.5, -0.5)
-fit.contrast(modg , "formula", con)
+# GRAFICO DE SUPERFICIE DE RESPUESTA
+modBC<-function(x2,x3){40.83+5.67*x2+3.42*x3}
+x2<-seq(-5,5,0.05)
+x3<-seq(-5,5,0.05)
+z<-outer(x2,x3,modBC)
+par(mfrow=c(1,1))
+persp(x2,x3,z,theta=-40,phi=30,ticktype="detailed",
+      xlab="factorB",
+      ylab="factorC", 
+      zlab="y")
 
