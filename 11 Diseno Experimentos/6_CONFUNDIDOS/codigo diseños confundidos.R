@@ -146,3 +146,4 @@ aggregate(Y ~ Blocks, data = dat, FUN = mean)  # medias por bloque (días)
 ##   2-factores resultan significativas.
 ## - Usa MEPlot/IAPlot para visualizar qué factores elevan la
 ##   pureza y cómo interactúan.
+
