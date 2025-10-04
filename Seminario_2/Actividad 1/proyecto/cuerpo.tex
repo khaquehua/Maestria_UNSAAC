@@ -3,31 +3,38 @@
 
 \section{Planteamiento del problema}
 \subsection{Situación problemática}
+La estadística como ciencia y base clave para resolver problemas reales ha sido de gran importancia a lo largo del tiempo \parencite{spiegelhalter2023arte}, en el cual la parte de la estadística aplicada apoyo a investigadores de otras áreas a poder realizar avances y descubrimientos en sus respectivas áreas. Sin embargo hubo un gran debate 
+entre el uso de la estadística frecuentista y la estadística bayesiana para la resolución de problemas complejos hasta los tiempos actuales \parencite{clayton2021bernoulli}.
+
+Algo importante a tomar en cuenta es la filosofía de la estadística frecuentista acerca de la probabilidad tomado desde el ensayo de Bernoulli, seguido de la fuerte base matemática apoyada en Neyman, Karl Pearson y Ronald Fisher. Asimismo se tiene el enfoque bayesiano basado en la condición y actualización de la probabilidad desarrollado por el reverendo Thomas Bayes, apoyado de matemáticos como Pierre-Simon Laplace o Carl Friedrich Gauss, especialmente al querer solucionar problemas reales en la aplicación de la probabilidad \parencite{clayton2021bernoulli}.
+
+Por ejemplo \cite{clayton2021bernoulli} toma el caso en el que indiques la probabilidad de adivinar el resultado de un lanzamiento de un dado. El enfoque de la estadística clásica y frecuentista te indica que es $1/6$, pero que pasa si se te adiciona información en el que en 5 lanzadas realizadas se tuvieron 1 número igual, dos número menores y dos números mayores al que se tiene que adivinar; tu probabilidad no puede seguir siendo $1/6$ ya que es imposible que el número por adivinar sea 1 o 6 debido a que me salieron números mayores o menores, el siguiente gráfico muestra mejor esta distribución de las probabilidad con los dados sin la información actualizada y con información adicionada. Tomando en cuenta este ejemplo la estadística frecuentista te seguirá indicando que la probabilidad es $1/6$ sin tomar en cuenta esta información adicional, extendiendo este caso a problemas donde actualmente se aplican las herramientas estadísticas para la resolución de otros problemas más complejos como lo es el del queratocono el cual no tiene hasta ahora una forma de diagnóstico exacto, ya que es basado mayormente en la probabilidad.
+
 El queratocono es una enfermedad que afecta a la córnea causando mala visión de forma progresiva y evolutia en pacientes jóvenes. Según la Organización Mundial de la Salud (OMS) esta enfermedad puede indicar cifras epidémicas. A pesar de que se considere una afección de impacto moderado y no tan grave que afecta a la función visual y calidad de vida, esta enfermedad puede resultar más perjudicial ya que puede afectar a individuos totalmente activos \parencite{thalasselis1988keratoconus}. El queratocono generalmente inicia en la pubertad hasta la tercera o casos de cuarta década de vida \parencite{althomali2018prevalence}, sus síntomas son variables y dependen de la etapa de progresión que se encuentre, en etapas iniciales no pueden presentarse síntomas hasta etapas más avanzadas en donde el paciente experimenta una distorsión notable en la visión acompañada de una pérdida visual severa. A pesar de eso no llegan a producir ceguera completa debido a esta enfermedad \parencite{rabinowitz1998keratoconus}. 
 
 Los primeros estudios de prevalencia se llevó en la población de Indianapolis, USA encontró 600 casos por 100,000 (0.6$\%$). Un estudio poblacional más reciente informó una prevalencia de 375 por 100,000 (0.375$\%$) en Países Bajos \parencite{godefrooij2017age}. Mientras que en Latino América  los registros de prevalencia son muy pocos, teniendo en Paraná entre Ríos-Argentina una prevalencia aproximada de 229 por cada 100,000 habitantes con edad promedio de diagnóstico a los 24.5 años \parencite{pussetto2011alta}, en la ciudad de Quito en Ecuador se tuvo una prevalencia de (0.75$\%$) \parencite{mansfield2017queratocono}, por otra parte en el Hospital Regional Honorio Delgado, durante el periodo 2014 - 2017 en Arequipa-Perú se evidenció que la prevalencia de queratocono fue de 1.37 por cada mil pacientes atendidos \parencite{ramos2018prevalencia}. Por último con respecto a la ciudad del Cusco en el trabajo de investigación de \textcite{samaniego2023prevalencia} reportó en el Centro de Salud Integral La Fuente una prevalencia de 3.32$\%$ siendo esta mayor a las otras zonas estudiadas en el cual aún no se le esta dando la importancia por parte del estado peruano.
 
 Asimismo en la clínica Oftalmo Salud del Perú indica que no se sabe con certeza porque algunas personas desarrollan Queratocono, aunque hay estudios con asociaciones a la genética o dicho hereditaria, asimismo con alergías y lesiones oculares provocado por la frotación excesiva de los ojos, el uso inapropiado de lentes de contacto y la presencia de algunas patologías como la queratoconjuntivis vernal, la retinitis pigmentaria o la retinopatía del prematura. Múltiples estudios han desarrollado técnicas para poder realizar la detección temprana de esta enfermedad ya sea por modelos de Machine Learning que indicaron que índices de PENTACAM fueron anormales para detección y exclusión de pacientes con queratocono \parencite{zhao2024evaluation}
 
-En el que teniendo este enfoque nos encontramos en un marco de incertidumbre en el cual es necesario construir un modelo probabilístico del comportamiento de esta enfermedad. Los enfoques bayesianos para problemas bioestadísticos se volvieron comunes en aplicaciones epidemiológicas, el uso de la metodología bayesiana ha experimentado grandes avances, aumentando el enfoque del uso bayesiano \textcite{lawson2018bayesian}. Centrandonos en la construcción de modelos para relacionar estructura de datos complicados con preguntas científicas, verificando el ajuste de dicho modelo e investigando la sensibilidad de las conclusiones a supuestos de modelos razonables. \textcite{Gelman_2013} indican que una de las fortalezas del enfoque bayesiano reside en combinar información de diferentes fuentes y dar una explicación más amplia de la incertidumbre acerca de las incógnitas en un problema estadístico.
+Teniendo esta situación problemática nos encontramos en un marco de incertidumbre sobre una forma de ver la probabilidad de que una persona desarrolle el queratocono. Como se mostró en los estudios anteriores generalmente la inferencia estadística clásica indica posibles asociaciones a diversos factores, especialmente las pruebas de hipótesis que se utilizan en la mayor parte de estudios de investigación. Pero ¿será necesario para indicar si una persona posee o no la enfermedad?. En cambio si combinas esta información para obtener una probabilidad a posteriori se acercaría mayormente a una inferencia causal. Los enfoques bayesianos para problemas bioestadísticos se volvieron comunes en aplicaciones epidemiológicas, el uso de la metodología bayesiana ha experimentado grandes avances, aumentando el enfoque del uso bayesiano \textcite{lawson2018bayesian}. Centrandonos en la construcción de una red bayesiana para relacionar estructura de datos complicados con preguntas científicas, verificando el ajuste de dicho modelo e investigando la sensibilidad de las conclusiones a supuestos de modelos razonables. \textcite{Gelman_2013} indican que una de las fortalezas del enfoque bayesiano reside en combinar información de diferentes fuentes y dar una explicación más amplia de la incertidumbre acerca de las incógnitas en un problema estadístico.
 Estudios de enfermedades raras ya aplican este enfoque como lo es de \textcite{fouarge2021hierarchical} en el que se estudia las miopatías centronucleares con un modelo jerárquico bayesiano con distribución de probabilidad beta y una función logit de enlace, en el cual el autor menciona que este tipo de problemas pueden ser abordado bajo el enfoque bayesiano en el que se deban realizar más investigaciones con el diálogo continuo de autoridades reguladoras que permitan la aplicación de la estadística bayesiana. Asimismo en el trabajo de \textcite{ferez2017redes} indicó que una herramienta para apoyar en la tomade decisiones de la medicina basada en la evidencia son las redes bayesianas ya que tiene una capacidad para representar las relaciones causales que tienen las variables involucradas en un problema, y que se visualice de una manera intuitiva.
 
-En el cual el objetivo es determinar un modelo probabilístico basado en los modelos bayesianos jerárquicos que permitan cuantificar la incertidumbre de la detección de la enfermedad del queratocono en la ciudad del Cusco, tomando en cuenta los diferentes estudios de esta enfermedad ya sea en la asociación de variables clínicas, topográficas, tests, etc. Con el fin de modelar una distribución probabilística que permita cuantificar la incertidumbre de esta enfermedad y asimismo optimizar los costos en pruebas más costosas en base a la información disponible para la mayor parte de centros de salud.
+En el cual el objetivo es comparar la inferencia de la estadística clásica con las pruebas de hipótesis y la inferencia bayesiana de la probabilidad a posteriori mediante las redes bayesianas para cuantificar la incertidumbre de la detección de la enfermedad del queratocono en la ciudad del Cusco, tomando en cuenta los diferentes estudios de esta enfermedad ya sea en la asociación de variables clínicas, topográficas, tests, etc.
 
 \subsection{Formulación del problema de investigación}
 \subsubsection{Problema general}
-¿Cómo aplicar la metodología bayesiana en la detección del queratocono?
+¿Cómo comparar la inferencia clásica con la inferencia bayesiana?
 
 \subsubsection{Problemas específicos}
 \begin{enumerate}
-\item ¿Qué variables clínicas, demográficas y topográficas apoyan en la detección del queratocono?
-\item ¿Qué modelo jerárquico bayesiano representa la relación entre las variables clínicas, demográficas y topográficas en la detección del queratocono?
-\item ¿Cómo obtenemos la inferencia de probabilidad en la presencia o ausencia de queratocono a partir del modelo?
+\item ¿Qué variables clínicas, demográficas y topográficas se asocian en la detección del queratocono?
+\item ¿Cómo obtenemos la inferencia de probabilidad en la presencia o ausencia de queratocono a través de las diversas variables?
+\item ¿Como afecta la decisión de usar la inferencia clásica o bayesiana en la detección de queratocono?
 \item ¿Cómo implementar las inferencias de riesgo a nivel individual?
 \end{enumerate}
 
 \subsection{Justificación de la investigación}
-El presente estudio aplica modelos estadísticos bayesianos jerárquicos y redes bayesianas como herramientas metodológicas robustas para el análisis y detección del queratocono. La elección de enfoques bayesianos se fundamenta en su capacidad para incorporar conocimiento previo (experiencia clínica, estudios anteriores, o literatura científica) y actualizar continuamente las inferencias a medida que se dispone de nuevos datos. En particular, los modelos jerárquicos permiten estructurar la incertidumbre en múltiples niveles (por ejemplo, paciente, grupo poblacional, centro de salud), lo cual es especialmente útil en contextos médicos con datos heterogéneos o limitados. Por otro lado, las redes bayesianas facilitan la representación gráfica y probabilística de relaciones causales o condicionales entre variables clínicas, permitiendo la detección temprana, el diagnóstico asistido por probabilidad, y la simulación de escenarios clínicos bajo distintos supuestos.
+El presente estudio aplica pruebas de hipótesis estadística evaluando su adecuado uso y procedimiento. Asimismo se usarán las redes bayesianas como herramientas metodológicas robustas para el análisis y detección del queratocono. La elección de enfoques bayesianos se fundamenta en su capacidad para incorporar conocimiento previo (experiencia clínica, estudios anteriores, o literatura científica) y actualizar continuamente las inferencias a medida que se dispone de nuevos datos. Por otro lado, las redes bayesianas facilitan la representación gráfica y probabilística de relaciones causales o condicionales entre variables clínicas, permitiendo la detección temprana, el diagnóstico asistido por probabilidad, y la simulación de escenarios clínicos bajo distintos supuestos.
 
 Asimismo, la implementación de estos modelos permite mejorar la precisión diagnóstica, optimizar los protocolos de atención clínica y reducir el riesgo de error médico en contextos de alta incertidumbre o recursos limitados. Al integrar evidencia previa con datos observacionales, se fortalece la toma de decisiones basada en datos, tanto a nivel individual (diagnóstico del paciente) como poblacional (definición de políticas de intervención). Además, estos enfoques pueden adaptarse a diversos contextos geográficos o epidemiológicos mediante su capacidad de actualización dinámica, permitiendo así protocolos clínicos personalizados y adaptativos. En conjunto, esta metodología no solo mejora la eficacia clínica, sino que también contribuye a una asignación más eficiente de los recursos sanitarios y al diseño de estrategias preventivas basadas en riesgo.
 
@@ -35,13 +42,13 @@ Asimismo, la implementación de estos modelos permite mejorar la precisión diag
 
 \subsection{Objetivos de investigación}
 \subsubsection{Objetivo general}
-Desarrollar un protocolo de detección de queratocono bajo un enfoque metodológico bayesiano.
+Comparar la inferencia estadística clásica con la inferencia bayesiana para la detección de queratocono.
 
 \subsubsection{Objetivo específicos}
 \begin{enumerate}
-\item Determinar las variables clínicas, demográficas y topográficas que apoyen en la detección del queratocono.
-\item Diseñar un modelo jerárquico bayesiano que represente la relación entre las variables clínicas, demográficas y topográficas en la detección del queratocono.
-\item Construir una red bayesiana estructurada que infiera la probabilidad de presencia o ausencia del queratocono a partir de las variables observadas.
+\item Determinar las variables clínicas, demográficas y topográficas asociadas que apoyen en la detección del queratocono.
+\item Construir una red bayesiana estructurada que infiera la probabilidad de presencia o ausencia del queratocono a partir de las variables observadas y como estas se actualizan al variar sus parámetros.
+\item Evaluar la detección de queratocono para futuros pacientes utilizando la inferencia clásica y la inferencia bayesiana.
 \item Implementar un prototipo computacional que visualize las inferencias de riesgo de queratocono a nivel individual.
 \end{enumerate}
 
@@ -211,13 +218,13 @@ La investigación de \textcite{lopezmodelamiento} para optar el título de maest
 
 \section{Hipótesis y variables}
 \subsection{Hipótesis general}
-El enfoque bayesiano mejorará la detección y protocolo del queratocono
+La inferencia bayesiana indica una causalidad más aproximada para la detección de queratocono.
 
 \subsection{Hipótesis específicas}
 \begin{enumerate}
     \item Las variables más influyentes son las evaluadas en estudios previos de factores asociados al queratocono.
-    \item El modelo jerárquico bayesiano que representa la relación entre variables viene a ser un multinomial ordinal beta.
     \item Las redes bayesianas representarán la relación causalidad del queratocono entre variables.
+    \item Se evaluará la importancia de usar la inferencia bayesiana frente a la inferencia clásica para determinar si una persona tiene o no tiene queratocono.
     \item El prototipo computacional apoyará en las inferencias de riesgo a nivel individual.
 \end{enumerate}
 
@@ -327,7 +334,7 @@ Las variables independientes viene a ser las probabilidades de generar queratoco
 El estudio se realizará en el centro de salud integral La Fuente en la ciudad del Cusco, ubicado en el distrito de San Jerónimo, provincia de Cusco, departamento de Cusco en el Perú.
 
 \subsection{Tipo y nivel de investigación}
-La investigación será de tipo aplicada no experimental retrospectivo ya que tomará en cuenta la información de los pacientes atendidos en el centro de salud en el año 2025 para evaluar los factores influyentes aplicando el análisis bayesiano de tal forma que se aumente el conocimiento científico acerca de la metodología estadística bayesiana y su aplicación. \parencite{hernandez2004introduccion}.
+La investigación será de tipo aplicada no experimental retrospectivo y prospectivo ya que tomará en cuenta la información de los pacientes atendidos en el centro de salud en el año 2025 para evaluar los factores influyentes aplicando el análisis bayesiano de tal forma que se aumente el conocimiento científico acerca de la metodología estadística bayesiana y su aplicación, como la evaluación para futuros pacientes \parencite{hernandez2004introduccion}.
 Asimismo el trabajo de investigación tiene un nivel relacional causal ya que se estudiará la relación y la causalidad que puedan tener las diferentes variables con respecto a la presencia del queratocono.
 
 \subsection{Unidad de análisis}
