@@ -2,36 +2,39 @@
 \chapter{METODOLOGÍA}
 
 \section{Ámbito de estudio: localización política y geográfica}
+El estudio se realizará en el centro de salud integral La Fuente en la ciudad del Cusco, ubicado en el distrito de San Jerónimo, provincia de Cusco, departamento de Cusco en el Perú.
 
 \section{Tipo y nivel de investigación}
-El tipo de investigación es aplicada, como indican \cite{hernandez2020metodologia} se está evaluando los productos adquiridos para el funcionamiento del centro de salud integral, desde la selección de productos importantes que requieran un análisis más exhaustivo, los factores que influyen sobre el tiempo de pedido y las cantidades de pedido de esos productos, con la finalidad de encontrar una política óptima de inventarios. De esta forma aumentar el conocimiento científico sobre modelos de investigación operativa y resolver problemas de gestión y almacenamiento usando modelos de inventarios. 
+La investigación será de tipo aplicada no experimental retrospectivo y prospectivo ya que tomará en cuenta la información de los pacientes atendidos en el centro de salud en el año 2025 para evaluar los factores influyentes aplicando el análisis bayesiano de tal forma que se aumente el conocimiento científico acerca de la metodología estadística bayesiana y su aplicación, como la evaluación para futuros pacientes \citep{hernandez2020metodologia}.
+Asimismo el trabajo de investigación tiene un nivel relacional causal ya que se estudiará la relación y la causalidad que puedan tener las diferentes variables con respecto a la presencia del queratocono.
 
 \section{Unidad de análisis}
-Esta investigación tiene enfoque cuantitativo dado que los datos recopilados tienen medición numérica en las características de los productos (entradas, salidas, espacio de almacenamiento, descuentos, entre otros) que serán utilizadas en las variables de estudio. De los cuáles serán analizados de forma descriptiva e inferencial según a los objetivos planteados. 
-
-Además, para determinar la política óptima de inventario sobre cuánto pedir y cuándo pedir se utilizarán modelos matemáticos (modelos de inventarios determinísticos) y modelos estadísticos (modelos de inventarios probabilísticos) de inventarios que serán utilizados en el desarrollo de la investigación. \citep{hernandez2020metodologia}
+La unidad de análisis serán los pacientes entre 10 a 40 años atendidos en el centro de salud integral La Fuente en el año 2025.
 
 \section{Población de estudio}
-La población estará conformada por todos los productos que se encuentran en el almacén del centro de salud integral ``La Fuente'' del Cusco en el año 2024.
+La población de estudio serán todos los pacientes atendidos en el centro de salud integral la fuente que cumplan con los criterios de inclusión.
+
+\subsubsection{Criterios de inclusión}
+\begin{enumerate}
+    \item Edad entre 10 a 40 años.
+    \item Tengan información clínica de interés completa.
+    \item Tengan información demográfica de interés completa.
+    \item Tengan los exámenes topográficos de interés completos. 
+\end{enumerate}
 
 \section{Tamaño de muestra}
-Para la investigación se obtuvo una cantidad total de 471 productos registrados en almacén del centro de salud integral. De la cual el único criterio de inclusión a tomar en cuenta para seleccionar los productos que se analizarán mediante los modelos de inventarios, seran aquellos que se encuentren en el grupo A de la clasificación de actividades basadas en costos (ABC), la justificación y uso de esta clasificación se detalla en el marco teórico del apartado (\ref{section:ABC})
+Para la investigación se obtuvo una cantidad total de 471 productos registrados en almacén del centro de salud integral. De la cual el único criterio de inclusión a tomar en cuenta para seleccionar los productos que se analizarán mediante los modelos de inventarios, seran aquellos que se encuentren en el grupo A de la clasificación de actividades basadas en costos (ABC), la justificación y uso de esta clasificación se detalla en el marco teórico del apartado
 
 \section{Técnicas de selección de muestra}
 La técnica empleada es la revisión de documentos y/o análisis de datos secundarios del registro que se tienen de los productos de almacén del centro de salud integral.
 
 \section{Técnicas de recolección de información}
-Se consultaron los documentos como boletas, ordenes de compra, KARDEX, cotizaciones entre otros del departamento de logística el centro de salud integral ``La Fuente'' en el año 2024 con respecto a los datos específicos requeridos de los productos para el estudio.
-
-\section{Técnicas de recolección de información}
-Los datos serán recopilados y cargados en un archivo de extensión \textsl{.xlsx} para que posteriormente mediante el lenguaje de programación R y el entorno de desarrollo integrado RStudio se realice el análisis descriptivo apropiado asi como la clasificación ABC para seleccionar los productos que serán evaluados mediante el modelo de inventarios.
-
-Seleccionando los productos en la categoría A se creará otro archivo de extensión \textsl{.xlsx} en donde se detallarán los movimientos recopilados en diferentes fechas del año 2024 de cada producto y se desarrollará la política de inventario según a los objetivos planteados en los cuales se describirá, analizará e interpretará los resultados obtenidos.
+Las técnicas de recolección de información será a través de la revisión de documentos y/o análisis de datos secundarios, teniendo como instrumento la historia clínica y resultados del topógrafo de PENTACAM.
 
 \section{Técnicas de análisis e interpretación de la información}
 
-Las hipótesis de investigación planteadas en el estudio serán comprobadas mediante los resultados obtenidos por la política de inventarios, ya sea la clasificación ABC, los modelos de inventarios. De igual forma se utilizarán pruebas estadísticas para el caso de modelos inventarios estadísticos como la normalidad de datos.
+Los datos serán recopilados en un archivo de extensión \textsl{.xlsx} (Archivo Excel), en el cual los análisis se realizarán en el lenguaje de programación R bajo el entorno de desarrollo RStudio debido a su alta capacidad para manejar análisis estadístico desde los descriptivos hasta la realización de modelos robustos.
 
 \section{Técnicas para demostrar la verdad o falsedad de las hipótesis planteadas}
 
-Las hipótesis de investigación planteadas en el estudio serán comprobadas mediante los resultados obtenidos por la política de inventarios, ya sea la clasificación ABC, los modelos de inventarios. De igual forma se utilizarán pruebas estadísticas para el caso de modelos inventarios estadísticos como la normalidad de datos.
+Las hipótesis de investigación planteadas en el estudio serán comprobadas a través de los resultados a nivel inferencial que se obtenga mediante el modelo bayesiano establecido, asimismo por la inferencia que indiquen las redes bayesianas. Utilizando los criterios como es el criterio de AKAIKE (AIC), criterio bayesiano (BIC), entre otros.

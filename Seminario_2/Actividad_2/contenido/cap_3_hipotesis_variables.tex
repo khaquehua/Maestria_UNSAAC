@@ -3,42 +3,39 @@
 \section{Hipótesis}
 
 \section{Hipótesis general}
-El control de almacén del centro de salud integral La Fuente del Cusco se optimizará mediante la aplicación de los modelos de inventarios.
+La inferencia bayesiana indica una causalidad más aproximada para la detección de queratocono.
 
 \section{Hipótesis específicas}
 
-\begin{itemize}
-\item Los productos más demandados y/o costosos en el centro de salud integral La Fuente del Cusco vienen a ser aquellos usados en el área de oftalmología.
-\item Los modelos de inventarios determinísticos se adecuan a los productos más demandados y/o costosos.
-\item Las cantidades, tiempo y costos de inventarios se optimizarán aplicando los modelos de inventarios.
-\item El aplicativo web de Shiny monitoreara y dara seguimiento a los productos del centro de salud integral La Fuente del Cusco.
-\end{itemize}
+\begin{enumerate}
+    \item Las variables más influyentes son las evaluadas en estudios previos de factores asociados al queratocono.
+    \item Las redes bayesianas representarán la relación causalidad del queratocono entre variables.
+    \item Se evaluará la importancia de usar la inferencia bayesiana frente a la inferencia clásica para determinar si una persona tiene o no tiene queratocono.
+    \item El prototipo computacional apoyará en las inferencias de riesgo a nivel individual.
+\end{enumerate}
 
 \section{Identificación de variables e indicadores}
-\subsection{Variables dependientes}
-Las variables dependientes vienen a ser las respuestas a la política de inventarios sobre cuánto pedir y cuándo pedir expresados por el tiempo ($T^*$), la cantidad de pedidos ($y^*$), punto de reorden ($R$) y costos totales de inventarios $CTI(y^*)$ óptimos que van a estar influenciados principalmente por el comportamiento de la demanda y costos del inventario.
-\clearpage
-\subsection{Variables independientes}
-\begin{itemize}
-	\item Comportamiento de la demanda de los productos.
-	\begin{itemize}
-		\item Tiempos en reabastecer el pedido $(L)$
-		\item Función de la demanda de los productos $(D)$ 
-	\end{itemize}
-	\item Costos de inventario
-	\begin{itemize}
-		\item Costo de compra $(C)$
-		\item Costo de preparación $(K)$
-		\item Costo de retención $(h)$
-		\item Costo por escasez $(p)$
-	\end{itemize}
-	
-\end{itemize}
+
+Las variables independientes viene a ser las probabilidades de generar queratocono en el nivel que se encuentre, asimismo como la clasificación de presencia o ausencia de esta enfermedad, que va a estar dependiendo principalmente de variables clínicas, demográficas y topográficas.
+
+\begin{enumerate}
+    \item \textbf{Variables dependientes}
+    \begin{itemize}
+        \item Probabilidad de generar queratocono.
+        \item Clasificación de presencia o ausencia de queratocono. 
+    \end{itemize}
+    \item \textbf{Variables independientes} 
+    \begin{itemize}
+        \item Variables clínicas
+        \item Variables demográficas
+        \item Variables topográficas 
+    \end{itemize}
+\end{enumerate}
 
 \begin{landscape} % Iniciar la página en formato horizontal
-\section{Operacionalización de variables}
+\subsection{Operacionalización de variables}
 
-\begin{longtable}{p{3.5cm}p{6.5cm}p{5cm}p{3cm}p{2.5cm}}
+\begin{longtable}{p{4cm}p{6.5cm}p{5cm}p{3cm}p{2.5cm}}
     \caption{Matriz de operacionalización de variables} 
     \label{tab:matriz_operacionalizacion} \\
 
@@ -50,7 +47,7 @@ Las variables dependientes vienen a ser las respuestas a la política de inventa
     \hline
     \textbf{Variable} & \textbf{Definición} & \textbf{Indicador} & \textbf{Tipo} & \textbf{Escala} \\
     \hline
-    \multicolumn{5}{l}{\textbf{Independiente}} \\ % Se repite al inicio de cada nueva página
+    \multicolumn{5}{l}{\textbf{Independiente}} \\
     \hline
     \endhead
 
@@ -62,29 +59,62 @@ Las variables dependientes vienen a ser las respuestas a la política de inventa
 
     \multicolumn{5}{l}{\textbf{Dependiente}} \\
     \hline
-    Cantidad de pedido óptimo & Es la cantidad de pedido óptimo que tiene la política del producto, que responde a ¿Cuánto pedir? \citep{taha2012investigacion} & Cantidad o unidades del producto que se deben realizar $(y^*)$ & Continua & Razón \\
+    Probabilidad de generar queratocono & Posibilidad de generar queratocono & Probabilidad queratocono & Continua & Razón \\
     \hline
-    Tiempo de pedido óptimo & Es el tiempo de pedido óptimo que tiene la política del producto, que responde a ¿Cuándo pedir? \citep{taha2012investigacion} & Tiempo de solicitud del producto $(T^*)$ & Discreta & Razón \\
+    Presencia o ausencia de queratocono & Clasificación de la presencia o ausencia del queratocono & Presencia o ausencia & Dicotómica & Nominal \\
     \hline
-    Punto de reorden & Es la cantidad del producto que debe llegar para realizar el siguiente pedido. \citep{taha2012investigacion} & Cantidad del producto para realizar el siguiente pedido ($R$) & Continua & Razón \\
+    \multicolumn{5}{l}{\textbf{Independiente}} \\
     \hline
-    Costo total del inventario óptimo & Es el costo total que se tendrá aplicando la política de inventarios. \citep{taha2012investigacion} & Costo total de inventario $CTI(y^*)$ & Continua & Razón \\
-    \hline
-    Tiempo de reabastecimiento & Tiempo de entrega del proveedor desde que se realiza el pedido hasta el momento de la entrega. \citep{taha2012investigacion} & Tiempo desde la realización del pedido hasta la entrega ($L$) & Discreta & Razón \\
-    \hline
-    Demanda & Comportamiento del producto sobre sus salidas que se encuentra en base a las solicitudes realizadas por los usuarios que requieran dicho producto. \citep{hillier2003introduccion} & Demanda del producto ($D$) & Continua & Razón \\
-    \hline
-    \multirow{4}{*}{Costos} & \multirow{4}{6.5cm}{Es el monto que cuesta el producto en el inventario que se encuentra en función de los costos que conlleva poseer dicho producto. \citep{taha2012investigacion}} & Costo de compra ($C$) & Continua & Razón \\
+    \multirow{4}{*}{Variables clínicas} & \multirow{4}{6.5cm}{Variables tomadas en la revisión de la historia clínica usando test o cuestionarios.} & Ojo seco & Dicotómica & Nominal \\
     \cline{3-5}
-    & & Costo de preparación ($K$) & Continua & Razón \\
+    & & Alergias & Dicotómica & Nominal \\
     \cline{3-5}
-    & & Costo de retención ($h$) & Continua & Razón \\
+    & & Frotamiento de ojos & Dicotómica & Nominal \\
     \cline{3-5}
-    & & Costo de escasez ($p$) & Continua & Razón \\
+    & & Antecedentes familiares con queratocono & Dicotómica & Nominal \\
+    \hline \\
+    \multirow{4}{*}{Variables demográficas} & \multirow{4}{6.5cm}{Información general de los pacientes} & Género & Dicotómica & Nominal \\
+    \cline{3-5}
+    & & Edad & Continua & Razón \\
+    \cline{3-5}
+    & & Altitud vive & Continua & Razón \\
+    \cline{3-5}
+    & & Clasificación altitud & Politómica & Ordinal \\
+    \hline
+    \hline \\
+    \multirow{4}{*}{Variables topográficas} & \multirow{4}{6.5cm}{Son indicadores claves que se obtienen en los equipos de oftalmología de forma general} & Esfera topográfica & Continua & Intervalar \\
+    \cline{3-5}
+    & & Cilindro topográfico & Continua & Razón \\
+    \cline{3-5}
+    & & Eje topográfico & Continua & Razón \\
+    \cline{3-5}
+    & & Esfera manifiesta & Continua & Intervalar \\
+    \cline{3-5}
+    & & Cilindro manifiesto & Continua & Razón \\
+    \cline{3-5}
+    & & Eje manifiesto & Continua & Razón \\
+    \cline{3-5}
+    & & Emetropía & Politómica & Nominal \\
+    \cline{3-5}
+    & & Queratometria media & Continua & Razón \\
+    \cline{3-5}
+    & & Paquimetría & Continua & Razón \\
+    \cline{3-5}
+    & & Queratometria media & Continua & Razón \\
+    \cline{3-5}
+    & & BAD-D & Continua & Razón \\
+    \cline{3-5}
+    & & RMS & Continua & Razón \\
+    \cline{3-5}
+    & & IPP media & Continua & Razón \\
+    \cline{3-5}
+    & & Elevación frontal & Continua & Razón \\
+    \cline{3-5}
+    & & Elevación posterior & Continua & Razón \\
     \hline
 \end{longtable}
 
-\end{landscape} % Finalizar la página horizontal
+\end{landscape}
 
 
 
