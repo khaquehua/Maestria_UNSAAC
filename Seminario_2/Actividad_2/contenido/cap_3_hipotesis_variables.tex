@@ -1,0 +1,107 @@
+\newpage
+\chapter{HIPÓTESIS Y VARIABLES}
+\section{Hipótesis}
+
+\subsection{Hipótesis general}
+El control de almacén del centro de salud integral La Fuente del Cusco se optimizará mediante la aplicación de los modelos de inventarios.
+
+\subsection{Hipótesis específicas}
+
+\begin{itemize}
+\item Los productos más demandados y/o costosos en el centro de salud integral La Fuente del Cusco vienen a ser aquellos usados en el área de oftalmología.
+\item Los modelos de inventarios determinísticos se adecuan a los productos más demandados y/o costosos.
+\item Las cantidades, tiempo y costos de inventarios se optimizarán aplicando los modelos de inventarios.
+\item El aplicativo web de Shiny monitoreara y dara seguimiento a los productos del centro de salud integral La Fuente del Cusco.
+\end{itemize}
+
+\section{Identificación de variables}
+\subsection{Variables dependientes}
+Las variables dependientes vienen a ser las respuestas a la política de inventarios sobre cuánto pedir y cuándo pedir expresados por el tiempo ($T^*$), la cantidad de pedidos ($y^*$), punto de reorden ($R$) y costos totales de inventarios $CTI(y^*)$ óptimos que van a estar influenciados principalmente por el comportamiento de la demanda y costos del inventario.
+\clearpage
+\subsection{Variables independientes}
+\begin{itemize}
+	\item Comportamiento de la demanda de los productos.
+	\begin{itemize}
+		\item Tiempos en reabastecer el pedido $(L)$
+		\item Función de la demanda de los productos $(D)$ 
+	\end{itemize}
+	\item Costos de inventario
+	\begin{itemize}
+		\item Costo de compra $(C)$
+		\item Costo de preparación $(K)$
+		\item Costo de retención $(h)$
+		\item Costo por escasez $(p)$
+	\end{itemize}
+	
+\end{itemize}
+
+\begin{landscape} % Iniciar la página en formato horizontal
+\section{Operacionalización de variables}
+
+\begin{longtable}{p{3.5cm}p{6.5cm}p{5cm}p{3cm}p{2.5cm}}
+    \caption{Matriz de operacionalización de variables} 
+    \label{tab:matriz_operacionalizacion} \\
+
+    \hline
+    \textbf{Variable} & \textbf{Definición} & \textbf{Indicador} & \textbf{Tipo} & \textbf{Escala} \\
+    \hline
+    \endfirsthead
+
+    \hline
+    \textbf{Variable} & \textbf{Definición} & \textbf{Indicador} & \textbf{Tipo} & \textbf{Escala} \\
+    \hline
+    \multicolumn{5}{l}{\textbf{Independiente}} \\ % Se repite al inicio de cada nueva página
+    \hline
+    \endhead
+
+    \hline
+    \endfoot
+
+    \hline
+    \endlastfoot
+
+    \multicolumn{5}{l}{\textbf{Dependiente}} \\
+    \hline
+    Cantidad de pedido óptimo & Es la cantidad de pedido óptimo que tiene la política del producto, que responde a ¿Cuánto pedir? \citep{taha2012investigacion} & Cantidad o unidades del producto que se deben realizar $(y^*)$ & Continua & Razón \\
+    \hline
+    Tiempo de pedido óptimo & Es el tiempo de pedido óptimo que tiene la política del producto, que responde a ¿Cuándo pedir? \citep{taha2012investigacion} & Tiempo de solicitud del producto $(T^*)$ & Discreta & Razón \\
+    \hline
+    Punto de reorden & Es la cantidad del producto que debe llegar para realizar el siguiente pedido. \citep{taha2012investigacion} & Cantidad del producto para realizar el siguiente pedido ($R$) & Continua & Razón \\
+    \hline
+    Costo total del inventario óptimo & Es el costo total que se tendrá aplicando la política de inventarios. \citep{taha2012investigacion} & Costo total de inventario $CTI(y^*)$ & Continua & Razón \\
+    \hline
+    Tiempo de reabastecimiento & Tiempo de entrega del proveedor desde que se realiza el pedido hasta el momento de la entrega. \citep{taha2012investigacion} & Tiempo desde la realización del pedido hasta la entrega ($L$) & Discreta & Razón \\
+    \hline
+    Demanda & Comportamiento del producto sobre sus salidas que se encuentra en base a las solicitudes realizadas por los usuarios que requieran dicho producto. \citep{hillier2003introduccion} & Demanda del producto ($D$) & Continua & Razón \\
+    \hline
+    \multirow{4}{*}{Costos} & \multirow{4}{6.5cm}{Es el monto que cuesta el producto en el inventario que se encuentra en función de los costos que conlleva poseer dicho producto. \citep{taha2012investigacion}} & Costo de compra ($C$) & Continua & Razón \\
+    \cline{3-5}
+    & & Costo de preparación ($K$) & Continua & Razón \\
+    \cline{3-5}
+    & & Costo de retención ($h$) & Continua & Razón \\
+    \cline{3-5}
+    & & Costo de escasez ($p$) & Continua & Razón \\
+    \hline
+\end{longtable}
+
+\end{landscape} % Finalizar la página horizontal
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
