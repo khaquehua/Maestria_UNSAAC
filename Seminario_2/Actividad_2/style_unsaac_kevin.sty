@@ -14,19 +14,19 @@
     \thispagestyle{empty}
 
     \begin{center}
-      \baselineskip = 1cm
-    % Generar titulo
-      {\large{\textbf{UNIVERSIDAD NACIONAL DE SAN ANTONIO ABAD DEL CUSCO}}}\\
-      %\vspace{0.5cm}
-        {\large{\textbf{FACULTAD DE CIENCIAS QUÍMICAS, FÍSICAS Y MATEMÁTICAS}}}\\
-        %\vspace{0.5cm}
-        {\large{\textbf{ESCUELA PROFESIONAL DE MATEMÁTICA}}}
-
-        \begin{figure}[h]
+      \baselineskip = 0.75cm
+      \begin{figure}[h]
             \center
-            \includegraphics[scale = 0.18]{images/escudo}
-        \end{figure}
-        {\large{\textbf{TESIS}}}
+            \includegraphics[scale = 0.15]{images/escudo}
+       \end{figure}
+    % Generar titulo
+      {\large{\textbf{\textcolor{carmine}{UNIVERSIDAD NACIONAL DE SAN ANTONIO ABAD DEL CUSCO}}}}\\
+      %\vspace{0.5cm}
+       {\large{\textbf{\textcolor{carmine}{ESCUELA DE POSGRADO}}}}\\
+        \vspace{0.5cm}
+        {\large{\textbf{MAESTRÍA EN ESTADÍSTICA}}}\\
+        \vspace{2.5cm}
+        {\large{\textbf{PROYECTO DE TESIS}}}
     \end{center}
 
     %Inertar logo de la UNSAAC
@@ -39,22 +39,28 @@
         }
     \end{center}
 
+    \begin{center}
+        \baselineskip = 0.75cm
+        {\large{\textbf{PARA OPTAR AL GRADO ACADÉMICO DE MAESTRO EN ESTADÍSTICA}}}
+    \end{center}
+
     %Colocar datos del estudiante y del asesor
     \setlength{\tabcolsep}{15em} 
     {\renewcommand{\arraystretch}{0.9}
     \begin{tabular}{p{14cm}}
         \vspace{0.1cm}
-        \textbf{PRESENTADO POR:}\\
+        \textbf{AUTOR:}\\
         %\vspace*{0.05cm}
         {\@author}\\
         \vspace*{0.25cm}
-      \textbf{PARA OPTAR AL TÍTULO PROFESIONAL}\\
-      \textbf{DE LICENCIADO EN MATEMÁTICA}\\
-      \textbf{MENCIÓN ESTADÍSTICA}\\
-      \vspace*{0.25cm}
+      %\textbf{PARA OPTAR AL TÍTULO PROFESIONAL}\\
+      %\textbf{DE LICENCIADO EN MATEMÁTICA}\\
+      %\textbf{MENCIÓN ESTADÍSTICA}\\
+      %\vspace*{0.25cm}
         \textbf{ASESOR:}\\
         %\vspace*{0.02cm}
-        {\@orientador}%\\
+        {\@orientador}\\
+        CODIGO ORCID: {\orientadororcid}%\\
         \vspace*{\stretch{1}}
         %\textbf{CÓDIGO ORCID: }0000-0001-6505-9634\\
         %\vspace*{0.02cm}
@@ -202,12 +208,12 @@
 
 \newenvironment{cronograma}
 {
-    \addcontentsline{toc}{chapter}{Cronograma}
+    \addcontentsline{toc}{chapter}{CRONOGRAMA DE REALIZACIÓN DE TESIS}
 }
 
 \newenvironment{presupuesto}
 {
-    \addcontentsline{toc}{chapter}{Presupuesto}
+    \addcontentsline{toc}{chapter}{PRESUPUESTO}
 }
 
 %:::::::::::::::::::::::::::::::::::::::::
